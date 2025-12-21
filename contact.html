@@ -48,6 +48,11 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+
+            /* --- SECURITY: PREVENT TEXT SELECTION --- */
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
         }
 
         /* Header */
@@ -207,7 +212,8 @@
         }
     </style>
 </head>
-<body>
+
+<body oncontextmenu="return false;">
 
     <div class="top-bar ltr-text">📞 +960 9901550 | ✉️ academyzaad@gmail.com</div>
     
@@ -303,6 +309,20 @@
         <span class="ltr-text">© 2025 Zaad Academy. All Rights Reserved.</span>
     </footer>
 
-</body>
-</html>
+    <script>
+        // 1. Disable Right Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
+        // 2. Disable Keyboard Shortcuts (Ctrl+U, Ctrl+C, F12, Ctrl+S)
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { return false; } // F12 (Dev Tools)
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // Ctrl+Shift+C
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // Ctrl+U (View Source)
+            if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; } // Ctrl+S (Save)
+            if(e.ctrlKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // Ctrl+C (Copy)
+        }
+    </script>
+    </body>
+</html>
