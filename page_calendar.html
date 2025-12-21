@@ -3,12 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <title>އެކަޑެމިކް ކަލަންޑަރު - ޒާދް އެކަޑެމީ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --- SECURITY & BASICS --- */
+        body {
+            font-family: 'Faruma', 'Segoe UI', sans-serif;
+            -webkit-user-select: none; /* Prevent Selection */
+            -ms-user-select: none;
+            user-select: none;
+            background-color: #f9f9f9;
+        }
+
+        /* --- CALENDAR TABLE STYLES --- */
+        .calendar-wrapper {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        table.zad-calendar {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        table.zad-calendar th {
+            background-color: #0C2D48; /* Zaad Blue */
+            color: #B49658; /* Zaad Gold */
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table.zad-calendar td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: right;
+            vertical-align: top;
+            height: 100px; /* Cell Height */
+            transition: background 0.3s;
+        }
+
+        table.zad-calendar tr:hover td {
+            background-color: #f9fbfd;
+        }
+
+        /* --- ADMIN PANEL STYLES (HIDDEN BY DEFAULT) --- */
+        #admin-panel {
+            display: none; /* Hidden */
+            background-color: #fff;
+            border: 2px solid #B49658;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(180, 150, 88, 0.3);
+        }
+
+        .admin-btn {
+            background-color: #0C2D48;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .admin-btn:hover {
+            background-color: #B49658;
+        }
+
+        .delete-btn {
+            background-color: #c0392b;
+        }
+
+        /* Editable highlight */
+        .editable-active td, .editable-active th {
+            border: 2px dashed #B49658;
+            cursor: text;
+        }
+
+        /* Existing CSS Support */
+        .top-bar { background: #051626; color: #ccc; padding: 10px 5%; font-size: 0.9em; }
+        .top-login-btn { float: left; color: #B49658; text-decoration: none; font-weight: bold; }
+        .main-header { text-align: center; padding: 20px; background: #fff; border-bottom: 4px solid #B49658; }
+        .academy-logo { width: 100px; }
+        .academy-title { color: #0C2D48; font-size: 2em; margin: 10px 0; }
+        .main-nav { background: #fff; border-bottom: 1px solid #eee; text-align: center; }
+        .top-level-menu { padding: 0; margin: 0; list-style: none; display: inline-block; }
+        .menu-item { display: inline-block; margin: 0 15px; }
+        .menu-link { text-decoration: none; color: #333; font-weight: bold; padding: 15px; display: block; }
+        .course-hero { background: #0C2D48; color: white; padding: 40px 20px; text-align: center; }
+        .dl-btn { background: #B49658; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 15px; }
+        footer { background: #0C2D48; color: #ccc; padding: 20px; margin-top: 50px; }
+    </style>
 </head>
-<body>
-    <div class="top-bar"><div class="container top-inner"><div class="contact-info"><span>📞 9901550</span></div><a href="login.html" class="top-login-btn">ލޮގިން</a></div></div>
-    <header class="main-header"><div class="container header-content"><a href="index.html"><img src="images/logo.png" alt="Logo" class="academy-logo"></a><h1 class="academy-title">ޒާދް އެކަޑެމީ</h1></div></header>
-    <nav class="main-nav"><div class="container"><ul class="top-level-menu"><li class="menu-item"><a href="index.html" class="menu-link">ހޯމް</a></li><li class="menu-item"><a href="#" class="menu-link">ޑައުންލޯޑްސް</a></li></ul></div></nav>
+
+<body oncontextmenu="return false;">
+
+    <div class="top-bar">
+        <div class="container top-inner">
+            <div class="contact-info"><span>📞 9901550</span></div>
+            <a href="login.html" class="top-login-btn">ލޮގިން</a>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="index.html"><img src="images/logo.png" alt="Logo" class="academy-logo"></a>
+            <h1 class="academy-title">ޒާދް އެކަޑެމީ</h1>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="top-level-menu">
+                <li class="menu-item"><a href="index.html" class="menu-link">ހޯމް</a></li>
+                <li class="menu-item"><a href="#" class="menu-link">ޑައުންލޯޑްސް</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <section class="course-hero">
         <div class="container">
@@ -18,25 +140,177 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section" style="padding: 40px 0;">
         <div class="container">
-            <div style="text-align: center; margin-bottom: 30px;">
-                <div style="background: #f0f0f0; padding: 50px; border: 2px dashed #ccc; border-radius: 10px;">
-                    <h3>📅 2025 ކަލަންޑަރު ޕްރިވިއު</h3>
-                    <p>(މިތަނުގައި ކަލަންޑަރުގެ ފޮޓޯއެއް ފެންނަން އިންނާނެ)</p>
-                </div>
+            
+            <div id="admin-panel">
+                <h3 style="color:#0C2D48;">🛠️ އެޑްމިން ޓޫލްސް</h3>
+                <p>ކަލަންޑަރަށް ބަދަލު ގެނައުމަށްފަހު "Save & Download" އަށް ފިތާލައްވާ!</p>
+                <br>
+                <button onclick="addRow()" class="admin-btn">➕ ރޯ އިތުރުކުރޭ</button>
+                <button onclick="addCol()" class="admin-btn">➕ ކޮލަމް އިތުރުކުރޭ</button>
+                <button onclick="deleteLastRow()" class="admin-btn delete-btn">❌ ފަހު ރޯ ފޮހެލާ</button>
+                <hr style="margin: 20px 0; border-color: #eee;">
+                <button onclick="saveAndDownload()" class="admin-btn" style="background:#27ae60;">💾 Save & Download HTML</button>
             </div>
 
-            <div class="download-list-item">
+            <div class="calendar-wrapper">
+                <h3 style="color: #0C2D48; border-bottom: 2px solid #B49658; padding-bottom: 10px; margin-bottom: 20px;">
+                    📅 2025 ވަނަ އަހަރުގެ ކަލަންޑަރު
+                </h3>
+                
+                <table class="zad-calendar" id="calendarTable">
+                    <thead>
+                        <tr>
+                            <th contenteditable="false">ތާރީޚް</th>
+                            <th contenteditable="false">ދުވަސް</th>
+                            <th contenteditable="false">ޙަރަކާތް / އިވެންޓް</th>
+                            <th contenteditable="false">ތަފްސީލު</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="false">01 ޖަނަވަރީ</td>
+                            <td contenteditable="false">ބުދަ</td>
+                            <td contenteditable="false">އައު އަހަރު ފެށުން</td>
+                            <td contenteditable="false">ކިޔެވުން ބަންދު ދުވަހެއް</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="false">12 ޖަނަވަރީ</td>
+                            <td contenteditable="false">އާދީއްތަ</td>
+                            <td contenteditable="false">ފުރަތަމަ ޓާމް ކިޔެވުން ފެށުން</td>
+                            <td contenteditable="false">ހުރިހާ ދަރިވަރުން ހާޒިރުވުން</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="download-list-item" style="margin-top: 30px; background: white; padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee;">
                 <div>
-                    <div class="dl-title">އެކަޑެމިކް ކަލަންޑަރު 2025 (PDF)</div>
-                    <div class="dl-meta">ސައިޒް: 2.5 MB | ތާރީޚް: ޖަނަވަރީ 2025</div>
+                    <div class="dl-title" style="font-weight: bold; color: #0C2D48;">އެކަޑެމިކް ކަލަންޑަރު 2025 (PDF)</div>
+                    <div class="dl-meta" style="color: #666; font-size: 0.9em;">ސައިޒް: 2.5 MB | ތާރީޚް: ޖަނަވަރީ 2025</div>
                 </div>
-                <a href="downloads/calendar.pdf" download class="dl-btn">⬇️ ޑައުންލޯޑް ކުރައްވާ</a>
+                <a href="downloads/calendar.pdf" download class="dl-btn">⬇️ ޑައުންލޯޑް</a>
             </div>
         </div>
     </section>
 
-    <footer><div class="container" style="text-align: center;"><p>&copy; 2025 Zaad Academy.</p></div></footer>
+    <footer>
+        <div class="container" style="text-align: center;">
+            <p id="copyright-text" ondblclick="enableAdminMode()" style="cursor: pointer; user-select: none;">
+                &copy; <span id="year"></span> Zaad Academy. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Auto Year Update
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        // 2. High Security Features (Prevent Copy/Theft)
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) return false; // F12
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // View Source
+            if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) return false; // Save
+        }
+
+        // 3. Admin Mode Logic
+        function enableAdminMode() {
+            let password = prompt("އެޑްމިން ޕާސްވޯޑް ޖައްސަވާ:");
+            if (password === "1234") {
+                alert("އެޑްމިން މޯޑް ހުޅުވިއްޖެ! ކަލަންޑަރަށް ބަދަލު ގެންނަވާ.");
+                document.getElementById('admin-panel').style.display = 'block';
+                makeTableEditable(true);
+            } else {
+                alert("ޕާސްވޯޑް ނުބައި!");
+            }
+        }
+
+        // Toggle ContentEditable for Table Cells
+        function makeTableEditable(isEditable) {
+            let table = document.getElementById('calendarTable');
+            let cells = table.querySelectorAll('td, th');
+            
+            cells.forEach(cell => {
+                cell.setAttribute('contenteditable', isEditable);
+            });
+
+            if(isEditable) {
+                table.classList.add('editable-active');
+            }
+        }
+
+        // 4. Calendar Logic (Add Row/Col)
+        function addRow() {
+            let table = document.getElementById('calendarTable').getElementsByTagName('tbody')[0];
+            let newRow = table.insertRow();
+            let colCount = document.getElementById('calendarTable').rows[0].cells.length;
+
+            for (let i = 0; i < colCount; i++) {
+                let newCell = newRow.insertCell(i);
+                newCell.innerText = "ލިޔުއްވާ...";
+                newCell.setAttribute('contenteditable', 'true');
+            }
+        }
+
+        function addCol() {
+            let table = document.getElementById('calendarTable');
+            let rows = table.rows;
+            for (let i = 0; i < rows.length; i++) {
+                let cell;
+                if (i === 0) {
+                    cell = document.createElement("th"); // Header cell
+                    cell.innerText = "އައު ކޮލަމް";
+                } else {
+                    cell = rows[i].insertCell(-1); // Normal cell
+                    cell.innerText = "...";
+                }
+                cell.setAttribute('contenteditable', 'true');
+                if (i === 0) rows[i].appendChild(cell);
+            }
+        }
+
+        function deleteLastRow() {
+            let table = document.getElementById('calendarTable');
+            let rowCount = table.rows.length;
+            if(rowCount > 1) { // Prevent deleting header
+                table.deleteRow(rowCount -1);
+            }
+        }
+
+        // 5. Save & Download Logic (For Secretary)
+        function saveAndDownload() {
+            // Before saving, turn off editable mode so the saved file is clean
+            makeTableEditable(false);
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('calendarTable').classList.remove('editable-active');
+
+            // Create HTML Blob
+            let htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            let blob = new Blob([htmlContent], {type: "text/html"});
+            let a = document.createElement("a");
+            
+            a.href = URL.createObjectURL(blob);
+            a.download = "calendar_updated.html";
+            a.hidden = true;
+            document.body.appendChild(a);
+            
+            a.click();
+            
+            // Restore Admin View after download triggers
+            setTimeout(() => {
+                document.getElementById('admin-panel').style.display = 'block';
+                makeTableEditable(true);
+            }, 1000);
+
+            alert("ފައިލް ޑައުންލޯޑް ވެއްޖެ! މި ފައިލް ސާވަރަށް އަޕްލޯޑް ކުރައްވާ.");
+        }
+    </script>
+
 </body>
 </html>
