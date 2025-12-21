@@ -2,31 +2,190 @@
 <html lang="dv" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ޚަބަރު - ޒާދް އެކަޑެމީ</title>
-    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thaana:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. CSS VARIABLES --- */
+        :root {
+            --primary: #0C2D48;
+            --accent: #cfaa5e;
+            --bg-light: #f9f9f9;
+            --text-color: #333;
+        }
+
+        /* --- 2. FONT LOADING (CRITICAL STEP) --- */
+        /* This loads Mv Galan from your 'fonts' folder */
+        @font-face {
+            font-family: 'Mv Galan';
+            /* It checks local computer first, then downloads from folder */
+            src: local('Mv Galan'), 
+                 url('fonts/Mv Galan.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap; /* Ensures text shows up even if font loads slow */
+        }
+
+        /* Also load Faruma just in case */
+        @font-face {
+            font-family: 'Faruma';
+            src: local('Faruma'), 
+                 url('fonts/Faruma.ttf') format('truetype');
+            font-weight: normal;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* --- 3. APPLY FONT --- */
+        body {
+            /* Priority: 1. Mv Galan (Folder), 2. Faruma, 3. Noto Sans (Google) */
+            font-family: 'Mv Galan', 'Faruma', 'Noto Sans Thaana', sans-serif !important;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        /* Container */
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+
+        /* Top Bar */
+        .top-bar { background: #051626; color: #fff; padding: 10px 0; font-size: 0.9em; }
+        .top-inner { display: flex; justify-content: space-between; align-items: center; }
+        .top-login-btn { background: var(--accent); color: #fff; text-decoration: none; padding: 5px 15px; border-radius: 4px; font-weight: bold; }
+
+        /* Header */
+        .main-header { background: #fff; padding: 20px 0; border-bottom: 1px solid #eee; text-align: center; }
+        .header-content { display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .academy-logo { height: 70px; width: auto; }
+        .academy-title { color: var(--primary); font-size: 2.2em; margin: 0; font-weight: bold; }
+
+        /* Navigation */
+        .main-nav { background: var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.1); position: sticky; top:0; z-index: 1000; }
+        .top-level-menu { list-style: none; display: flex; justify-content: center; padding: 0; margin: 0; }
+        .menu-link { display: block; padding: 15px 25px; color: #fff; text-decoration: none; font-size: 1.2em; font-weight: bold; transition: 0.3s; }
+        .menu-link:hover { background: rgba(255,255,255,0.1); color: var(--accent); }
+
+        /* Hero Section */
+        .course-hero { background: linear-gradient(135deg, var(--primary) 0%, #051626 100%); color: #fff; text-align: center; padding: 50px 0; margin-bottom: 40px; border-bottom: 5px solid var(--accent); }
+        .course-hero h1 { margin-bottom: 10px; font-size: 2.8em; }
+        .course-hero p { font-size: 1.2em; opacity: 0.9; }
+
+        /* News Layout */
+        .news-layout { display: flex; gap: 30px; margin-bottom: 50px; }
+        .news-main { flex: 3; }
+        .news-sidebar { flex: 1; }
+
+        /* News Grid */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        
+        .news-card { 
+            background: #fff; border-radius: 12px; overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; 
+            transition: transform 0.3s; display: flex; flex-direction: column;
+        }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--accent); }
+
+        .news-img { height: 220px; background-size: cover; background-position: center; position: relative; }
+        .news-category { 
+            position: absolute; top: 15px; right: 15px; 
+            background: var(--accent); color: #fff; 
+            padding: 5px 12px; font-size: 0.9em; border-radius: 20px; font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .news-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .news-date { font-size: 0.9em; color: #777; display: block; margin-bottom: 10px; font-family: sans-serif; /* Date looks better in system font */ }
+        .news-title { font-size: 1.5em; margin-bottom: 15px; color: var(--primary); line-height: 1.4; font-weight: bold; }
+        .news-excerpt { font-size: 1.1em; color: #555; margin-bottom: 25px; flex-grow: 1; }
+        .read-more { 
+            color: var(--primary); text-decoration: none; font-weight: bold; 
+            border: 2px solid var(--primary); padding: 8px 20px; border-radius: 30px;
+            align-self: flex-start; transition: 0.3s;
+        }
+        .read-more:hover { background: var(--primary); color: #fff; }
+
+        /* Sidebar Widget */
+        .news-sidebar-widget { background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .widget-title { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; font-size: 1.4em; }
+        .category-list { list-style: none; padding: 0; }
+        .category-list li { margin-bottom: 12px; }
+        .category-list a { text-decoration: none; color: #555; display: block; padding: 8px 10px; border-radius: 5px; transition: 0.2s; font-size: 1.1em; }
+        .category-list a:hover { background: #f0f0f0; color: var(--accent); padding-right: 15px; }
+
+        /* Footer */
+        footer { background: var(--primary); color: #ccc; padding: 30px 0; margin-top: auto; border-top: 5px solid var(--accent); }
+
+        /* MOBILE RESPONSIVE FIXES */
+        @media (max-width: 768px) {
+            .news-layout { flex-direction: column; }
+            .header-content { flex-direction: column; }
+            .academy-title { font-size: 1.8em; margin-top: 10px; }
+            .news-grid { grid-template-columns: 1fr; }
+            .top-level-menu { flex-wrap: wrap; }
+            .menu-link { padding: 10px 15px; }
+        }
+    </style>
 </head>
 <body>
-    <div class="top-bar"><div class="container top-inner"><div class="contact-info"><span>📞 9901550</span></div><a href="login.html" class="top-login-btn">ލޮގިން</a></div></div>
-    <header class="main-header"><div class="container header-content"><a href="index.html"><img src="images/logo.png" alt="Logo" class="academy-logo"></a><h1 class="academy-title">ޒާދް އެކަޑެމީ</h1></div></header>
-    <nav class="main-nav"><div class="container"><ul class="top-level-menu"><li class="menu-item"><a href="index.html" class="menu-link">ހޯމް</a></li><li class="menu-item"><a href="news.html" class="menu-link" style="border-bottom: 4px solid #cfaa5e;">ޚަބަރު</a></li></ul></div></nav>
 
-    <section class="course-hero"><div class="container"><h1>އެކަޑެމީގެ ޚަބަރުތައް</h1><p>އެންމެ ފަހުގެ މަޢުލޫމާތާއި އިޢުލާންތައް</p></div></section>
+    <div class="top-bar">
+        <div class="container top-inner">
+            <div class="contact-info"><span>📞 9901550</span></div>
+            <a href="login.html" class="top-login-btn">ލޮގިން</a>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Zaad Logo" class="academy-logo" onerror="this.src='https://ui-avatars.com/api/?name=ZA&background=transparent&color=0C2D48&size=150'">
+            </a>
+            <h1 class="academy-title">ޒާދް އެކަޑެމީ</h1>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="top-level-menu">
+                <li class="menu-item"><a href="index.html" class="menu-link">ހޯމް</a></li>
+                <li class="menu-item"><a href="news.html" class="menu-link" style="border-bottom: 4px solid #cfaa5e;">ޚަބަރު</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="course-hero">
+        <div class="container">
+            <h1>އެކަޑެމީގެ ޚަބަރުތައް</h1>
+            <p>އެންމެ ފަހުގެ މަޢުލޫމާތާއި އިޢުލާންތައް</p>
+        </div>
+    </section>
 
     <section class="section">
         <div class="container news-layout">
+            
             <div class="news-main">
                 <div class="news-grid">
+                    
                     <div class="news-card">
-                        <div class="news-img" style="background-image: url('images/news1.jpg');"><span class="news-category">އިޢުލާން</span></div>
+                        <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=500');">
+                            <span class="news-category">އިޢުލާން</span>
+                        </div>
                         <div class="news-body">
                             <span class="news-date">10 ޑިސެމްބަރު 2024</span>
                             <h3 class="news-title">އާ ކޯސްތަކަށް ވަނުމުގެ ފުރުޞަތު ހުޅުވާލައިފި</h3>
-                            <p class="news-excerpt">ޒާދް އެކަޑެމީގެ 2025 ވަނަ އަހަރުގެ ޖަނަވަރީ އިންޓޭކަށް ކުރިމަތިލުމުގެ ފުރުޞަތު މިހާރު ވަނީ ހުޅުވާލެވިފައެވެ...</p>
+                            <p class="news-excerpt">ޒާދް އެކަޑެމީގެ 2025 ވަނަ އަހަރުގެ ޖަނަވަރީ އިންޓޭކަށް ކުރިމަތިލުމުގެ ފުރުޞަތު މިހާރު ވަނީ ހުޅުވާލެވިފައެވެ. މިފަހަރު ހުޅުވާލެވުނު ކޯސްތަކުގެ ތެރޭގައި...</p>
                             <a href="#" class="read-more">އިތުރަށް ކިޔުއްވާ &leftarrow;</a>
                         </div>
                     </div>
+
                     <div class="news-card">
-                        <div class="news-img" style="background-image: url('images/news2.jpg');"><span class="news-category">ވޯކްޝޮޕް</span></div>
+                        <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=500');">
+                            <span class="news-category">ވޯކްޝޮޕް</span>
+                        </div>
                         <div class="news-body">
                             <span class="news-date">05 ޑިސެމްބަރު 2024</span>
                             <h3 class="news-title">ޖަނާޒާ ވޯކްޝޮޕް ވަރަށް ކާމިޔާބުކަމާއެކު ނިންމާލައިފި</h3>
@@ -34,8 +193,11 @@
                             <a href="#" class="read-more">އިތުރަށް ކިޔުއްވާ &leftarrow;</a>
                         </div>
                     </div>
-                     <div class="news-card">
-                        <div class="news-img" style="background-image: url('images/news3.jpg');"><span class="news-category">މުބާރާތް</span></div>
+
+                    <div class="news-card">
+                        <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1621570275244-1b33236fa715?w=500');">
+                            <span class="news-category">މުބާރާތް</span>
+                        </div>
                         <div class="news-body">
                             <span class="news-date">01 ޑިސެމްބަރު 2024</span>
                             <h3 class="news-title">ޤުރްއާން މުބާރާތުގެ ނަތީޖާ ފާޅުކުރުން</h3>
@@ -43,13 +205,29 @@
                             <a href="#" class="read-more">އިތުރަށް ކިޔުއްވާ &leftarrow;</a>
                         </div>
                     </div>
+
                 </div>
             </div>
+
             <aside class="news-sidebar">
-                <div class="news-sidebar-widget"><h4 class="widget-title">ކެޓަގަރީ</h4><ul class="category-list"><li><a href="#">އިޢުލާން</a></li><li><a href="#">ހަރަކާތްތައް</a></li><li><a href="#">ދަރިވަރުންގެ ކާމިޔާބީ</a></li></ul></div>
+                <div class="news-sidebar-widget">
+                    <h4 class="widget-title">ކެޓަގަރީ</h4>
+                    <ul class="category-list">
+                        <li><a href="#">އިޢުލާން</a></li>
+                        <li><a href="#">ހަރަކާތްތައް</a></li>
+                        <li><a href="#">ދަރިވަރުންގެ ކާމިޔާބީ</a></li>
+                    </ul>
+                </div>
             </aside>
+
         </div>
     </section>
-    <footer><div class="container" style="text-align: center;"><p>&copy; 2025 Zaad Academy.</p></div></footer>
+
+    <footer>
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2025 Zaad Academy.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
