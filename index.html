@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="css/style.css">
     
     <style>
+        /* --- SECURITY STYLE: PREVENT TEXT SELECTION --- */
+        body {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+        /* --- EXISTING STYLES --- */
         .royal-ad-section { width: 100%; margin-top: 40px; margin-bottom: 40px; }
         .royal-board {
             background: radial-gradient(circle at center, #0e4d35 0%, #052b1d 100%);
@@ -44,15 +52,7 @@
     </style>
 </head>
 
-<script>
-    // Get the current year using the built-in Date object
-    var currentYear = new Date().getFullYear(); 
-    
-    // Find the HTML element with the id "currentYear" and set its innerHTML
-    document.getElementById("currentYear").innerHTML = currentYear; 
-</script>
-
-<body>
+<body oncontextmenu="return false;">
 
     <div class="top-bar">
         <div class="container top-inner">
@@ -150,7 +150,7 @@
             <div class="slideshow-container">
                 <div style="width: 100%; height: 100%; background: linear-gradient(rgba(11, 61, 41, 0.9), rgba(11, 61, 41, 0.8)), url('images/hero-bg.jpg'); background-size: cover; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 5px solid #cfaa5e;">
                     
-                    <h2 style="color: #cfaa5e; font-family: 'Amiri', serif !important; font-size: 25px; margin-bottom: 25px;">﴿وَتَزَوَّدُوا فَإِنَّ خَيْرَ الزَّادِ التَّقْوَىٰ﴾</h2>
+                    <h2 style="color: #cfaa5e; font-family: 'Amiri', serif !important; font-size: 25px; margin-bottom: 25px;">﴿وَتَزَوَّدُوا فَإِنَّ خَيْرَ الزَّادِ التَّقْوَىٰ﴾</h2>
                     <p style="color: #fff; font-family: 'Faruma'; font-size: 20px;">"އަދި ތިޔަބައިމީހުން ކޮއްތު ހޯދާށެވެ! ފަހެ، ހަމަކަށަވަރުން، އެންމެ ހެޔޮވެގެންވާ ކޮއްތަކީ ތަޤްވާވެރިކަމެވެ."</p>
                     <div style="width: 80px; height: 3px; background: #cfaa5e; margin-top: 25px;"></div>
                 </div>
@@ -230,14 +230,43 @@
                 </div>
             </div>
             <div class="footer-bottom">
-    <footer>
-    <p>&copy; 2019-<script>document.write(new Date().getFullYear())</script> Zaad Academy. All rights reserved.</p>
-</footer>
+                <p>&copy; 2019-<span id="currentYear"></span> Zaad Academy. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
+    <script>
+        // 1. Set the Current Year
+        var currentYear = new Date().getFullYear(); 
+        document.getElementById("currentYear").innerHTML = currentYear; 
 
+        // 2. Disable Right Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
-</body>
-
+        // 3. Disable Keyboard Shortcuts (Ctrl+U, Ctrl+C, F12, Ctrl+S)
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { // F12 (Dev Tools)
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { // Ctrl+Shift+C
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+                return false;
+            }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source)
+                return false;
+            }
+            if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { // Ctrl+S (Save)
+                return false;
+            }
+            if(e.ctrlKey && e.keyCode == 'C'.charCodeAt(0)) { // Ctrl+C (Copy)
+                return false;
+            }
+        }
+    </script>
+    </body>
 </html>
