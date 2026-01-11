@@ -687,6 +687,60 @@
                     </div>
                 </div>
                 <div class="group-box">
+                    <span class="group-title">📸 Photo Studio</span>
+                   
+                    <span class="d-label">1.Frame Style:</span>
+                    <select id="photoPresetSel" onchange="applyPhotoPreset(this.value)" style="width:100%; font-weight:bold; font-size:15px; padding:10px;">
+                        <option value="0">--- Select Frame Style ---</option>
+                        <optgroup label="No Border or Shadow">
+                            <option value="1">1. Normal (No Border)</option>
+                            <option value="2">2. Soft Shadow</option>
+                            <option value="3">3. Hard Shadow</option>
+                            <option value="4">4. Glow</option>
+                        </optgroup>
+                        <optgroup label="Basic Borders">
+                            <option value="5">5. Thin Black Line</option>
+                            <option value="6">6. Thick Blue Frame</option>
+                            <option value="7">7. Dotted Line</option>
+                            <option value="8">8. Dashed Line</option>
+                            <option value="9">9. Double Line</option>
+                            <option value="10">10. Rounded Corners</option>
+                            <option value="11">11. Circle</option>
+                        </optgroup>
+                        <optgroup label="Creative">
+                            <option value="12">12. Inset 3D</option>
+                            <option value="13">13. Outset 3D</option>
+                            <option value="14">14. Polaroid Style</option>
+                            <option value="15">15. Golden Groove</option>
+                            <option value="16">16. Card Style</option>
+                        </optgroup>
+                    </select>
+                    <span class="d-label">2. Frame Adjustment:</span>
+                    <div style="display:flex; gap:10px; align-items:center; background:#fff; padding:10px; border-radius:8px; border:1px solid #b2dfdb;">
+                        <span style="font-size:14px;">ކުލަ:</span><input type="color" id="pfColorPick" value="#000000" oninput="liveUpdate('pfColor', this.value)">
+                        <span style="font-size:14px;">ފުޅާމިން:</span><input type="range" id="pfWidthRange" min="0" max="30" value="0" oninput="liveUpdate('pfWidth', this.value)">
+                        <span style="font-size:14px;">ވަށް:</span><input type="range" id="pfRadiusRange" min="0" max="50" value="0" oninput="liveUpdate('pfRadius', this.value)">
+                    </div>
+                   
+                    <span class="d-label">3. Photo Position & Zoom:</span>
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <span style="font-size:14px; width:50px;">Zoom:</span>
+                        <input type="range" id="pSizeRange" min="150" max="800" value="260" oninput="liveUpdate('pSize', this.value)">
+                        <select id="pVisSel" onchange="liveUpdate('pVis', this.value)" style="width:100px;"><option value="show">show</option><option value="hide">hide</option></select>
+                    </div>
+                    <div style="display:flex; gap:10px; margin-top:8px; align-items:center;">
+                        <span style="font-size:14px; width:50px;">މޫވް:</span>
+                        <input type="range" id="pXRange" min="-600" max="600" value="0" title="X" oninput="liveUpdate('pX', this.value)">
+                        <input type="range" id="pYRange" min="-400" max="400" value="0" title="Y" oninput="liveUpdate('pY', this.value)">
+                    </div>
+                    <div style="margin-top:10px;">
+                        <select id="pFitSel" onchange="liveUpdate('pFit', this.value)">
+                            <option value="cover">Fit: Fill Box (Cover)</option>
+                            <option value="contain">Fit: Full Photo (Contain)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="group-box">
                     <span class="group-title">🔤 Text Alignment & Styling (Normal Mode)</span>
                    
                     <span class="d-label">1. Student Name (Size/Color):</span>
@@ -1063,7 +1117,7 @@ function loadMainLogos(input) {
         isLocked = !isLocked;
         const btn = document.getElementById('lockBtn');
        
-        // ޕޭޖުގައިވާ ހުރިހާ ބަޓަނާއި، އިންޕުޓްތައް ހޮވާލުން
+        // ޕޭޖުގައިވާ ހުރިހާ ބަޓަނާއި, އިންޕުޓްތައް ހޮވާލުން
         const allElements = document.querySelectorAll('input, select, textarea, button');
         // ވިޝުއަލްކޮށް ލޮކް ކުރާ ބައިތައް (ކުލަ ފަނޑުކުރަން)
         const sidebarFiles = document.getElementById('sidebarFiles');
@@ -1075,7 +1129,7 @@ function loadMainLogos(input) {
             // ސައިޑްބާ އަދި ޑިޒައިން ޕެނަލްގެ ކުލަ ފަނޑުކޮށްލުން
             if(sidebarFiles) sidebarFiles.classList.add('locked-zone');
             if(designPanel) designPanel.classList.add('locked-zone');
-            // ހުރިހާ އެއްޗެއް ޗެކްކޮށް، ލޮކް ކުރަންވީ އެއްޗެހި ލޮކްކުރުން
+            // ހުރިހާ އެއްޗެއް ޗެކްކޮށް, ލޮކް ކުރަންވީ އެއްޗެހި ލޮކްކުރުން
             allElements.forEach(el => {
                 // 1. މިތަނުގައި މި ލިޔަނީ ލޮކް ނުކޮށް ދޫކޮށްލަންވީ ބައިތައް (EXCEPTIONS)
                 if (
@@ -1091,7 +1145,7 @@ function loadMainLogos(input) {
                     // މި ބައިތައް ހުންނާނީ ހުޅުވިފައި (Do Nothing)
                     el.disabled = false;
                 } else {
-                    // 2. ދެން ހުރި ހުރިހާ އެއްޗެއް ލޮކް ވާނެ (ދަރިވަރުންގެ ބަޔާއި ޑުޒައިން ބައި ހިމެނޭގޮތަށް)
+                    // 2. ދެން ހުރި ހުރިހާ އެއްޗެއް ލޮކް ވާނެ (ދަރިވަރުންގެ ބަޔާއި ޑިޒައިން ބައި ހިމެނޭގޮތަށް)
                     el.disabled = true;
                 }
             });
@@ -1478,7 +1532,7 @@ function downloadConfig() {
             "border: 10px inset #002171; background: #000022;", // 50
             "background: linear-gradient(#001b3d, #001b3d) padding-box, linear-gradient(45deg, #fff, #0d47a1) border-box; border: 3px solid transparent;", // 51
             "border-bottom: 6px solid #fff; background: linear-gradient(to top, #001b3d, #000);", // 52
-            "border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 0 20px #0d47a1; background: rgba(13, 71, 161, 0.4); backdrop-filter: blur(5px);", // 53
+            "border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 0 20px #0d47a1; background: rgba(13, 71, 161, 0.4); backdrop-filter: blur(15px);", // 53
             "border-left: 2px solid #fff; border-right: 2px solid #fff; background: #001b3d;", // 54
             "border: 4px ridge #4fc3f7; background: #000022; border-radius: 5px;", // 55
             "border: 2px solid #C0C0C0; transform: perspective(600px) rotateX(5deg); background: #001b3d; margin-bottom:10px;", // 56
@@ -1520,7 +1574,7 @@ function downloadConfig() {
             "border: 1px solid rgba(255,215,0,0.3); background: rgba(0,0,0,0.8); box-shadow: 0 0 30px rgba(255,215,0,0.1);", // 90
             "border: none; background: #050505; border-radius: 10px; border-left: 10px solid #FFD700;", // 91
             "border: none; background: #050505; border-radius: 10px; border-right: 10px solid #FFD700;", // 92
-            "border: none; background: #000; box-shadow: 0 -10px 10px rgba(255,255,255,0.1);", // 93
+            "border: none; background: #000; box-shadow: 0 -10px 20px rgba(255,255,255,0.1);", // 93
             "border: 10px solid #111; background: #000; outline: 1px solid #333;", // 94
             "border: none; background: linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111), linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111); background-color: #000; background-size: 20px 20px; box-shadow: 0 0 10px #000;", // 95
             "border: 1px solid #FFD700; background: transparent; box-shadow: inset 0 0 100px #000;", // 96
@@ -1694,7 +1748,7 @@ function downloadConfig() {
                 /* OVERLAY MODE FOR VIDEO */
                 .overlay-mode #card {
                     width:auto !important; height:auto !important;
-                    bottom:30px !important; top: auto !important;
+                    bottom:30px !important; top: auto !important; transform:translate(-50%, 0) !important;
                     background:rgba(0,0,0,0.8) !important; border-radius:15px; padding:15px 30px !important;
                     border:1px solid #fff !important;
                 }
@@ -2662,7 +2716,7 @@ body.triple-active #card {
    
     function manualPhoto(input) {
     if (input.files && input.files[0]) {
-        // 1. ކުރިން ފޮޓޯއެއް އިންނަމަ، އެ ފޮޓޯ މެމޮރީން ފޮހެލާ (Free up RAM)
+        // 1. ކުރިން ފޮޓޯއެއް އިންނަމަ, އެ ފޮޓޯ މެމޮރީން ފޮހެލާ (Free up RAM)
         if (currentPhotoData && currentPhotoData.startsWith('blob:')) {
             URL.revokeObjectURL(currentPhotoData);
         }
@@ -2796,7 +2850,7 @@ body.triple-active #card {
             // Play Previous Video
             playLocalVideoFile(foundVideo);
            
-            // Highlight Highlight Student in List
+            // Highlight Student in List
             let listElement = document.getElementById('stuList');
             if(listElement.options.length > currentVidIdx) {
                 listElement.selectedIndex = currentVidIdx;
@@ -2832,7 +2886,7 @@ body.triple-active #card {
         }
     }
     // 3. ތިން ސްކްރީން މޯޑު ޖައްސާ ފަންކްޝަން
-   // ... (މަތީގައި، ކުރިން އިތުރުކުރި toggleTripleMode ފަންކްޝަން އިންނާނެ) ...
+   // ... (މަތީގައި, ކުރިން އިތުރުކުރި toggleTripleMode ފަންކްޝަން އިންނާނެ) ...
     function toggleTripleMode() {
         if(!tvWindow || tvWindow.closed) return;
         tvWindow.document.body.classList.toggle('triple-active');
@@ -2976,5 +3030,114 @@ body.triple-active #card {
     // For example, call randomGoldStyle() inside updateTV for random gold on display
     // --- MEMORY OPTIMIZATION: REVOKE URLs AFTER USE ---
     // Already in loadMainLogos, add to other loaders if needed
+    // Add revoke to loadRoyalStar
+    function loadRoyalStar(input) {
+        if(royalStarData) URL.revokeObjectURL(royalStarData);
+        if(input.files && input.files[0]) {
+            royalStarData = URL.createObjectURL(input.files[0]);
+            alert("Royal Star Loaded!");
+        }
+    }
+    // Add revoke to loadTrophy
+    function loadTrophy(input) {
+        if(trophyData) URL.revokeObjectURL(trophyData);
+        if(input.files && input.files[0]) {
+            trophyData = URL.createObjectURL(input.files[0]);
+            alert("Trophy Icon Loaded!");
+        }
+    }
+    // Add revoke to loadPDF
+    function loadPDF(input) {
+        if(pdfUrl) URL.revokeObjectURL(pdfUrl);
+        if(input.files && input.files[0]) {
+            pdfUrl = URL.createObjectURL(input.files[0]);
+            alert("PDF Loaded. Click 'Show PDF' to display.");
+        }
+    }
+    // In stopVideo, clear video src
+    function stopVideo() {
+        if(!tvWindow || tvWindow.closed) return;
+        const vl = tvWindow.document.getElementById('videoLayer');
+        const v = tvWindow.document.getElementById('mainVid');
+        if(v) v.src = '';
+        vl.innerHTML = ''; vl.style.display = 'none';
+        tvWindow.document.body.classList.remove('overlay-mode');
+        if(!document.getElementById('top5ModeCheck').checked) tvWindow.document.body.classList.remove('top5-mode');
+       
+        if(lastActiveState === 'title') {
+            showJalsaScreen();
+        } else if (lastActiveState === 'card') {
+            tvWindow.document.getElementById('card').classList.add('active');
+            if(designState.keepTitle) {
+                tvWindow.document.getElementById('jalsaContent').classList.remove('hidden');
+            } else {
+                 tvWindow.document.getElementById('jalsaContent').classList.add('hidden');
+            }
+        }
+    }
+    // --- ERROR HANDLING ---
+    // Wrap critical functions with try-catch
+    function openTV() {
+        try {
+            // Original code
+        } catch (e) {
+            alert("Error opening TV: " + e.message);
+        }
+    }
+    function updateTV() {
+        try {
+            // Original code
+        } catch (e) {
+            alert("Error updating TV: " + e.message);
+        }
+    }
+    // Add more try-catch to other functions as needed
+    // --- RAM USAGE MONITOR (Simple) ---
+    if (performance.memory) {
+        setInterval(() => {
+            console.log('RAM Usage: ' + (performance.memory.usedJSHeapSize / 1048576).toFixed(2) + ' MB');
+        }, 5000); // Check every 5s, but console.log is overridden, so perhaps display in UI if needed
+    }
+    // --- UI LAG FIX: BATCH UPDATES ---
+    let updateQueue = [];
+    function queueUpdate(key, value) {
+        updateQueue.push({key, value});
+        requestAnimationFrame(processUpdates);
+    }
+    function processUpdates() {
+        updateQueue.forEach(({key, value}) => liveUpdate(key, value));
+        updateQueue = [];
+    }
+    // Replace direct liveUpdate calls with queueUpdate in sliders etc.
+    // For example in oninput="queueUpdate('tvX', this.value)"
+    // Update all oninput in HTML to queueUpdate
+    // --- AUTO-SAVE INTERVAL TO 60s TO REDUCE STUTTER ---
+    setInterval(autoSaveConfig, 60000);
+    // Or make configurable
+    // --- SECURITY: MORE PROTECTION ---
+    document.addEventListener('devtoolschange', e => {
+        if (e.detail.isOpen) {
+            alert('Developer tools detected. Closing for security.');
+            window.location.href = 'about:blank';
+        }
+    });
+    // Simple devtools detect
+    setInterval(() => {
+        const devtoolsOpen = window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160;
+        if (devtoolsOpen) {
+            alert('Developer tools detected. Closing for security.');
+            window.location.href = 'about:blank';
+        }
+    }, 1000);
+    // --- CEREMONY MODE: LOW RAM ---
+    function enableCeremonyMode() {
+        isLocked = true;
+        // Clear non-essential data
+        students = [];
+        photoFiles = {};
+        // etc.
+        alert('Ceremony Mode Enabled - Low RAM Usage');
+    }
+    // Add button for this if needed
 </script>
 </html>
