@@ -1,349 +1,371 @@
 <!DOCTYPE html>
-<html lang="dv" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <title>Rasfahi portal (V33.0 - Platinum Edition - Navigation & Flex)</title>
     <style>
-        /* 1. Google Font (Backup for Dhivehi) */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thaana:wght@400;700&display=swap');
+    /* 1. Google Font (Official & Clean) */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&family=Noto+Sans+Thaana:wght@400;700&display=swap');
 
-        /* 2. Faruuma Font (Local) */
-        @font-face {
-            font-family: 'Faruuma';
-            src: local('Faruuma'), local('Faruumaa'), url('Fonts/faruuma.ttf') format('truetype');
-        }
+    /* 2. Faruuma Font */
+    @font-face {
+        font-family: 'Faruuma';
+        src: local('Faruuma'), local('Faruumaa'), url('Fonts/faruuma.ttf') format('truetype');
+    }
 
-        /* --- GLOBAL VARIABLES --- */
-        :root {
-            --royal-accent: #c5a059;        
-            --royal-blue-dark: #001b3d;     
-            --royal-blue-mid: #0d47a1;      
-            --royal-green: #003322;           
-            --input-bg: #e3f2fd;               
-            --input-border: #90caf9;
-            --panel-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        /* DEFAULT BODY STYLE */
-        body {
-            -webkit-user-select: none; user-select: none;
-            margin: 0; padding: 0;
-            background: linear-gradient(135deg, #000c1a 0%, #00281c 100%);
-            overflow: hidden; height: 100vh; width: 100vw;
-            color: #333;
-            font-family: 'Faruuma', 'MV Boli', 'Noto Sans Thaana', serif;
-        }
-
-        /* --- LANGUAGE SWITCHER TABS --- */
-        .lang-tabs { 
-            display: flex; gap: 5px; margin-bottom: 10px; justify-content: center; 
-            direction: ltr !important; flex-shrink: 0; 
-        }
-        .lang-btn {
-            flex: 1; padding: 8px; text-align: center; text-decoration: none;
-            background: #37474f; color: #fff; border-radius: 4px; 
-            font-size: 13px; font-weight: bold; border: 1px solid #555; transition: 0.3s;
-            font-family: sans-serif !important;
-        }
-        .lang-btn:hover { background: var(--royal-accent); color: #000; }
-        .lang-btn.active { background: var(--royal-blue-mid); border: 1px solid #fff; pointer-events: none; }
-
-
-        /* --- SECURITY OVERLAY --- */
-        #securityOverlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.98); z-index: 99999;
-            display: flex; justify-content: center; align-items: center;
-            direction: ltr !important; font-family: 'Segoe UI', sans-serif !important; text-align: center;
-        }
-        #securityOverlay * { font-family: 'Segoe UI', sans-serif !important; direction: ltr !important; }
-
-        .sec-box { 
-            background: linear-gradient(135deg, var(--royal-blue-dark), var(--royal-green)); 
-            padding: 60px; border-radius: 20px; border: 2px solid var(--royal-accent); 
-            box-shadow: 0 0 50px rgba(13, 71, 161, 0.5); max-width: 600px; width: 90%;
-        }
-        .sec-input { 
-            padding: 15px; font-size: 24px; text-align: center; width: 100%; margin-top: 20px; 
-            background: #fff; color: #000; border-radius:5px; border:none; 
-        }
-        .sec-btn { 
-            margin-top: 25px; padding: 15px 50px; font-size: 20px; background: var(--royal-blue-mid); 
-            color: #fff; border: 1px solid #fff; cursor: pointer; font-weight: bold; 
-            border-radius:8px; text-transform: uppercase;
-        }
-        .sec-btn:hover { background: #fff; color: var(--royal-blue-mid); }
-
-        /* --- REST OF APP --- */
-        .sidebar, .editor, button:not(.sec-btn, .lang-btn), input:not(.sec-input), select, textarea, h1, h2, h3, label, span, div:not(.lang-tabs) {
-             font-family: 'Faruuma', 'MV Boli', 'Noto Sans Thaana', serif;
-        }
-
-        /* --- TOP BANNER --- */
-        .royal-banner {
-            background: linear-gradient(to right, var(--royal-blue-dark), var(--royal-green));
-            color: #fff; text-align: center; padding: 15px;
-            border-bottom: 3px solid var(--royal-accent);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5); margin-bottom: 10px; border-radius: 8px; flex-shrink: 0;
-        }
-        .banner-main { font-family: 'Times New Roman', serif !important; font-weight: bold; font-size: 14px; letter-spacing: 2px; color: #a0c4ff; display: block; }
-        .banner-sub { font-size: 24px; color: var(--royal-accent); text-shadow: 0 2px 4px #000; display: block; margin-top: 5px; }
-
-        /* --- UI LAYOUT --- */
-        .main-layout { 
-            display: none; gap: 20px; height: 100vh; width: 100vw; 
-            padding: 15px; box-sizing: border-box; 
-        }
-
-        .sidebar {
-            flex: 0 0 380px; background: #f8fbff; padding: 15px; border-radius: 12px;
-            display: flex; flex-direction: column; height: 100%; overflow-y: auto; 
-            box-shadow: var(--panel-shadow); border: 3px solid var(--royal-blue-dark);
-        }
-        .sidebar h2 { color: var(--royal-blue-dark); text-align:center; margin-bottom: 10px; border-bottom: 2px solid var(--royal-blue-mid); padding-bottom: 5px; font-size: 22px; }
+    /* --- THEME: THE PRESIDENTIAL ESTATE (Official Green & Gold) --- */
+    :root {
+        --bg-grad: radial-gradient(circle at center, #004d40 0%, #00251a 100%);
+        --panel-bg: rgba(0, 30, 25, 0.95); 
+        --panel-border: 1px solid #c5a059; /* Muted Gold */
         
-        .dev-credits {
-            margin-top: 20px; text-align: center; font-size: 13px; color: #555;
-            background: #e3f2fd; padding: 10px; border-radius: 6px; border: 1px solid #bbdefb;
-            font-weight: bold; line-height: 1.4; flex-shrink: 0;
-        }
-        .dev-name { color: var(--royal-blue-dark); font-size: 14px; display: block; margin-bottom: 2px; }
-        .company-name { color: var(--royal-green); font-size: 12px; display: block; letter-spacing: 0.5px; }
-
-        .editor {
-            flex: 1; background: #fff; padding: 25px; border-radius: 12px;
-            display: flex; flex-direction: column; height: 100%; overflow-y: auto; 
-            position: relative; box-shadow: var(--panel-shadow); border: 3px solid var(--royal-green);
-        }
-
-        ::-webkit-scrollbar { width: 12px; }
-        ::-webkit-scrollbar-track { background: #eee; }
-        ::-webkit-scrollbar-thumb { background: var(--royal-blue-mid); border-radius: 6px; }
-
-        /* --- CONTROLS --- */
-        h2, h3 { margin: 5px 0; }
-        label { display: block; font-weight: bold; font-size: 16px; margin-bottom: 5px; color: var(--royal-blue-dark); }
+        --text-main: #ffffff;
+        --text-label: #a7ffeb; /* Light Green for Labels */
+        --text-heading: #c5a059; /* Gold for Headings */
         
-        .d-label { 
-            font-size: 18px; font-weight: 900; color: var(--royal-blue-mid);
-            display: block; margin-top: 15px; margin-bottom: 8px; 
-            border-bottom: 2px solid #b3e5fc; padding-bottom: 4px; 
-        }
-
-        input[type="text"], textarea, select { 
-            width: 100%; padding: 10px; border: 1px solid var(--input-border); 
-            border-radius: 6px; background: var(--input-bg); color: #000;
-            margin-bottom: 8px; font-size: 16px; box-sizing: border-box; transition: all 0.3s;
-        }
-        input[type="text"]:focus, select:focus, textarea:focus { 
-            border-color: var(--royal-blue-mid); background: #fff; outline: none; 
-            box-shadow: 0 0 8px rgba(13, 71, 161, 0.3); 
-        }
-
-        #jLine1 {
-            font-size: 28px !important; font-weight: 900 !important; text-align: center !important;
-            color: var(--royal-blue-dark); border: 2px solid var(--royal-accent);
-            background: #fff8e1; height: 60px;
-        }
-        .sub-title-input {
-            font-size: 18px !important; font-weight: bold !important; text-align: center !important;
-            color: var(--royal-blue-mid); height: 40px;
-        }
-
-        .font-dv { font-size: 20px !important; direction: rtl; text-align: right; }
-        .eng { font-size: 18px !important; direction: ltr; text-align: left; font-family: 'Times New Roman', serif !important; font-weight: bold; }
-
-        input[type=range] { width: 100%; cursor: pointer; height: 15px; accent-color: var(--royal-blue-mid); margin: 5px 0; }
-        input[type=color] { width: 45px; height: 35px; border: 2px solid #fff; border-radius: 6px; cursor: pointer; vertical-align: middle; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-
-        .group-box {
-            border: 1px solid #bbdefb; border-radius: 10px; padding: 30px 20px 20px 20px;
-            margin-bottom: 35px; background: #f1f8e9; position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .group-title {
-            position: absolute; top: -20px; right: 20px; background: var(--royal-blue-dark);
-            color: #fff; padding: 8px 25px; font-size: 18px; font-weight: bold;
-            border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); z-index: 10;
-        }
-
-        .design-col { flex: 1; }
-
-        /* --- BUTTONS --- */
-        button { cursor: pointer; font-weight: bold; transition: all 0.2s; }
+        --input-bg: #001812;
+        --input-border: 1px solid #4db6ac;
         
-        .launch-btn { 
-            background: linear-gradient(to bottom, #d32f2f, #b71c1c);
-            color: white; padding: 12px; width: 100%; border: 1px solid #ffcdd2; 
-            border-radius: 6px; margin-bottom: 10px; font-size: 18px; box-shadow: 0 3px 5px rgba(0,0,0,0.2); 
-        }
-        .launch-btn:hover { filter: brightness(1.1); }
+        --accent-gold: #c5a059;
+        --shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
 
-        .conf-btn { flex: 1; padding: 8px; font-size: 14px; border-radius: 4px; border: 1px solid #1565c0; color: #fff; background: var(--royal-blue-mid); }
-        .conf-btn:hover { background: var(--royal-blue-dark); }
-        .config-btn-row { display: flex; gap: 5px; margin-bottom: 10px; }
+    body {
+        margin: 0; padding: 0;
+        background: var(--bg-grad);
+        color: var(--text-main);
+        font-family: 'Inter', sans-serif;
+        overflow: hidden; height: 100vh; width: 100vw;
+        -webkit-user-select: none; user-select: none;
+        text-align: left; /* Global Left Alignment for English */
+    }
 
-        .btn-live { 
-            background: linear-gradient(to bottom, #2e7d32, #1b5e20);
-            flex: 2; border: 2px solid #a5d6a7; color: #fff; font-size: 20px; padding: 12px; border-radius: 8px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .btn-live:hover { filter: brightness(1.1); }
-        
-        .btn-nav { background: #546e7a; color: white; padding: 12px; font-size: 20px; border: none; border-radius: 8px; width: 60px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    /* LAYOUT FIXED */
+    .main-layout { 
+        display: flex; gap: 20px; 
+        height: 100vh; width: 100vw; 
+        padding: 20px;
+        box-sizing: border-box; 
+    }
+    
+    .sidebar {
+        flex: 0 0 380px;
+        background: var(--panel-bg);
+        border: var(--panel-border);
+        border-radius: 6px; 
+        padding: 20px;
+        display: flex; flex-direction: column; 
+        height: calc(100vh - 40px); 
+        overflow-y: auto;
+        box-shadow: var(--shadow);
+        box-sizing: border-box;
+    }
 
-        #lockBtn {
-            background: #fbc02d; color: #000; padding: 12px; width: 100%; border: 2px solid #fff;
-            border-radius: 8px; margin-bottom: 15px; font-size: 18px; box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-        }
-        #lockBtn.active { background: #c62828; color: white; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(198, 40, 40, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(198, 40, 40, 0); } 100% { box-shadow: 0 0 0 0 rgba(198, 40, 40, 0); } }
+    .editor {
+        flex: 1;
+        background: var(--panel-bg);
+        border: var(--panel-border);
+        border-radius: 6px;
+        padding: 30px;
+        display: flex; flex-direction: column; 
+        height: calc(100vh - 40px); 
+        overflow-y: auto;
+        box-shadow: var(--shadow);
+        position: relative;
+        box-sizing: border-box;
+    }
 
-        .locked-zone { opacity: 0.5; pointer-events: none; filter: grayscale(80%); user-select: none; transition: all 0.3s ease; }
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #00251a; margin-top: 5px; margin-bottom: 5px; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: #c5a059; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #e6c575; }
 
-        /* --- PREVIEW --- */
-        .preview-container { 
-            display: flex; gap: 15px; align-items: center; justify-content: center; 
-            background: #fff; padding: 15px; border: 2px solid #b2dfdb; 
-            border-radius: 10px; margin-top: 15px; 
-        }
-        #previewImg { height: 90px; width: 90px; object-fit: cover; border-radius: 50%; border: 3px solid var(--royal-blue-mid); background: #eee; }
-        
-        .video-panel { background: #e1f5fe; padding: 15px; border-radius: 10px; border: 1px solid #81d4fa; margin-bottom: 20px; }
-        .btn-vid { font-size: 14px; padding: 8px; margin-top: 5px; border:none; border-radius:4px; color:white; width: 100%; cursor: pointer; font-weight:bold; }
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4 { 
+        margin: 5px 0; 
+        font-family: 'Playfair Display', serif; 
+        color: var(--text-heading); 
+        text-transform: uppercase; 
+        letter-spacing: 1px;
+        text-align: left; /* Default headings to Left */
+    }
+    
+    label { 
+        display: block; font-size: 13px; 
+        color: var(--text-label); 
+        margin-bottom: 5px; margin-top: 15px; 
+        font-weight: 600; text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-align: left;
+    }
+    
+    .d-label { 
+        font-size: 16px; font-weight: bold; color: var(--accent-gold); 
+        border-bottom: 1px solid var(--accent-gold); 
+        padding-bottom: 5px; margin-top: 30px; display: block;
+        font-family: 'Playfair Display', serif;
+        text-align: left;
+    }
 
-        /* --- SYSTEM FILES --- */
-        #sidebarFiles {
-            background: #fff; border: 1px solid #90caf9; border-radius: 8px; padding: 10px;
-            direction: rtl !important; text-align: right !important;
-        }
-        #sidebarFiles label { font-size: 14px; color: #444; margin-bottom: 3px; }
-        #sidebarFiles input[type="file"] { font-size: 12px; padding: 5px; direction: ltr; }
-        
-        .list-switch-btn {
-            background: #eee; border: 1px solid #ccc; padding: 5px; cursor: pointer; flex: 1; font-size: 12px; font-weight: bold;
-        }
-        .list-switch-btn.active {
-            background: var(--royal-blue-mid); color: white; border-color: var(--royal-blue-dark);
-        }
+    /* INPUTS */
+    input[type="text"], textarea, select, input[type="number"] { 
+        width: 100%; padding: 12px; 
+        border: var(--input-border); border-radius: 4px; 
+        background: var(--input-bg);
+        color: #ffffff; 
+        font-size: 15px; font-weight: 500;
+        box-sizing: border-box; transition: 0.2s;
+        font-family: 'Inter', sans-serif;
+        text-align: left; /* English inputs left aligned */
+    }
+    input:focus, textarea:focus, select:focus { 
+        border-color: var(--accent-gold); 
+        background: #000; 
+        outline: none; 
+        box-shadow: 0 0 8px rgba(197, 160, 89, 0.3);
+    }
+    
+    /* Specific Inputs */
+    #jLine1 { 
+        font-size: 22px !important; font-weight: bold !important; text-align: center !important; 
+        color: #c5a059 !important; background: #000 !important; 
+        border: 1px solid #c5a059 !important; font-family: 'Playfair Display', serif !important;
+    }
+    .sub-title-input { text-align: center !important; background: #00332a !important; color: #fff !important; border: 1px solid #004d40 !important; }
 
-        /* --- FULL SCREEN BUTTON --- */
-        #cpFsBtn {
-            position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px;
-            background: var(--royal-blue-dark); color: #fff; border-radius: 50%;
-            border: 2px solid #fff; box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            z-index: 1000; font-size: 20px; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: transform 0.3s;
-        }
-        #cpFsBtn:hover { transform: scale(1.1); background: var(--royal-green); }
+    /* DHIVEHI INPUTS OVERRIDE (Right to Left) */
+    .font-dv {
+        font-family: 'Faruuma', 'Noto Sans Thaana', sans-serif !important;
+        direction: rtl !important;
+        text-align: right !important;
+    }
 
+    /* BUTTONS */
+    button { 
+        cursor: pointer; font-weight: 600; border-radius: 4px; 
+        border: 1px solid rgba(255,255,255,0.1); transition: all 0.2s;
+        text-transform: uppercase; letter-spacing: 1px; font-size: 13px;
+        background: linear-gradient(to bottom, #2e7d32, #1b5e20); 
+        color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    button:hover { 
+        filter: brightness(1.2); border-color: var(--accent-gold); 
+        transform: translateY(-1px);
+    }
+
+    /* Button Colors */
+    .launch-btn { background: linear-gradient(to bottom, #b71c1c, #7f0000) !important; border-color: #ef5350; font-size: 15px; padding: 14px; margin-bottom: 12px; }
+    
+    .controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+    .btn-live { background: linear-gradient(to bottom, #f9a825, #f57f17) !important; color: #000 !important; flex: 2; padding: 12px; font-weight: 800; }
+    .btn-nav { background: #37474f !important; width: 60px; font-size: 20px; }
+    .btn-vid { background: #263238 !important; padding: 10px; width: 100%; margin-top: 5px; border: 1px solid #546e7a; }
+    
+    .conf-btn { background: #0277bd !important; flex: 1; padding: 8px; font-size: 11px; }
+    .config-btn-row { display: flex; gap: 5px; margin-bottom: 15px; }
+
+    #lockBtn { background: #ffd700 !important; color: #000 !important; font-weight: 900; padding: 12px; width: 100%; margin-bottom: 15px; border: 2px solid #fff !important; }
+    #lockBtn.active { background: #b71c1c !important; color: white !important; }
+
+    /* TABS */
+    .lang-tabs { display: flex; gap: 5px; margin-bottom: 15px; }
+    .lang-btn { flex: 1; background: rgba(255,255,255,0.05) !important; padding: 10px; text-align: center; color: #80cbc4; text-decoration: none; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+    .lang-btn.active { background: #004d40 !important; color: #c5a059 !important; border: 1px solid #c5a059 !important; }
+    
+    .list-switch-btn { background: #263238 !important; color: #b0bec5; padding: 10px; flex: 1; border: 1px solid #37474f; }
+    .list-switch-btn.active { background: var(--accent-gold) !important; color: #000 !important; font-weight:bold; }
+
+    /* HELPERS & BANNERS */
+    .royal-banner { 
+        background: linear-gradient(to right, #00100a, #00332a, #00100a);
+        border: 1px solid var(--accent-gold); border-bottom: 4px solid var(--accent-gold); 
+        text-align: center; padding: 20px; margin-bottom: 20px; border-radius: 4px; 
+    }
+    .banner-main { color: #80cbc4; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; display: block; }
+    .banner-sub { color: var(--accent-gold); font-size: 24px; font-family: 'Playfair Display', serif; display: block; margin-top: 5px; font-weight: 700; }
+
+    .group-box { border: 1px solid #004d40; border-radius: 6px; padding: 30px 20px 20px 20px; margin-bottom: 25px; background: rgba(0,0,0,0.2); position: relative; }
+    .group-title { position: absolute; top: -10px; left: 20px; background: #c5a059; color: #000; padding: 4px 15px; font-size: 12px; font-weight: bold; border-radius: 2px; text-transform: uppercase; }
+
+    .video-panel { background: rgba(0, 77, 64, 0.3); padding: 15px; border-radius: 6px; border: 1px solid #00695c; margin-bottom: 20px; }
+    
+    /* Student List */
+    #stuList { background: #001812; color: #fff; border: 1px solid #4db6ac; min-height: 250px; border-radius: 4px; text-align: left; }
+    #stuList option { padding: 10px; border-bottom: 1px solid #00332a; }
+    
+    /* Preview */
+    .preview-container { background: rgba(0,0,0,0.3); border: 1px solid #004d40; padding: 15px; border-radius: 6px; display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 15px; }
+    #previewImg { width: 110px; height: 110px; border-radius: 4px; object-fit: cover; border: 2px solid var(--accent-gold); background: #000; }
+
+    /* Full Screen Button */
+    #cpFsBtn { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: #00251a; color: var(--accent-gold); border-radius: 50%; z-index: 1000; font-size: 24px; border: 2px solid var(--accent-gold); display:flex; align-items:center; justify-content:center; }
+
+    /* Security Overlay & Welcome Note */
+    #securityOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #00100a; z-index: 99999; display: flex; align-items: center; justify-content: center; }
+    
+    .sec-box { 
+        background: #00251a; 
+        padding: 50px; 
+        border: 2px solid var(--accent-gold); 
+        text-align: center !important; /* FORCED CENTER */
+        width: 500px; 
+    }
+    
+    /* Force children of sec-box to be centered regardless of global settings */
+    .sec-box h1, .sec-box h2, .sec-box p, .sec-box div {
+        text-align: center !important;
+    }
+
+    .admin-pic { width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--accent-gold); margin-bottom: 20px; background: #000; }
+    
+    .sec-input { background: #fff; color: #000; border: none; padding: 15px; font-size: 22px; width: 100%; margin-top: 20px; text-align: center; border-radius: 4px; font-family: monospace; }
+    .sec-btn { background: var(--accent-gold); color: #00251a; width: 100%; margin-top: 25px; padding: 15px; font-size: 18px; border: none; font-weight: bold; }
+
+    .dev-credits { text-align:center; font-size:12px; color:#4db6ac; margin-top: 20px; border-top: 1px solid #004d40; padding-top: 10px; padding-bottom: 15px; }
+    .dev-name { color: #fff; font-weight:bold; }
+    
+    .locked-zone { opacity: 0.5; pointer-events: none; filter: grayscale(0.8); }
     </style>
+    
 </head>
 <body oncontextmenu="return false;">
 
-    <button id="cpFsBtn" onclick="toggleControlFS()" title="ފުލް ސްކްރީން">⛶</button>
+    <button id="cpFsBtn" onclick="toggleControlFS()" title="Full Screen">⛶</button>
 
     <div id="securityOverlay">
-        <div class="sec-box">
-            <h1 style="color:#fff; font-size:45px; margin-bottom:10px; text-shadow:0 2px 5px #000;">Royal Graduation V33.0</h1>
-            <p style="color:#a0c4ff; font-size:18px; margin-bottom:30px;">🔒 PLATINUM EDITION - NAVIGATION & FLEX</p>
-            <input type="password" id="licenseKey" class="sec-input" placeholder="Enter Key...">
-            <button class="sec-btn" onclick="verifyLicense()">AUTHENTICATE</button>
-            <p id="secMsg" style="color:#ff5252; font-size:16px; margin-top:20px; font-weight:bold;"></p>
+    <div class="sec-box" style="width: 500px; max-width: 90vw; padding: 40px 30px; box-sizing: border-box; max-height: 98vh; overflow-y: auto;">
+        
+        <img src="Photos/ali.png" class="admin-pic" alt="Ali Ibrahim Didi">
+        
+        <h1 style="color:#FFD700; font-size:20px; margin:0 0 5px 0; font-family:'Times New Roman', serif; text-transform:uppercase; letter-spacing:1px;">
+            Warm Welcome to
+        </h1>
+        <h2 style="color:#fff; font-size:26px; margin:0 0 20px 0; text-shadow:0 2px 5px #000; line-height: 1.2;">
+            Rasfahi Event and Graduation Software
+        </h2>
+
+        <p style="color:#bbdefb; font-size:13px; margin-bottom:15px;">
+            Paste subscription code using <b>Ctrl + V</b>.<br>
+            <span style="color:#ffcc80;">⚠️ No spaces allowed! Invalid if spaced.</span>
+        </p>
+
+        <input type="password" id="licenseKey" class="sec-input" placeholder="Paste Key Here..." style="font-size:16px; padding: 10px; margin-top:0;">
+        <button class="sec-btn" onclick="verifyLicense()" style="margin-top: 15px; padding: 10px; font-size:16px;">AUTHENTICATE</button>
+        <p id="secMsg" style="color:#ff5252; font-size:14px; margin-top:10px; font-weight:bold; min-height:20px;"></p>
+
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.15); margin: 20px 0;">
+
+        <div style="text-align:center; font-size:11px; color:#b0bec5; line-height:1.4;">
+            <p style="margin-bottom:8px;">
+                Intellectual property of <strong>Ali Ibrahim Didi</strong>.<br>
+                Registered under Maldives Copyright Law.<br>
+                <span style="color:#fff;">Reg: MED.03.IP.CR.26.EW5889</span>
+            </p>
+
+            <div style="color:#ff1744; font-weight:bold; background:rgba(40,0,0,0.3); padding:8px; border:1px solid #ff1744; border-radius:4px; margin-bottom:10px;">
+                ⛔ Unauthorized use will result in legal action.
+            </div>
+
+            <p style="color:#64b5f6; margin:0;">
+                Support: <b>7791550</b> / <b>9901550</b>
+            </p>
         </div>
     </div>
+</div>
+</body>
 <div style="margin-top:10px;">
                         
     <div class="main-layout" id="mainApp">
         <div class="sidebar">
             <div class="lang-tabs">
-                <a href="#" class="lang-btn active">ދިވެހި</a>
-                <a href="#" class="lang-btn">English</a>
-                <a href="#" class="lang-btn">عربي</a>
+                <a href="RASFAHI-portal-1.html" class="lang-btn active">ST.1</a>
+                <a href="RASFAHI-portal-2.html" class="lang-btn">ST.2</a>
+                <a href="RASFAHI-portal-3.html" class="lang-btn">ST.3</a>
             </div>
 
             <div class="royal-banner">
-                <span class="banner-main">EVENT AND GRADUATION CEREMONY SOFTWARE</span>
-                <span class="banner-sub">ރޯޔަލް ގުރެޖުއޭޝަން ސިސްޓަމް</span>
+                <span class="banner-main">RASFAHI-EVENT AND GRADUATION CEREMONY SOFTWARE</span>
+                <span class="banner-sub">Rasfahi Portal</span>
             </div>
 
             <div id="licenseStatus" style="font-size:13px; color:#0d47a1; text-align:center; margin-bottom:10px; font-weight:bold;"></div>
 
-            <button class="launch-btn" onclick="openTV()">🖥️ 1. ޓީވީ ސްކްރީން ހުޅުއްވާ</button>
-            <div id="connStatus" style="font-size:14px; color:red; text-align:center; background:#ffebee; padding:4px; border-radius:4px; margin-bottom:10px; border:1px solid #ffcdd2;">ކަނެކްޓް ނުވޭ</div>
+            <button class="launch-btn" onclick="openTV()">🖥️ Turn on the TV screen</button>
+            <div id="connStatus" style="font-size:14px; color:red; text-align:center; background:#ffebee; padding:4px; border-radius:4px; margin-bottom:10px; border:1px solid #ffcdd2;">Not Connected</div>
 
             <div id="configPanel" class="config-btn-row">
-                <button class="conf-btn" onclick="downloadConfig()">⬇ ސޭވް ސެޓިންގްސް</button>
-                <button class="conf-btn" onclick="document.getElementById('confInput').click()">⬆ ލޯޑް ސެޓިންގްސް</button>
+                <button class="conf-btn" onclick="downloadConfig()">⬇ Save Configuration Settings</button>
+                <button class="conf-btn" onclick="document.getElementById('confInput').click()">⬆ Load Configuration Settings</button>
                 <input type="file" id="confInput" accept=".json" style="display:none" onchange="loadConfig(this)">
             </div>
 
             <div id="sidebarFiles">
-                <label style="margin-top:15px; color:#00281c;">🔍 ދަރިވަރުން ހޯއްދަވާ:</label>
+                <label style="margin-top:15px; color:#00281c;">🔍 Search Students:</label>
             <div style="display:flex; gap:0; margin-bottom:5px;">
-                <button class="list-switch-btn active" id="btnGenList" onclick="switchListMode('general')">👥 ޢާންމު ލިސްޓު</button>
-                <button class="list-switch-btn" id="btnTop5List" onclick="switchListMode('top5')">🏆 Top 5 ލިސްޓު</button>
+                <button class="list-switch-btn active" id="btnGenList" onclick="switchListMode('general')">👥 General List</button>
+                <button class="list-switch-btn" id="btnTop5List" onclick="switchListMode('top5')">🏆 Top 5 List</button>
             </div>
-            <input type="text" id="search" placeholder="ނަން ޖައްސަވާ..." onkeyup="filterList()">
+            <input type="text" id="search" placeholder="Type Name..." onkeyup="filterList()">
             
             <select id="stuList" size="10" style="flex-grow:1; border:1px solid #ccc; min-height: 200px;" onchange="loadStudent()"></select>
             
-                <label style="color:#0d47a1; border-bottom:1px solid #e3f2fd; padding-bottom:5px; margin-bottom:8px; font-size:16px; font-weight:bold;">📂 ސިސްޓަމް ފައިލްތައް</label>
+                <label style="color:#0d47a1; border-bottom:1px solid #e3f2fd; padding-bottom:5px; margin-bottom:8px; font-size:16px; font-weight:bold;">📂 System Files</label>
                 <div style="margin-bottom: 15px; text-align: center;">
         <a href="https://drive.google.com/drive/folders/1qcCTdxUv9gssjBjQ2LFKNDjxb2sWK1Xl?usp=drive_link" target="_blank" style="text-decoration:none;">
             <button style="width:100%; background: #e8f0fe; color: #1967d2; border: 1px solid #1967d2; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s;">
-                📂 ސާމްޕަލް ފައިލްތައް ޑައުންލޯޑް (G-Drive)
+                📂 Download Sample Files (G-Drive)
             </button>
         </a>
         <small style="color: #666; font-size: 11px;">(Excel, Photos, Fonts & CSV Samples)</small>
     </div>
-                <label>1. ކުދިންގެ ލިސްޓު (CSV):</label><input type="file" id="csvFile" accept=".csv">
-                <label>2. ފޮޓޯ ފޯލްޑަރ:</label><input type="file" id="photoFolder" webkitdirectory directory multiple>
-                <label style="color:#2e7d32;">3. މެއިން ލޯގޯތައް (Max 5):</label><input type="file" id="mainLogosInput" accept="image/*" multiple onchange="loadMainLogos(this)">
-                <label>4. ކަސްޓަމް ފޮންޓް (TTF):</label><input type="file" id="fontFile" accept=".ttf, .otf">
-                <label>5. ޖަލްސާގެ ނަންތައް (CSV):</label><input type="file" id="jalsaCsvFile" accept=".csv">
-                <label style="color:#d84315;">6. ކަސްޓަމް ފްރޭމް:</label><input type="file" id="customBorderFile" accept="image/*">
+                <label>1. Students List (CSV):</label><input type="file" id="csvFile" accept=".csv">
+                <label>2. Students Photo Folder:</label><input type="file" id="photoFolder" webkitdirectory directory multiple>
+                <label style="color:#2e7d32;">3. Main Logos (Max 5):</label><input type="file" id="mainLogosInput" accept="image/*" multiple onchange="loadMainLogos(this)">
+                <label>4. Custom Font (TTF):</label><input type="file" id="fontFile" accept=".ttf, .otf">
+                <label>5. Event Title (CSV):</label><input type="file" id="jalsaCsvFile" accept=".csv">
+                <label style="color:#d84315;">6. Custom Frame:</label><input type="file" id="customBorderFile" accept="image/*">
                 
                 <hr>
-                <label style="color:#2e7d32;">7. ޕާޓްނަރުންގެ ލޯގޯތައް:</label>
+                <label style="color:#2e7d32;">7. Partner Logos:</label>
                 <input type="file" id="partnerLogos" accept="image/*" multiple onchange="loadPartnerLogos(this)">
                 
-                <label style="color:#c62828;">8. އިޝްތިހާރު / ބެނާ (Photo/Video):</label>
+                <label style="color:#c62828;">8. Advertisement / Banner (Photo/Video):</label>
                 <input type="file" id="adFolder" accept="image/*, video/*" multiple onchange="loadAds(this)">
                 
-                <label style="color:#6a1b9a;">9. ކަސްޓަމް ކާޑު ބެކްގްރައުންޑް:</label>
+                <label style="color:#6a1b9a;">9. Custom Card Background:</label>
                 <input type="file" id="customCardBgFile" accept="image/*" onchange="loadCustomCardBg(this)">
                 
-                <label style="color:#d32f2f;">10. ޕީޑީއެފް (PDF) ޕްރެޒެންޓޭޝަން:</label>
+                <label style="color:#d32f2f;">10. PDF Presentation:</label>
                 <input type="file" id="pdfFile" accept="application/pdf" onchange="loadPDF(this)">
                 
                 <hr style="border: 2px dashed #ffb300;">
                 <label style="color:#ff6f00; font-weight:900;">11. TOP 5 LIST (CSV):</label>
                 <input type="file" id="top5CsvFile" accept=".csv" onchange="loadTop5Csv(this)">
                 
-                <label style="color:#ff6f00; font-weight:900;">13. TOP 5 VIDEOS:</label>
+                <label style="color:#ff6f00; font-weight:900;">12. TOP 5 VIDEOS:</label>
                 <input type="file" id="top5VideoFiles" accept="video/*" multiple onchange="loadTop5Videos(this)">
                 
                 <hr style="border: 2px dashed #ffb300;">
-                <label style="color:#ffd700; font-weight:900;">14. ROYAL STAR ICON (PNG):</label>
+                <label style="color:#ffd700; font-weight:900;">13. ROYAL STAR ICON (PNG):</label>
                 <input type="file" id="royalStarFile" accept="image/*" onchange="loadRoyalStar(this)">
                 
-                <label style="color:#ffd700; font-weight:900;">15. TROPHY ICON (PNG):</label>
+                <label style="color:#ffd700; font-weight:900;">14. TROPHY ICON (PNG):</label>
                 <input type="file" id="trophyFile" accept="image/*" onchange="loadTrophy(this)">
             </div>
 
             
             <div class="dev-credits">
-                <span style="display:block; margin-bottom:3px;">ޕްރޮގްރާމް ޑިޒައިންކޮށް އުފެއްދީ:</span>
-                <span class="dev-name">ޑިވެލޮޕަރ ޢަލީ އިބްރާހީމް ދީދީ (7791550)</span>
+                <span style="display:block; margin-bottom:3px;">Program Designed & Developed by:</span>
+                <span class="dev-name">Ali Ibrahim Didi (+9607791550)</span>
                 <span class="company-name">ZAAD RESEARCH AND PUBLISHING CONSULTANCY FIRM</span>
             </div>
         </div>
 
         <div class="editor" id="editorPanel">
-            <button id="lockBtn" onclick="toggleLock()">🔓 ހުޅުވިފައި (ބަދަލުކުރެވޭ މޯޑު)</button>
+            <button id="lockBtn" onclick="toggleLock()">🔓 Unlocked (Editable Mode)</button>
             <div id="infoPanel" style="background:#fff; padding:20px; border-radius:10px; border:2px solid #90caf9; margin:15px 0; box-shadow:0 3px 10px rgba(0,0,0,0.05);">
-                <label style="color:#d32f2f;">🚀 SCENE SWITCHER (ގަޑި ނުޖެހި ބަދަލުކުރައްވާ):</label>
+                <label style="color:#d32f2f;">🚀 SCENE SWITCHER (Change before time runs out):</label>
                 <div id="listPanel" style="display:flex; gap:0; margin-bottom:5px;">
                     <button class="btn-live" style="background:#455a64; border-color:#37474f;" onclick="showJalsaScreen()">🏠 TITLE SCREEN</button>
                     <button class="btn-live" style="background:#0d47a1; border-color:#002171;" onclick="forceStudentCard()">🎓 STUDENT</button>
@@ -351,20 +373,19 @@
                 </div>
             </div>
 <div style="background:#ede7f6; padding:10px; border-radius:8px; border:1px solid #b39ddb; margin-bottom:15px;">
-               <div style="background:#ede7f6; padding:10px; border-radius:8px; border:1px solid #b39ddb; margin-bottom:15px;">
    
     <div style="border-top: 1px dashed #9575cd; padding-top: 5px; margin-top: 5px;">
         
             <div class="controls" style="display: flex; justify-content: center; gap: 10px;">
                 <button class="action btn-nav" onclick="move(-1)">◀</button>
-                <button class="action btn-live" onclick="updateTV()">📺 ލައިވް ކުރޭ</button>
+                <button class="action btn-live" onclick="updateTV()">📺 Display Student Name</button>
                 <button class="action btn-nav" onclick="move(1)">▶</button>
                 <button class="action btn-nav" style="background:#c62828; font-size:16px;" onclick="clearTV()">X</button>
-                <button class="action btn-nav" style="background:#f9a825; font-size:16px;" onclick="toggleAdsMode()" title="އިޝްތިހާރު މޯޑު">📢</button>
+                <button class="action btn-nav" style="background:#f9a825; font-size:16px;" onclick="toggleAdsMode()" title="Advertisement Mode">📢</button>
             </div>
 
            <div class="video-panel">
-    <div style="font-weight:bold; color:#0277bd; margin-bottom:5px;">🎞️ ވީޑިއޯ ޕްލޭޔަރ & ޕްރެޒެންޓޭޝަން</div>
+    <div style="font-weight:bold; color:#0277bd; margin-bottom:5px;">🎞️ Video Player & Presentation</div>
     
     <div style="display:flex; gap:8px;">
         <label style="width:70%; font-size:12px; color:#555;">General Video Playlist:</label>
@@ -380,7 +401,7 @@
                 <div style="display:flex; gap:10px; margin-top:5px; flex-wrap:wrap; background:#fff; padding:5px; border-radius:5px;">
     
     <label style="font-size:12px; display:inline-flex; align-items:center;">
-        <input type="checkbox" id="vidOverlayCheck" onchange="toggleOverlayMode(this.checked)"> ވީޑިއޯ މަތީ ކާޑު (Overlay)
+        <input type="checkbox" id="vidOverlayCheck" onchange="toggleOverlayMode(this.checked)"> Video Overlay Card (Overlay)
     </label>
 
     <label style="font-size:12px; display:inline-flex; align-items:center; color:#c62828;">
@@ -388,7 +409,7 @@
     </label>
 
     <label style="font-size:12px; display:inline-flex; align-items:center; color:#e65100;">
-        <input type="checkbox" id="hideTrophyCheck" onchange="toggleTrophyVisibility(this.checked)"> <b>🚫 ޓްރޮފީ ފޮރުވާ</b>
+        <input type="checkbox" id="hideTrophyCheck" onchange="toggleTrophyVisibility(this.checked)"> <b>🚫 Hide Trophy</b>
     </label>
 
     <button class="btn-vid" style="background:#37474f; width:auto;" onclick="stopVideo()">⏹ Stop</button>
@@ -412,16 +433,16 @@
                 </div>
                 
                 <div style="display:flex; gap:8px; margin-top:10px;">
-                    <input type="text" id="ytLink" placeholder="ޔޫޓިއުބް ލިންކް (Any Format)..." style="width:50%; text-align:left;" class="font-en">
-                    <button class="btn-vid" style="background:#c62828; width:30%;" onclick="playYoutube()">▶ ޔޫޓިއުބް</button>
-                    <button class="btn-vid" style="background:#0277bd; width:20%;" onclick="openYTPopup()">⚠️ ޕޮޕްއަޕް</button>
+                    <input type="text" id="ytLink" placeholder="YouTube Link (Any Format)..." style="width:50%; text-align:left;" class="font-en">
+                    <button class="btn-vid" style="background:#c62828; width:30%;" onclick="playYoutube()">▶ YouTube</button>
+                    <button class="btn-vid" style="background:#0277bd; width:20%;" onclick="openYTPopup()">⚠️ Pop-up</button>
                 </div>
                 
                 <div style="margin-top:10px;">
                     <button class="btn-vid" style="background:#2e7d32; width:100%; font-weight:bold;" onclick="forceShowTitles()">🔄 Force Refresh Titles</button>
                 </div>
             </div>
-    <div id="statusMsg" style="font-weight:bold; color:#00695c; text-align:center; font-size:18px; margin:5px 0;">ސިސްޓަމް ރެޑީ</div>
+    <div id="statusMsg" style="font-weight:bold; color:#00695c; text-align:center; font-size:18px; margin:5px 0;">System Ready</div>
 <div style="background:#ede7f6; padding:10px; border-radius:8px; border:1px solid #b39ddb; margin-bottom:15px; margin-top:10px;">
     <label style="color:#512da8; font-size:14px; margin-bottom:5px; font-weight:bold; display:block;">🖥️ 3-Screen Controls & Calibration:</label>
 
@@ -463,21 +484,21 @@
 </div>
             
             <div style="background:#fff; padding:20px; border-radius:10px; border:2px solid #90caf9; margin:15px 0; box-shadow:0 3px 10px rgba(0,0,0,0.05);">
-                <h3 style="margin-top:0; font-size:22px; color:#0d47a1; border-bottom:1px solid #e3f2fd; padding-bottom:5px;">🎓 ދަރިވަރުގެ މަޢުލޫމާތު</h3>
+                <h3 style="margin-top:0; font-size:22px; color:#0d47a1; border-bottom:1px solid #e3f2fd; padding-bottom:5px;">🎓 Student Information</h3>
                 
                 <div style="margin-bottom: 10px;">
-                    <label style="font-size:14px; color:#555;">ނަން (ދިވެހި):</label>
-                    <input id="nD" class="font-dv" placeholder="ނަން (ދިވެހި)" style="width:100%;">
+                    <label style="font-size:14px; color:#555;">Name (Dhivehi):</label>
+                    <input id="nD" class="font-dv" placeholder="Name (Dhivehi)" style="width:100%;">
                 </div>
                 
                 <div style="margin-bottom: 15px;">
-                    <label style="font-size:14px; color:#555; text-align:right; display:block;">ނަން (އިނގިރޭސި):</label>
+                    <label style="font-size:14px; color:#555; text-align:right; display:block;">Name (English):</label>
                     <input id="nE" class="eng" placeholder="Name (English)" style="width:100%; text-align:left;">
                 </div>
                 
                 <div class="row" style="display:flex; gap:10px; width:100%;">
                     <div class="col" style="flex:1;">
-                        <input id="fD" class="font-dv" placeholder="ތަފްސީލު 1 (ދިވެހި)" style="width:100%; text-align:right;">
+                        <input id="fD" class="font-dv" placeholder="Detail 1 (Dhivehi)" style="width:100%; text-align:right;">
                     </div>
                     <div class="col" style="flex:1;">
                         <input id="fE" class="eng" placeholder="Detail 1 (English)" style="width:100%; direction:ltr; text-align:left;">
@@ -486,7 +507,7 @@
 
                 <div class="row" style="display:flex; gap:10px; width:100%; margin-top:5px;">
                     <div class="col" style="flex:1;">
-                        <input id="cD" class="font-dv" placeholder="ތަފްސީލު 2 (ދިވެހި)" style="width:100%; text-align:right;">
+                        <input id="cD" class="font-dv" placeholder="Detail 2 (Dhivehi)" style="width:100%; text-align:right;">
                     </div>
                     <div class="col" style="flex:1;">
                         <input id="cE" class="eng" placeholder="Detail 2 (English)" style="width:100%; direction:ltr; text-align:left;">
@@ -498,20 +519,20 @@
                     <input id="rankInput" placeholder="1, 2, 3..." style="width:100%;">
                 </div>
                 
-                <textarea id="cm" rows="2" class="font-dv" placeholder="އިތުރު މަޢުލޫމާތު..."></textarea>
+                <textarea id="cm" rows="2" class="font-dv" placeholder="Additional Information..."></textarea>
 
                 <div class="preview-container">
                     <div><img id="logoPreview" alt="Logo" style="height:50px; opacity:0.5;"></div>
                     <div style="text-align:center;">
-                        <span id="pStat" style="font-size:14px; font-weight:bold; color:#777;">ފޮޓޯއެއް ނެތް</span><br>
+                        <span id="pStat" style="font-size:14px; font-weight:bold; color:#777;">No Photo</span><br>
                         <img id="previewImg" src="https://via.placeholder.com/150">
-                        <br><button style="font-size:12px; padding:3px 8px; margin-top:5px; background:#607d8b; color:#fff; border:none; border-radius:4px;" onclick="document.getElementById('singlePhoto').click()">ބަދަލުކުރޭ</button>
+                        <br><button style="font-size:12px; padding:3px 8px; margin-top:5px; background:#607d8b; color:#fff; border:none; border-radius:4px;" onclick="document.getElementById('singlePhoto').click()">Change</button>
                         <input type="file" id="singlePhoto" accept="image/*" style="display:none" onchange="manualPhoto(this)">
                     </div>
                 </div>
             </div>
 
-            <div style="text-align:center; font-size:15px; color:#777; margin:20px 0; font-weight:bold; letter-spacing:1px; background:#eceff1; padding:5px; border-radius:20px;">⬇ ސެޓިންގްސް އަދި ޑިޒައިން ކޮންޓްރޯލް ⬇</div>
+            <div style="text-align:center; font-size:15px; color:#777; margin:20px 0; font-weight:bold; letter-spacing:1px; background:#eceff1; padding:5px; border-radius:20px;">⬇ Settings and Design Control ⬇</div>
 
             <div id="designPanel"> 
                 <div class="group-box" style="border-color:#ffca28; background:#fffde7;">
@@ -523,8 +544,8 @@
                              <span style="font-weight:bold; font-size:14px;">1. Banner Layout Position:</span>
                              <select id="t5LayoutSel" onchange="liveUpdate('t5Layout', this.value)" style="width:100%; font-weight:bold; color:#d84315;">
                                  <option value="bottom">Bottom Banner (Default)</option>
-                                 <option value="left">Left Sidebar (ވާތް)</option>
-                                 <option value="right">Right Sidebar (ކަނާތް)</option>
+                                 <option value="left">Left Sidebar (Left)</option>
+                                 <option value="right">Right Sidebar (Right)</option>
                              </select>
                         </div>
                         
@@ -640,29 +661,29 @@
                 </div>
 
                 <div class="group-box">
-                    <span class="group-title">🌍 ތީމް އަދި ބެކްގްރައުންޑް</span>
+                    <span class="group-title">🌍 Theme and Background</span>
                     <div class="design-col">
-                        <span class="d-label">1. ވޯލްޕޭޕަރ ބެކްގްރައުންޑް:</span>
+                        <span class="d-label">1. Wallpaper Background:</span>
                         <div style="display:flex; gap:10px;">
                             <select id="bgPresetSel" onchange="liveUpdate('bgPreset', this.value)" style="width:70%;">
     
-    <optgroup label="👑 ޝާހީ ފެހި (Royal Green)">
+    <optgroup label="👑 Royal Green (Royal Green)">
         <script> for(let i=1; i<=20; i++) document.write(`<option value="bg${i}">Royal Green ${i}</option>`); </script>
     </optgroup>
 
-    <optgroup label="👑 ޝާހީ ނޫ (Royal Blue)">
+    <optgroup label="👑 Royal Blue (Royal Blue)">
         <script> for(let i=21; i<=40; i++) document.write(`<option value="bg${i}">Royal Blue ${i}</option>`); </script>
     </optgroup>
 
-    <optgroup label="👑 ޝާހީ ރަތް (Royal Red)">
+    <optgroup label="👑 Royal Red (Royal Red)">
         <script> for(let i=41; i<=60; i++) document.write(`<option value="bg${i}">Royal Red ${i}</option>`); </script>
     </optgroup>
 
-    <optgroup label="⚫ ލަގްޒަރީ ކަޅު (Luxury Black)">
+    <optgroup label="⚫ Luxury Black (Luxury Black)">
         <script> for(let i=61; i<=80; i++) document.write(`<option value="bg${i}">Luxury Dark ${i}</option>`); </script>
     </optgroup>
 
-    <optgroup label="🌐 އެހެނިހެން (Modern/Mixed)">
+    <optgroup label="🌐 Others (Modern/Mixed)">
         <script> for(let i=81; i<=200; i++) document.write(`<option value="bg${i}">Theme ${i}</option>`); </script>
     </optgroup>
 
@@ -671,17 +692,17 @@
                         </div>
                         <div style="margin-top:8px;">
                             <select id="bgLoopSel" onchange="liveUpdate('bgLoop', this.value)" style="background:#fff;">
-                                <option value="on">ވީޑިއޯ ތަކުރާރު: އާނ</option>
-                                <option value="off">ވީޑިއޯ ތަކުރާރު: ނޫން</option>
+                                <option value="on">Video Loop: Yes</option>
+                                <option value="off">Video Loop: No</option>
                             </select>
                         </div>
                         
-                        <span class="d-label">2. ދަރިވަރުގެ ކާޑު ޑިޒައިން (Normal Mode):</span>
+                        <span class="d-label">2. Student Card Design (Normal Mode):</span>
 <div style="display:flex; gap:10px;">
 
    <select id="cBorderSel" onchange="liveUpdate('cBorder', this.value)" style="width:75%;">
-    <option value="custom_bg">🖼️ ކަސްޓަމް ބެކްގްރައުންޑް (Image)</option>
-    <option value="custom">🖼️ އަމިއްލަ ފްރޭމް (Frame)</option>
+    <option value="custom_bg">🖼️ Custom Background (Image)</option>
+    <option value="custom">🖼️ Custom Frame (Frame)</option>
     
     <optgroup label="👑 1. The Golden State (Gold & Black)">
         <script> for(let i=1; i<=20; i++) document.write(`<option value="b${i}">Style ${i} - Presidential Gold</option>`); </script>
@@ -703,82 +724,82 @@
         <script> for(let i=81; i<=100; i++) document.write(`<option value="b${i}">Style ${i} - VVIP Modern</option>`); </script>
     </optgroup>
 
-    <option value="b0">🚫 ބޯޑަރެއް ނެތް (ޓްރާންސްޕޭރެންޓް)</option>
+    <option value="b0">🚫 No Border (Transparent)</option>
 </select>
 
     <input type="color" id="bdColorPick" value="#d4af37" oninput="liveUpdate('bdColor', this.value)" title="Theme Color">
 </div>
-                        <span class="d-label">3. ކާޑުގެ މަޤާމް (ޕޮޒިޝަން):</span>
+                        <span class="d-label">3. Card Position:</span>
                         <div style="display:flex; gap:10px; align-items:center; background:#fff; padding:10px; border-radius:8px; border:1px solid #ccc;">
-                            <span style="font-size:14px; font-weight:bold;">ކަނާތް/ވާތް:</span>
+                            <span style="font-size:14px; font-weight:bold;">Right/Left:</span>
                             <input type="range" id="cardXRange" min="-600" max="600" value="0" oninput="liveUpdate('cardX', this.value)">
-                            <span style="font-size:14px; font-weight:bold;">މަތި/ތިރި:</span>
+                            <span style="font-size:14px; font-weight:bold;">Top/Bottom:</span>
                             <input type="range" id="cardYRange" min="-450" max="450" value="0" oninput="liveUpdate('cardY', this.value)">
                         </div>
 
-                        <span class="d-label">4. ކާޑުގެ ސައިޒް:</span>
+                        <span class="d-label">4. Card Size:</span>
                         <div style="display:flex; gap:15px; align-items:center;">
-                            <span style="font-size:14px; font-weight:bold;">ފުޅާމިން:</span>
+                            <span style="font-size:14px; font-weight:bold;">Width:</span>
                             <input type="range" id="cardWRange" min="50" max="100" value="90" oninput="liveUpdate('cardW', this.value)">
-                            <span style="font-size:14px; font-weight:bold;">އުސްމިން:</span>
+                            <span style="font-size:14px; font-weight:bold;">Height:</span>
                             <input type="range" id="cardHRange" min="50" max="100" value="80" oninput="liveUpdate('cardH', this.value)">
                         </div>
                         <div style="display:flex; gap:10px; margin-top:8px;">
                             <select id="layoutDirSel" onchange="liveUpdate('layoutDir', this.value)" style="width:50%;">
-                                <option value="rtl">ފޮޓޯ ކަނާތް ފަރާތުގައި (RTL)</option>
-                                <option value="ltr">ފޮޓޯ ވާތް ފަރާތުގައި (LTR)</option>
+                                <option value="rtl">Photo on Right (RTL)</option>
+                                <option value="ltr">Photo on Left (LTR)</option>
                             </select>
                             <select id="textAlignSel" onchange="liveUpdate('textAlign', this.value)" style="width:50%;">
-                                <option value="right">ލިޔުން: ކަނާތަށް</option>
-                                <option value="center">ލިޔުން: މެދަށް</option>
-                                <option value="left">ލިޔުން: ވާތަށް</option>
+                                <option value="right">Text: Right / Align Right</option>
+                                <option value="center">Text: Center / Align Center</option>
+                                <option value="left">Text: Left / Align Left</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
                 <div class="group-box">
-                    <span class="group-title">📸 ފޮޓޯ ސްޓޫޑިއޯ</span>
+                    <span class="group-title">📸 Photo Studio</span>
                     
-                    <span class="d-label">1. ފްރޭމް ސްޓައިލް:</span>
+                    <span class="d-label">1.Frame Style:</span>
                     <select id="photoPresetSel" onchange="applyPhotoPreset(this.value)" style="width:100%; font-weight:bold; font-size:15px; padding:10px;">
-                        <option value="0">--- ފްރޭމް ސްޓައިލް ނަގާ ---</option>
-                        <optgroup label="ބޯޑަރެއް ނުވަތަ ޝެޑޯއެއް ނެތް">
-                            <option value="1">1. އާދައިގެ (ބޯޑަރެއް ނެތް)</option>
-                            <option value="2">2. މަޑު ހިޔަނި (Soft Shadow)</option>
-                            <option value="3">3. ގަދަ ހިޔަނި (Hard Shadow)</option>
-                            <option value="4">4. ދިއްލޭ ގޮތަށް (Glow)</option>
+                        <option value="0">--- Select Frame Style ---</option>
+                        <optgroup label="No Border or Shadow">
+                            <option value="1">1. Normal (No Border)</option>
+                            <option value="2">2. Soft Shadow</option>
+                            <option value="3">3. Hard Shadow</option>
+                            <option value="4">4. Glow</option>
                         </optgroup>
-                        <optgroup label="އާދައިގެ ބޯޑަރު">
-                            <option value="5">5. ހިމަ ކަޅު ރޮނގު</option>
-                            <option value="6">6. ބޯ ނޫ ފްރޭމް</option>
-                            <option value="7">7. ތިކި ޖެހި ރޮނގު</option>
-                            <option value="8">8. ކެނޑިފައިވާ ރޮނގު</option>
-                            <option value="9">9. ޑަބަލް ލައިން</option>
-                            <option value="10">10. ވަށް ކަނެއް (Rounded)</option>
-                            <option value="11">11. ވަށް ބުރު (Circle)</option>
+                        <optgroup label="Basic Borders">
+                            <option value="5">5. Thin Black Line</option>
+                            <option value="6">6. Thick Blue Frame</option>
+                            <option value="7">7. Dotted Line</option>
+                            <option value="8">8. Dashed Line</option>
+                            <option value="9">9. Double Line</option>
+                            <option value="10">10. Rounded Corners</option>
+                            <option value="11">11. Circle</option>
                         </optgroup>
-                        <optgroup label="ކްރިއޭޓިވް">
-                            <option value="12">12. އެތެރެއަށް ވަދެފައި (Inset 3D)</option>
-                            <option value="13">13. ބޭރަށް ނުކުމެފައި (Outset 3D)</option>
-                            <option value="14">14. ޕޮލަރޮއިޑް ސްޓައިލް</option>
-                            <option value="15">15. ރަން ކުލައިގެ ގްރޫވް</option>
-                            <option value="16">16. ކާޑު ސްޓައިލް</option>
+                        <optgroup label="Creative">
+                            <option value="12">12. Inset 3D</option>
+                            <option value="13">13. Outset 3D</option>
+                            <option value="14">14. Polaroid Style</option>
+                            <option value="15">15. Golden Groove</option>
+                            <option value="16">16. Card Style</option>
                         </optgroup>
                     </select>
 
-                    <span class="d-label">2. ފްރޭމް އެޖަސްޓްމަންޓް:</span>
+                    <span class="d-label">2. Frame Adjustment:</span>
                     <div style="display:flex; gap:10px; align-items:center; background:#fff; padding:10px; border-radius:8px; border:1px solid #b2dfdb;">
                         <span style="font-size:14px;">ކުލަ:</span><input type="color" id="pfColorPick" value="#000000" oninput="liveUpdate('pfColor', this.value)">
                         <span style="font-size:14px;">ފުޅާމިން:</span><input type="range" id="pfWidthRange" min="0" max="30" value="0" oninput="liveUpdate('pfWidth', this.value)">
                         <span style="font-size:14px;">ވަށް:</span><input type="range" id="pfRadiusRange" min="0" max="50" value="0" oninput="liveUpdate('pfRadius', this.value)">
                     </div>
                     
-                    <span class="d-label">3. ފޮޓޯގެ މަޤާމް އަދި ޒޫމް:</span>
+                    <span class="d-label">3. Photo Position & Zoom:</span>
                     <div style="display:flex; gap:10px; align-items:center;">
-                        <span style="font-size:14px; width:50px;">ޒޫމް:</span>
+                        <span style="font-size:14px; width:50px;">Zoom:</span>
                         <input type="range" id="pSizeRange" min="150" max="800" value="260" oninput="liveUpdate('pSize', this.value)">
-                        <select id="pVisSel" onchange="liveUpdate('pVis', this.value)" style="width:100px;"><option value="show">ދައްކާ</option><option value="hide">ފޮރުވާ</option></select>
+                        <select id="pVisSel" onchange="liveUpdate('pVis', this.value)" style="width:100px;"><option value="show">show</option><option value="hide">hide</option></select>
                     </div>
                     <div style="display:flex; gap:10px; margin-top:8px; align-items:center;">
                         <span style="font-size:14px; width:50px;">މޫވް:</span>
@@ -794,46 +815,46 @@
                 </div>
 
                 <div class="group-box">
-                    <span class="group-title">🔤 ލިޔުންތަކުގެ ޑިޒައިން (Normal Mode)</span>
+                    <span class="group-title">🔤 Text Alignment & Styling (Normal Mode)</span>
                     
-                    <span class="d-label">1. ދަރިވަރުގެ ނަން (ސައިޒް/ކުލަ):</span>
+                    <span class="d-label">1. Student Name (Size/Color):</span>
                     <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
-                        <span style="font-size:14px; width:60px;">ދިވެހި:</span>
+                        <span style="font-size:14px; width:60px;">Dhivehi:</span>
                         <input type="range" min="2" max="10" step="0.1" value="6.5" oninput="liveUpdate('tnDSize', this.value)">
                         <input type="color" value="#ffffff" oninput="liveUpdate('tnDColor', this.value)">
                     </div>
                     <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
-                        <span style="font-size:14px; width:60px;">އިނގިރޭސި:</span>
+                        <span style="font-size:14px; width:60px;">English:</span>
                         <input type="range" min="1" max="8" step="0.1" value="4.5" oninput="liveUpdate('tnESize', this.value)">
                         <input type="color" value="#ffffff" oninput="liveUpdate('tnEColor', this.value)">
                     </div>
                     <div style="margin-top:5px;">
                         <select onchange="liveUpdate('nLine', this.value)" style="background:#fff;">
-                            <option value="off">ނަމުގެ ތިރީ ރޮނގު: ނުލާ</option>
-                            <option value="on">ނަމުގެ ތިރީ ރޮނގު: ލާ</option>
+                            <option value="off">Underline Name: No</option>
+                            <option value="on">Underline Name: Yes</option>
                         </select>
                     </div>
                     
                     <hr style="border:1px dashed #aaa; margin:12px 0;">
 
-                    <span class="d-label">2. ތަފްސީލު ލައިންތައް:</span>
+                    <span class="d-label">2. Detail Lines:</span>
                     <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
-                        <span style="font-size:14px; width:60px;">ލައިން 1:</span>
+                        <span style="font-size:14px; width:60px;">Line1:</span>
                         <input type="range" min="1" max="6" step="0.1" value="2.5" oninput="liveUpdate('tfDSize', this.value)">
                         <input type="color" value="#fff9c4" oninput="liveUpdate('tfDColor', this.value)">
                     </div>
                     <div style="display:flex; gap:10px; align-items:center;">
-                        <span style="font-size:14px; width:60px;">ލައިން 2:</span>
+                        <span style="font-size:14px; width:60px;">Line 2:</span>
                         <input type="range" min="1" max="6" step="0.1" value="3.0" oninput="liveUpdate('tcDSize', this.value)">
                         <input type="color" value="#fff9c4" oninput="liveUpdate('tcDColor', this.value)">
                     </div>
                 </div>
 
                 <div class="group-box">
-                    <span class="group-title">👑 ޖަލްސާގެ ޓައިޓްލްތައް</span>
+                    <span class="group-title">👑 Event Titles</span>
                     
-                    <span class="d-label">1. މައި ޓައިޓްލް:</span>
-                    <input type="text" id="jLine1" placeholder="މައި ޓައިޓްލް..." class="font-dv" oninput="updateJalsaText()">
+                    <span class="d-label">1. Main Title:</span>
+                    <input type="text" id="jLine1" placeholder="Main Title..." class="font-dv" oninput="updateJalsaText()">
                     
                     <div style="margin-top:5px;">
                         <select onchange="liveUpdate('tLine', this.value)" style="width:100%; background:#fff;">
@@ -844,18 +865,18 @@
 
                     <div style="display:flex; align-items:center; gap:15px; margin-top:8px; background:#fff; padding:10px; border-radius:8px; border:1px solid #bbdefb;">
                         <div style="flex:1;">
-                            <span style="font-size:13px; color:#555; display:block;">މަތި/ތިރި (Y):</span>
+                            <span style="font-size:13px; color:#555; display:block;">Top/Bottom (Y):</span>
                             <input type="range" id="mtYRange" min="-600" max="600" value="210" oninput="liveUpdate('mtY', this.value)">
-                            <span style="font-size:13px; color:#555; display:block;">ކަނާތް/ވާތް (X):</span>
+                            <span style="font-size:13px; color:#555; display:block;">Right/Left (X):</span>
                             <input type="range" id="mtXRange" min="-800" max="800" value="0" oninput="liveUpdate('mtX', this.value)">
                         </div>
                     </div>
 
                     <div style="display:flex; gap:10px; margin-top:10px; align-items:center;">
-                        <span style="font-size:14px;">ސައިޒް:</span>
+                        <span style="font-size:14px;">Size:</span>
                         <input type="range" id="mtSizeRange" min="2" max="10" step="0.1" value="5.6" oninput="liveUpdate('mtSize', this.value)">
                         <input type="color" id="mtColorPick" value="#d4af37" oninput="liveUpdate('mtColor', this.value)">
-                        <select id="mtAlignSel" onchange="liveUpdate('mtAlign', this.value)" style="width:100px;"><option value="center">މެދަށް</option><option value="right">ކަނާތަށް</option><option value="left">ވާތަށް</option></select>
+                        <select id="mtAlignSel" onchange="liveUpdate('mtAlign', this.value)" style="width:100px;"><option value="center">Center</option><option value="right">Right</option><option value="left">Left</option></select>
                     </div>
                     <div style="margin-top:5px;">
                         <label style="font-size:13px;"><input type="checkbox" id="keepTitleCheck" onchange="liveUpdate('keepTitle', this.checked)"> Keep Title with Student Card</label>
@@ -863,7 +884,7 @@
 
                     <hr style="border:1px dashed #999; margin:15px 0;">
 
-                    <span class="d-label">2. ސަބް ޓައިޓްލްތައް (7 ފޮޅުވަތް):</span>
+                    <span class="d-label">2. Subtitles (7 Lines):</span>
                     
                     <div style="background:#e8eaf6; padding:10px; border-radius:8px; border:1px solid #c5cae9; margin-bottom:10px;">
                         <label style="font-size:12px;">Edit Style for Line:</label>
@@ -882,20 +903,20 @@
                         </div>
                     </div>
 
-                    <input type="text" id="jLine2" placeholder="ސަބް ޓައިޓްލް 1" class="sub-title-input">
-                    <input type="text" id="jLine3" placeholder="ސަބް ޓައިޓްލް 2" class="sub-title-input">
-                    <input type="text" id="jLine4" placeholder="ސަބް ޓައިޓްލް 3" class="sub-title-input">
-                    <input type="text" id="jLine5" placeholder="ސަބް ޓައިޓްލް 4" class="sub-title-input">
-                    <input type="text" id="jLine6" placeholder="ސަބް ޓައިޓްލް 5" class="sub-title-input">
-                    <input type="text" id="jLine7" placeholder="ސަބް ޓައިޓްލް 6" class="sub-title-input">
-                    <input type="text" id="jLine8" placeholder="ސަބް ޓައިޓްލް 7" class="sub-title-input">
+                    <input type="text" id="jLine2" placeholder="Subtitle 1" class="sub-title-input">
+                    <input type="text" id="jLine3" placeholder="Subtitle 2" class="sub-title-input">
+                    <input type="text" id="jLine4" placeholder="Subtitle 3" class="sub-title-input">
+                    <input type="text" id="jLine5" placeholder="Subtitle 4" class="sub-title-input">
+                    <input type="text" id="jLine6" placeholder="Subtitle 5" class="sub-title-input">
+                    <input type="text" id="jLine7" placeholder="Subtitle 6" class="sub-title-input">
+                    <input type="text" id="jLine8" placeholder="Subtitle 7" class="sub-title-input">
                     
                     <div style="display:flex; gap:10px; margin-top:8px; align-items:center;">
-                        <span style="font-size:14px;">އެލައިން:</span>
+                        <span style="font-size:14px;">Align:</span>
                         <select id="stAlignSel" onchange="liveUpdate('stAlign', this.value)" style="width:100%; background:#fff;">
-                            <option value="center">މެދަށް</option>
-                            <option value="right">ކަނާތަށް</option>
-                            <option value="left">ވާތަށް</option>
+                            <option value="center">Center</option>
+                            <option value="right">Right</option>
+                            <option value="left">Left</option>
                         </select>
                     </div>
                     <div style="display:flex; gap:10px; margin-top:8px; align-items:center;">
@@ -908,16 +929,16 @@
                     </div>
                     <div style="margin-top:5px;">
                         <select onchange="liveUpdate('stLine', this.value)" style="background:#fff;">
-                            <option value="off">ސަބް ޓައިޓްލް ރޮނގު: ނުލާ</option>
-                            <option value="on">ސަބް ޓައިޓްލް ރޮނގު: ލާ</option>
+                            <option value="off">Subtitle Underline: No</option>
+                            <option value="on">Subtitle Underline: Yes</option>
                         </select>
                     </div>
                     
-                    <button class="btn-vid" style="background:#2e7d32; width:100%; margin-top:15px; font-weight:bold; font-size:18px; padding:12px;" onclick="updateJalsaText()">ޓައިޓްލްތައް އަޕްޑޭޓް ކުރޭ</button>
+                    <button class="btn-vid" style="background:#2e7d32; width:100%; margin-top:15px; font-weight:bold; font-size:18px; padding:12px;" onclick="updateJalsaText()">Update Titles</button>
                 </div>
 
                 <div class="group-box">
-                    <span class="group-title">🖼️ 5 މެއިން ލޯގޯ މެނޭޖަރ</span>
+                    <span class="group-title">🖼️ 5 Main Logo Manager</span>
                     <div style="background:#fff; padding:10px; border-radius:5px; margin-bottom:10px;">
                         <label style="font-size:12px;">Select Logo to Move:</label>
                         <select id="activeLogoIdx" onchange="refreshLogoInputs()" style="width:100%;">
@@ -944,7 +965,7 @@
                     
                       <div style="margin-top:8px;">
                         <label style="font-size:12px; display:inline-flex; align-items:center;">
-                            <input type="checkbox" id="logoAutoHideCheck" checked onchange="liveUpdate('logoAutoHide', this.checked)"> ދަރިވަރު ކާޑު އަރާއިރު މެއިން ލޯގޯތައް ފޮރުވާ
+                            <input type="checkbox" id="logoAutoHideCheck" checked onchange="liveUpdate('logoAutoHide', this.checked)"> Hide Main Logos when Student Card appears
                         </label>
                         <button class="btn-vid" style="background:#37474f; margin-top:5px;" onclick="toggleMainLogos()">👁️ Toggle Main Logos</button>
                     </div>
@@ -953,7 +974,7 @@
                     <span class="d-label" style="font-size:14px;">Partner Logos Settings:</span>
                       <div style="margin-bottom:8px;">
                           <label style="font-size:12px; display:inline-flex; align-items:center;">
-                              <input type="checkbox" id="plAutoHideCheck" checked onchange="liveUpdate('plAutoHide', this.checked)"> ދަރިވަރު ކާޑު އަރާއިރު ޕާޓްނަރ ލޯގޯތައް ފޮރުވާ
+                              <input type="checkbox" id="plAutoHideCheck" checked onchange="liveUpdate('plAutoHide', this.checked)"> Hide Partner Logos when Student Card appears
                           </label>
                       </div>
                       <div style="margin-bottom:8px;">
@@ -997,7 +1018,7 @@ function verifyLicense() {
 
     // ހުސްކޮށް އޮތްތޯ ބެލުން
     if (!inputKey) {
-        msgArea.innerText = "⚠️ ލައިސަންސް ކީ ޖައްސަވާ!";
+        msgArea.innerText = "⚠️ Please enter the license key!";
         return;
     }
 
@@ -1021,7 +1042,7 @@ function verifyLicense() {
 
         // 3. Check Expiry
         if (today > expDate) {
-            msgArea.innerText = "❌ ލައިސަންސްގެ މުއްދަތު ވަނީ ހަމަވެފައި!";
+            msgArea.innerText = "❌ The license has expired!";
             msgArea.style.color = "red";
             return;
         }
@@ -1037,7 +1058,7 @@ function verifyLicense() {
         document.getElementById('licenseStatus').innerText = "✅ PLATINUM ACTIVE | " + custName;
 
     } catch (e) {
-        msgArea.innerText = "❌ ކީ ރަނގަޅެއް ނޫން!";
+        msgArea.innerText = "❌ The key is incorrect!";
         msgArea.style.color = "red";
         document.getElementById('licenseKey').value = ""; // Clear input for security
     }
@@ -1133,13 +1154,23 @@ function verifyLicense() {
         trophyX: -10, trophyY: -10, trophyAnim: 'none'
     };
 
-    // --- MAIN LOGO MANAGER ---
-    function loadMainLogos(input) {
-        mainLogosData = [];
-        for(let f of input.files) mainLogosData.push(URL.createObjectURL(f));
-        renderMainLogos();
-        alert(mainLogosData.length + " Main Logos Loaded.");
+    // --- MAIN LOGO MANAGER (MEMORY SAFE VERSION) ---
+function loadMainLogos(input) {
+    // 1. ކުރިން ލޯޑުކޮށްފައި ހުރި ލޯގޯތަކުގެ މެމޮރީ ސާފުކޮށްލުން (މުހިންމު ބައި)
+    if (typeof mainLogosData !== 'undefined' && mainLogosData.length > 0) {
+        mainLogosData.forEach(url => URL.revokeObjectURL(url));
     }
+
+    // 2. އާ ލޯގޯތައް ލޯޑުކުރުން
+    mainLogosData = [];
+    for(let f of input.files) {
+        let url = URL.createObjectURL(f);
+        mainLogosData.push(url);
+    }
+
+    renderMainLogos();
+    alert(mainLogosData.length + " Main Logos Loaded (Memory Optimized).");
+}
 
     function renderMainLogos() {
         if(!tvWindow || tvWindow.closed) return;
@@ -1697,29 +1728,32 @@ function downloadConfig() {
             "border: double 10px transparent; border-radius: 10px; background-image: linear-gradient(#000, #000), linear-gradient(to right, #FFD700, #004d40); background-origin: border-box; background-clip: content-box, border-box;" // 100
         ];
 
-       // 4. STYLE LOOP (FIXED: Applies to Main Card AND Top 5 Items)
+       // 4. STYLE LOOP (ULTIMATE FIX FOR TOP 5)
         for(let i=0; i<200; i++) {
             let style = baseStyles[i % baseStyles.length]; 
             
-            // 1. މައިގަނޑު ކާޑުގެ ސްޓައިލް (Main Card Style)
+            // 1. މައިގަނޑު ކާޑުގެ ސްޓައިލް (Main Card)
             cssGen += `.b${i+1} { ${style} }\n`;
 
-            // 2. ޓޮޕް 5 ގެ ކުދި ކާޑުތަކަށް ސްޓައިލް އެރުވުން (Top 5 Items)
-            // މިއިން ހަދާ ގޮތަކީ، މައިގަނޑު ޑިޒައިން ނަގާފައި، ލޭއައުޓް ރީތިކުރަނީއެވެ.
-            cssGen += `.b${i+1} .t5-item { 
+            // 2. ޓޮޕް 5 ގެ ކުދި ކާޑުތަކަށް (Force Style on List Items)
+            // މިއިން ސީދާ ލިސްޓުގެ ތެރޭގައި ހުންނަ DIV ތަކަށް ސްޓައިލް ނަގާނެ
+            cssGen += `.b${i+1} #top5List > div, .b${i+1} .t5-item { 
                 ${style} 
+                /* Resetting layout properties to fit inside list */
                 position: relative !important; 
                 top: auto !important; 
                 left: auto !important; 
                 transform: none !important; 
-                width: 90% !important; 
+                width: 96% !important; 
                 height: auto !important;
-                margin: 10px auto !important;
-                min-height: 60px !important;
+                margin: 8px auto !important;
+                min-height: 65px !important;
                 display: flex !important;
                 align-items: center !important;
-                justify-content: center !important;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
+                padding: 0 15px !important;
+                box-sizing: border-box !important;
+                font-size: 1.2rem !important; 
+                z-index: 100 !important;
             }\n`;
         }
         const html = `
@@ -2140,7 +2174,6 @@ body.triple-active #card {
             </style>
             <script>function goFS(btn){document.documentElement.requestFullscreen(); btn.style.display='none';}<\/script>
         </head>
-        <body>
         <body>
     <div id="zoneLeft" class="screen-zone"></div>
     <div id="zoneRight" class="screen-zone"></div>
@@ -3164,35 +3197,58 @@ body.triple-active #card {
             return false;
         }
     });
-    // --- GENERAL VIDEO PLAYLIST PLAYER ---
-let generalPlayIndex = 0;
+   // --- GENERAL VIDEO PLAYLIST PLAYER ---
+    let generalPlayIndex = 0;
 
-function playGeneralSequence() {
-    // 1. Check if TV is open
-    if(!tvWindow || tvWindow.closed) { 
-        alert("Please Open TV Screen First!"); 
-        return; 
+    function playGeneralSequence() {
+        // 1. Check if TV is open
+        if(!tvWindow || tvWindow.closed) { 
+            alert("Please Open TV Screen First!"); 
+            return; 
+        }
+
+        // 2. Check if files are loaded
+        if(playlist.length === 0) { 
+            alert("Please select video files in 'General Video Playlist' first!"); 
+            return; 
+        }
+
+        // 3. Reset index if at end
+        if(generalPlayIndex >= playlist.length) {
+            generalPlayIndex = 0;
+        }
+
+        // 4. Play the video
+        let file = playlist[generalPlayIndex];
+        playLocalVideoFile(file);
+
+        // 5. Update Status & Increment
+        document.getElementById('statusMsg').innerText = "Playing General: " + file.name;
+        generalPlayIndex++;
     }
 
-    // 2. Check if files are loaded
-    if(playlist.length === 0) { 
-        alert("Please select video files in 'General Video Playlist' first!"); 
-        return; 
-    }
+    // --- FINAL SYSTEM CHECKS ---
 
-    // 3. Reset index if at end
-    if(generalPlayIndex >= playlist.length) {
-        generalPlayIndex = 0;
-    }
+    // 1. Prevent Accidental Refresh (Data Loss Protection)
+    window.onbeforeunload = function(e) {
+        e = e || window.event;
+        // For older browsers
+        if (e) { e.returnValue = 'Sure?'; }
+        return 'Sure?';
+    };
 
-    // 4. Play the video
-    let file = playlist[generalPlayIndex];
-    playLocalVideoFile(file);
+    // 2. Clear Console clutter to improve performance slightly
+    console.log = function() {}; 
 
-    // 5. Update Status & Increment
-    document.getElementById('statusMsg').innerText = "Playing General: " + file.name;
-    generalPlayIndex++;
-}
+    // 3. Safety Check for TV Window
+    setInterval(function(){
+        if(tvWindow && tvWindow.closed) {
+            document.getElementById('connStatus').innerText = "❌ TV CLOSED";
+            document.getElementById('connStatus').style.background = "#ffebee";
+            document.getElementById('connStatus').style.color = "red";
+        }
+    }, 2000);
+
 </script>
 </body>
 </html>
