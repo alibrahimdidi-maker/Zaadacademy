@@ -1379,7 +1379,23 @@ input:disabled, textarea:disabled, select:disabled {
     @media screen and (min-width: 3000px) {
         .sec-box { transform: scale(3.0) !important; }
     }
-    
+
+    body.triple-active #card {
+        width: var(--center-w) !important;
+        max-width: none !important;
+        left: 50% !important; 
+        transform: translate(-50%, -50%) !important;
+        background-size: cover !important; 
+    }
+
+    .screen-zone {
+        position: fixed; top: 0; height: 100%;
+        width: calc((100% - var(--center-w)) / 2);
+        background-size: 100% 100% !important;
+        background-repeat: no-repeat !important;
+        z-index: 4000; 
+        display: none; 
+    }
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -1630,6 +1646,15 @@ input:disabled, textarea:disabled, select:disabled {
     </div>
 
     <div style="margin-top:10px; border-top:1px dashed #c5a059; padding-top:10px;">
+        <button class="btn-vid" style="background:linear-gradient(to right, #b71c1c, #d32f2f); font-weight:bold; border:1px solid #ff5252; width:100%;" onclick="setHallMode()">
+            🏟️ SET HALL MODE (3360px)
+        </button>
+        <p style="font-size:10px; text-align:center; color:#ef9a9a; margin-top:2px;">
+            Auto-sets: Left(840px) | Center(1680px) | Right(840px)
+        </p>
+    </div>
+
+    <div style="margin-top:10px; border-top:1px dashed #c5a059; padding-top:10px;">
         <label style="font-size:12px; font-weight:bold; color:#ffcc80; display:block;">↕️ Height & Position (For Tall Screens):</label>
         
         <div style="display:flex; gap:5px; align-items:center; margin-top:8px;">
@@ -1648,12 +1673,8 @@ input:disabled, textarea:disabled, select:disabled {
             </select>
         </div>
     </div>
-</div>
-    <button class="btn-vid" style="background:#673ab7; font-weight:bold; margin-bottom:10px;" onclick="toggleTripleMode()">
-        Toggle 3-Screen Mode (On/Off)
-    </button>
 
-    <div style="border-top: 1px dashed #9575cd; padding-top: 10px;">
+    <div style="border-top: 1px dashed #9575cd; padding-top: 10px; margin-top:10px;">
         <label style="font-size:11px; color:#512da8; font-weight:bold;">🔭 Monitor Zoom (View Only):</label>
         <input type="range" min="0.2" max="1" step="0.05" value="1" oninput="setTVZoom(this.value)" style="height:10px; width:100%;">
     </div>
@@ -4628,6 +4649,34 @@ body.triple-active #card {
     window.addEventListener('load', () => {
         restoreSystemState();
     });
+    // --- HALL MODE FIX (3360x840) ---
+function setHallMode() {
+    // 1. Set Center Width to exactly 50% (1680px out of 3360px)
+    const slider = document.querySelector('input[oninput="liveUpdate(\'centerWidth\', this.value)"]');
+    if(slider) {
+        slider.value = 50; // Set slider to 50
+        liveUpdate('centerWidth', 50); // Update System
+        
+        // Update Display Text
+        const disp = document.getElementById('cwDisp');
+        if(disp) disp.innerText = "50% (Hall Fit)";
+    }
+
+    // 2. Ensure Triple Mode is ON
+    if(tvWindow && !tvWindow.closed) {
+        tvWindow.document.body.classList.add('triple-active');
+        
+        // Fix Background Sizes for Ultra Wide
+        const leftZ = tvWindow.document.getElementById('zoneLeft');
+        const rightZ = tvWindow.document.getElementById('zoneRight');
+        
+        // Force background to cover full height without stretching width
+        if(leftZ) leftZ.style.backgroundSize = "100% 100%";
+        if(rightZ) rightZ.style.backgroundSize = "100% 100%";
+    }
+
+    alert("✅ HALL MODE ACTIVATED!\n\n1. Center Screen: 1680px (50%)\n2. Side Screens: 840px (25% each)\n\nPlease maximize the TV window across all 3 screens.");
+}
 </script>
 </body>
 </html>
