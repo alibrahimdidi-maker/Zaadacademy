@@ -5027,6 +5027,34 @@ function showTop5Tooltip(btn, direction) {
         btn.title = `PREVIOUS TOP 5 VIDEO:\n🇬🇧 ${fileName}\n🇲🇻 ކުރީގެ ޓޮޕް 5 ވީޑިއޯ: ${fileName}`;
     }
 }
+    /* --- TOOLTIP FUNCTION: SHOWS VIDEO NAME ON HOVER --- */
+function showVideoTooltip(btn, direction) {
+    // 1. ވީޑިއޯ ލޯޑުކޮށްފައި ހުރިތޯ ބެލުން
+    if (!playlist || playlist.length === 0) {
+        btn.title = "⚠️ No videos loaded! (ވީޑިއޯއެއް ނެތް)";
+        return;
+    }
+
+    // 2. ދެން އިންނާނެ ވީޑިއޯ ހޯދުން
+    let targetIdx;
+    if (direction === 'next') {
+        targetIdx = currentVidIdx + 1;
+        if (targetIdx >= playlist.length) targetIdx = 0; // ލިސްޓް ހުސްވީމަ ކުރިއަށް
+    } else {
+        targetIdx = currentVidIdx - 1;
+        if (targetIdx < 0) targetIdx = playlist.length - 1; // ފަހަތަށް ދާއިރު އެންމެ ފަހު އެތި
+    }
+
+    // 3. ނަން ނެގުން
+    let fileName = playlist[targetIdx].name;
+
+    // 4. ބަޓަނަށް ނަން އެރުވުން
+    if (direction === 'next') {
+        btn.title = `NEXT: ${fileName}\n(ޖެހިގެން އިން ވީޑިއޯ)`;
+    } else {
+        btn.title = `PREV: ${fileName}\n(ކުރީގެ ވީޑިއޯ)`;
+    }
+}
 </script>
 </body>
 </html>
