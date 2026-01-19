@@ -5057,6 +5057,80 @@ function showVideoTooltip(btn, direction) {
         btn.title = "Prev: " + fileName;
     }
 }
+    /* --- FIXED VIDEO PLAYLIST & TOOLTIP SYSTEM --- */
+
+// 1. ވަރިއަބަލްތައް ހެދުން
+var generalPlaylist = []; 
+var generalIndex = 0;
+
+// 2. ވީޑިއޯ ފައިލްތައް ނެގުމުން ލިސްޓަށް އެޅުން
+document.getElementById('videoPlaylist').addEventListener('change', function(e) {
+    if(e.target.files.length > 0) {
+        generalPlaylist = Array.from(e.target.files); // ލިސްޓް އަޕްޑޭޓްކުރުން
+        generalIndex = 0; // ފުރަތަމަ ވީޑިއޯއަށް ރީސެޓްވުން
+        alert("✅ " + generalPlaylist.length + " Videos Loaded Successfully!");
+    }
+});
+
+// 3. މައުސް ގެންދިޔައީމަ ނަން ދައްކާ ފަންކްޝަން (Tooltip)
+function showTooltip(btn, direction) {
+    // ވީޑިއޯ ނުނަގާ ހުރިނަމަ
+    if (generalPlaylist.length === 0) {
+        btn.title = "⚠️ No videos selected! (ވީޑިއޯއެއް ނެތް)";
+        return;
+    }
+
+    // ދެން އިންނާނެ ވީޑިއޯ ހިސާބުކުރުން
+    let targetIndex = generalIndex;
+    
+    if (direction === 'next') {
+        targetIndex++;
+        // އެންމެ ފަހު އެތި ނަމަ، އަލުން ފުރަތަމަ އެތި ދައްކާ
+        if (targetIndex >= generalPlaylist.length) targetIndex = 0;
+    } else {
+        targetIndex--;
+        // އެންމެ ފުރަތަމަ އެތި ނަމަ، އެންމެ ފަހު އެތި ދައްކާ
+        if (targetIndex < 0) targetIndex = generalPlaylist.length - 1;
+    }
+
+    // ނަން ނެގުން
+    let videoName = generalPlaylist[targetIndex].name;
+
+    // ބަޓަނަށް ނަން އެރުވުން
+    if (direction === 'next') {
+        btn.title = "NEXT ▶ " + videoName;
+    } else {
+        btn.title = "◀ PREV: " + videoName;
+    }
+}
+
+// 4. ޕްލޭ ކުރާ ފަންކްޝަންތައް (އަޕްޑޭޓްކުރުން)
+// (މިހާރު ހުރި playNextVideo / playPrevVideo ގެ ބަދަލުގައި މީތި ބޭނުންކުރެވޭނެ)
+window.playNextVideo = function() {
+    if(generalPlaylist.length === 0) { alert("No videos!"); return; }
+    
+    // Play Current Index
+    playLocalVideoFile(generalPlaylist[generalIndex]);
+    
+    // Update Status
+    document.getElementById('statusMsg').innerText = "Playing: " + generalPlaylist[generalIndex].name;
+
+    // Increment for next click
+    generalIndex++;
+    if(generalIndex >= generalPlaylist.length) generalIndex = 0;
+};
+
+window.playPrevVideo = function() {
+    if(generalPlaylist.length === 0) { alert("No videos!"); return; }
+    
+    // Go back
+    generalIndex--;
+    if(generalIndex < 0) generalIndex = generalPlaylist.length - 1;
+
+    // Play
+    playLocalVideoFile(generalPlaylist[generalIndex]);
+    document.getElementById('statusMsg').innerText = "Playing: " + generalPlaylist[generalIndex].name;
+};
 </script>
 </body>
 </html>
