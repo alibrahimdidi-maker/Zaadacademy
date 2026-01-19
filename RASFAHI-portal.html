@@ -1731,11 +1731,22 @@ input:disabled, textarea:disabled, select:disabled {
     <div style="font-weight:bold; color:#0277bd; margin-bottom:5px;">🎞️ Video Player & Presentation</div>
     
     <div style="display:flex; gap:8px;">
-        <label style="width:70%; font-size:12px; color:#555;">General Video Playlist:</label>
-        <input type="file" id="videoPlaylist" accept="video/*" multiple style="width:70%">
-        <button class="btn-vid" style="background:#e65100; width:15%; margin-right:2px;" onclick="playPrevVideo()">◀ Back</button>
-        <button class="btn-vid" style="background:#ef6c00; width:15%;" onclick="playNextVideo()">Next ▶</button>
-    </div>
+    <label style="width:70%; font-size:12px; color:#555;">General Video Playlist:</label>
+    
+    <input type="file" id="videoPlaylist" accept="video/*" multiple style="width:70%">
+    
+    <button class="btn-vid" style="background:#e65100; width:15%; margin-right:2px;" 
+            onclick="playPrevVideo()" 
+            onmouseover="showVideoTooltip(this, 'prev')">
+        ◀ Back
+    </button>
+    
+    <button class="btn-vid" style="background:#ef6c00; width:15%;" 
+            onclick="playNextVideo()" 
+            onmouseover="showVideoTooltip(this, 'next')">
+        Next ▶
+    </button>
+</div>
 
     <div style="margin-top:5px;">
         <button class="btn-vid" style="background:#00695c; width:100%; font-weight:bold;" onclick="playGeneralSequence()">▶ Play General Playlist (Sequential)</button>
