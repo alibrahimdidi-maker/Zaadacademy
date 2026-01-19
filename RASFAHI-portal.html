@@ -1396,6 +1396,172 @@ input:disabled, textarea:disabled, select:disabled {
         z-index: 4000; 
         display: none; 
     }
+    /* ލޮލަށް ފަސޭހަ ފެހި ބޯޑަރު (FILE INPUTS ONLY) */
+    .sidebar input[type="file"] {
+        border: 2px solid #004d40 !important; /* ގަދަ ރަންކުލައިގެ ބަދަލުގައި ފެހި ބޯޑަރެއް */
+        background-color: #001510 !important; /* އެތެރޭގެ ކުލަ ކުޑަކޮށް ފެހިކޮށްލުން */
+        color: #a7ffeb !important; /* ލިޔުންތައް މަޑު ފެހި ކުލައިން */
+        transition: all 0.3s ease;
+    }
+
+    /* މައުސް މައްޗަށް ގެންދިޔައީމަ (Hover) */
+    .sidebar input[type="file"]:hover {
+        border-color: #FFD700 !important; /* މައުސް ގެންދިޔައީމަ އެކަނި ރަންކުލަ */
+        background-color: #000 !important;
+        cursor: pointer;
+    }
+    /* ލޮލަށް ފަސޭހަ ފެހި ބޯޑަރު (FILE INPUTS ONLY) */
+    .sidebar input[type="file"] {
+        border: 2px solid #004d40 !important; /* ގަދަ ރަންކުލައިގެ ބަދަލުގައި ފެހި ބޯޑަރެއް */
+        background-color: #001510 !important; /* އެތެރޭގެ ކުލަ ކުޑަކޮށް ފެހިކޮށްލުން */
+        color: #a7ffeb !important; /* ލިޔުންތައް މަޑު ފެހި ކުލައިން */
+        transition: all 0.3s ease;
+    }
+
+    /* މައުސް މައްޗަށް ގެންދިޔައީމަ (Hover) */
+    .sidebar input[type="file"]:hover {
+        border-color: #FFD700 !important; /* މައުސް ގެންދިޔައީމަ އެކަނި ރަންކުލަ */
+        background-color: #000 !important;
+        cursor: pointer;
+    }
+    /* --- 1. TOP 5 LIST & VIDEOS (ގަދަ ނޫކުލައިގެ ބޯޑަރު) --- */
+    #top5CsvFile, #top5VideoFiles {
+        border: 2px solid #1565c0 !important; /* ގަދަ ނޫކުލަ */
+        background-color: #050a15 !important; /* ކަޅުކުލަ */
+    }
+
+    /* --- 2. STAR & TROPHY (އަލި ނޫކުލައިގެ ބޯޑަރު) --- */
+    #royalStarFile, #trophyFile {
+        border: 2px solid #00e5ff !important; /* ދިއްލޭ އަލި ނޫކުލަ (Cyan) */
+        background-color: #001015 !important;
+    }
+
+    /* މައުސް މައްޗަށް ގެންދިޔައީމަ ވާނެގޮތް (Hover Effect) */
+    #top5CsvFile:hover, #top5VideoFiles:hover,
+    #royalStarFile:hover, #trophyFile:hover {
+        border-color: #FFD700 !important; /* ހޯވަރ ކުރީމަ ރަންކުލައަށް ބަދަލުވާނެ */
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    }
+    /* 1. TOP BANNER BORDER (ގަދަ ފެހި ކުލަ) */
+    .royal-top-banner {
+        border: 4px double #004d40 !important; /* ޝާހީ ގަދަ ފެހި ކުލަ */
+        box-shadow: 0 5px 15px rgba(0, 77, 64, 0.5) !important; /* ފެހި ހިޔަނި */
+    }
+
+    /* 2. SIDEBAR INPUT TEXT COLOR (ލިޔުންތައް ހުދުކުލައަށް) */
+    .sidebar input[type="text"], 
+    .sidebar input[type="number"], 
+    .sidebar select, 
+    .sidebar textarea {
+        color: #ffffff !important; /* ލިޔުން ހުދުކުލައިން */
+    }
+
+    /* (Optional) If placeholders (މަޑު ލިޔުން) are gold, make them lighter white */
+    .sidebar ::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important;
+    }
+    /* SIDEBAR TEXT COLOR - PURE WHITE */
+    .sidebar input[type="text"], 
+    .sidebar input[type="number"], 
+    .sidebar textarea, 
+    .sidebar select,
+    .sidebar input[type="file"] {
+        color: #ffffff !important; /* ސީދާ ހުދު ކުލަ */
+        text-shadow: none !important; /* އެއްވެސް ޝެޑޯއެއް އިންނަމަ ނަގާލުން */
+    }
+
+    /* ފޮށިތަކުގެ ތެރޭގައި ފަނޑުކޮށް ހުންނަ ލިޔުން (Placeholder) */
+    .sidebar ::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important; /* %50 ހުދު */
+    }
+    /* --- SIDEBAR FILE INPUTS: LIGHT GREEN GLOW THEME --- */
+
+    /* 1. ލޭބަލްތައް (Number 1, 2...) - ލައިޓް ފެހި */
+    .sidebar label {
+        color: #69f0ae !important; /* ވަރަށް ރީތި ލައިޓް ފެހި (Mint Green) */
+        text-shadow: 0 0 8px rgba(105, 240, 174, 0.3); /* އަކުރުގެ ފަހަތަށް ލައިޓް ޝެޑޯއެއް */
+        font-weight: 800 !important;
+        margin-bottom: 5px !important;
+        border: none !important; /* ކުރިން އިން ބޯޑަރު ނެގުން */
+    }
+
+    /* 2. ފައިލް އަޅާ ފޮށިތައް - ސްޓައިލް */
+    .sidebar input[type="file"] {
+        /* ބޯޑަރު: ގަދަ ލައިޓް ފެހި ކުލަ */
+        border: 2px solid #00e676 !important; 
+        
+        /* އެތެރޭގެ ކުލަ: ކަޅާއި ގަދަ ފެހި ގްރޭޑިއަންޓެއް */
+        background: linear-gradient(to right, #001a12, #00251a) !important; 
+        
+        /* ލިޔުން: ހުދުކުލަ */
+        color: #ffffff !important; 
+        
+        /* ޝެޑޯ: ފެހިކުލައިގެ ދިއްލުމެއް (Glow Shadow) */
+        box-shadow: 0 0 15px rgba(0, 230, 118, 0.15), inset 0 0 10px rgba(0, 50, 0, 0.5) !important;
+        
+        border-radius: 8px !important; /* ކަންތައް ވަށްކޮށް */
+        transition: all 0.3s ease-in-out; /* އޮމާންކޮށް ބަދަލުވުން */
+    }
+
+    /* 3. މައުސް ގެންދިޔައީމަ (Hover Effect) */
+    .sidebar input[type="file"]:hover {
+        border-color: #b9f6ca !important; /* ބޯޑަރު އިތުރަށް އަލިވާނެ */
+        background: #003322 !important; /* އެތެރޭގެ ކުލަ ކުޑަކޮށް ބަދަލުވާނެ */
+        box-shadow: 0 0 25px rgba(0, 230, 118, 0.4) !important; /* ޝެޑޯ ގަދަވެ ދިއްލޭނެ */
+        transform: translateY(-2px); /* ފޮށި ކުޑަކޮށް މައްޗަށް ހިއްލާލާނެ */
+        cursor: pointer;
+    }
+    /* --- CONTROL BUTTONS: BLUE & DARK BLUE THEME --- */
+
+    /* 1. Display Student Name (ޓީވީއަށް ނަން އަރުވާ ބަޓަން) - ގަދަ ނޫކުލަ */
+    button[onclick="updateTV()"] {
+        background: linear-gradient(to bottom, #1565c0, #0d47a1) !important; /* ނޫކުލައިގެ ގްރޭޑިއަންޓެއް */
+        border: 2px solid #42a5f5 !important; /* ބޯޑަރު */
+        color: #ffffff !important; /* ލިޔުން ހުދުކުލައިން */
+        box-shadow: 0 4px 0 #002171 !important; /* ތިރީގައި އިންނަ ޝެޑޯ */
+    }
+
+    /* 2. Previous & Next (ކުރިއަށް/ފަހަތަށް) - ޑާރކް ނޫކުލަ */
+    button[onclick="move(-1)"], 
+    button[onclick="move(1)"] {
+        background: linear-gradient(to bottom, #002171, #001030) !important; /* ވަރަށް އަނދިރި ނޫކުލަ */
+        border: 1px solid #1a237e !important;
+        color: #82b1ff !important; /* ތީރުތައް މަޑު ނޫކުލައިން */
+    }
+
+    /* 3. މައުސް ގެންދިޔައީމަ (Hover) - ދިއްލޭގޮތަށް */
+    button[onclick="updateTV()"]:hover,
+    button[onclick="move(-1)"]:hover,
+    button[onclick="move(1)"]:hover {
+        filter: brightness(1.3) !important;
+        border-color: #FFD700 !important; /* ރަން ބޯޑަރަކަށް ބަދަލުވާނެ */
+    }
+    /* --- CONTROL BUTTONS: BLUE & DARK BLUE THEME --- */
+
+    /* 1. Display Student Name (ޓީވީއަށް ނަން އަރުވާ ބަޓަން) - ގަދަ ނޫކުލަ */
+    button[onclick="updateTV()"] {
+        background: linear-gradient(to bottom, #1565c0, #0d47a1) !important; /* ނޫކުލައިގެ ގްރޭޑިއަންޓެއް */
+        border: 2px solid #42a5f5 !important; /* ބޯޑަރު */
+        color: #ffffff !important; /* ލިޔުން ހުދުކުލައިން */
+        box-shadow: 0 4px 0 #002171 !important; /* ތިރީގައި އިންނަ ޝެޑޯ */
+    }
+
+    /* 2. Previous & Next (ކުރިއަށް/ފަހަތަށް) - ޑާރކް ނޫކުލަ */
+    button[onclick="move(-1)"], 
+    button[onclick="move(1)"] {
+        background: linear-gradient(to bottom, #002171, #001030) !important; /* ވަރަށް އަނދިރި ނޫކުލަ */
+        border: 1px solid #1a237e !important;
+        color: #82b1ff !important; /* ތީރުތައް މަޑު ނޫކުލައިން */
+    }
+
+    /* 3. މައުސް ގެންދިޔައީމަ (Hover) - ދިއްލޭގޮތަށް */
+    button[onclick="updateTV()"]:hover,
+    button[onclick="move(-1)"]:hover,
+    button[onclick="move(1)"]:hover {
+        filter: brightness(1.3) !important;
+        border-color: #FFD700 !important; /* ރަން ބޯޑަރަކަށް ބަދަލުވާނެ */
+    }
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -1403,40 +1569,46 @@ input:disabled, textarea:disabled, select:disabled {
     <button id="cpFsBtn" onclick="toggleControlFS()" title="Full Screen">⛶</button>
 
     <div id="securityOverlay">
-    <div class="sec-box" style="width: 500px; max-width: 90vw; padding: 40px 30px; box-sizing: border-box; max-height: 98vh; overflow-y: auto;">
+    <div class="sec-box" style="width: 500px !important; max-width: 90vw; padding: 30px 30px !important; box-sizing: border-box; max-height: 98vh; overflow-y: auto; gap: 0 !important;">
         
-        <img src="Photos/ali.png" class="admin-pic" alt="Ali Ibrahim Didi">
+        <img src="Photos/ali.png" class="admin-pic" alt="Ali Ibrahim Didi" 
+             style="width: 120px !important; height: 120px !important; border: 3px solid #00e676 !important; box-shadow: 0 0 35px rgba(0, 230, 118, 0.4) !important; margin-bottom: 15px !important;">
         
-        <h1 style="color:#FFD700; font-size:20px; margin:0 0 5px 0; font-family:'Times New Roman', serif; text-transform:uppercase; letter-spacing:1px;">
+        <div style="background: rgba(0, 30, 20, 0.9) !important; border: 1px solid #00e676 !important; color: #69f0ae !important; padding: 8px 30px !important; border-radius: 50px !important; font-size: 12px !important; text-transform: uppercase !important; letter-spacing: 3px !important; font-weight: bold !important; margin-bottom: 8px !important; box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;">
             Warm Welcome to
-        </h1>
-        <h2 style="color:#fff; font-size:26px; margin:0 0 20px 0; text-shadow:0 2px 5px #000; line-height: 1.2;">
+        </div>
+
+        <h2 style="color: #ffffff !important; font-size: 24px !important; margin: 5px 0 15px 0 !important; text-shadow: none !important; font-family: 'Playfair Display', serif !important; line-height: 1.3 !important;">
             Rasfahi Event and Graduation Software
         </h2>
 
-        <p style="color:#bbdefb; font-size:13px; margin-bottom:15px;">
-            Paste subscription code using <b>Ctrl + V</b>.<br>
-            <span style="color:#ffcc80;">⚠️ No spaces allowed! Invalid if spaced.</span>
+        <p style="color:#b0bec5 !important; font-size:13px !important; margin-bottom:5px !important;">
+            Paste code: <b style="color:#fff;">Ctrl + V</b> <span style="color:#ff5252;">(No Spaces)</span>
         </p>
 
-        <input type="password" id="licenseKey" class="sec-input" placeholder="Paste Key Here..." style="font-size:16px; padding: 10px; margin-top:0;">
-        <button class="sec-btn" onclick="verifyLicense()" style="margin-top: 15px; padding: 10px; font-size:16px;">AUTHENTICATE</button>
-        <p id="secMsg" style="color:#ff5252; font-size:14px; margin-top:10px; font-weight:bold; min-height:20px;"></p>
+        <input type="password" id="licenseKey" class="sec-input" placeholder="Paste Key Here..." 
+               style="font-size:18px !important; padding: 10px !important; margin-bottom: 8px !important; height: 50px !important; border-color: #004d40 !important;">
+        
+        <button class="sec-btn" onclick="verifyLicense()" 
+                style="margin-top: 2px !important; padding: 12px !important; font-size: 15px !important; background: linear-gradient(to right, #004d40, #00695c) !important; border: 1px solid #00e676 !important; color: #fff !important;">
+            AUTHENTICATE
+        </button>
+        
+        <p id="secMsg" style="color:#ff5252 !important; font-size:14px !important; margin-top:5px !important; margin-bottom: 0 !important; min-height:20px; font-weight:bold !important;"></p>
 
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.15); margin: 20px 0;">
+        <hr style="width: 100% !important; border: 0 !important; border-top: 1px dashed rgba(255,255,255,0.2) !important; margin: 5px 0 10px 0 !important;">
 
-        <div style="text-align:center; font-size:11px; color:#b0bec5; line-height:1.4;">
-            <p style="margin-bottom:8px;">
+        <div style="text-align:center !important; font-size:11px !important; color:#78909c !important; line-height:1.4 !important;">
+            <p style="margin-bottom:5px !important; color: #b0bec5 !important;">
                 Intellectual property of <strong>Ali Ibrahim Didi</strong>.<br>
-                Registered under Maldives Copyright Law.<br>
-                <span style="color:#fff;">Reg: MED.03.IP.CR.26.EW5889</span>
+                <span style="color:#a7ffeb !important;">Reg: MED.03.IP.CR.26.EW5889</span>
             </p>
 
-            <div style="color:#ff1744; font-weight:bold; background:rgba(40,0,0,0.3); padding:8px; border:1px solid #ff1744; border-radius:4px; margin-bottom:10px;">
-                ⛔ Unauthorized use will result in legal action.
+            <div style="color:#ef5350 !important; font-weight:bold !important; background:rgba(20,0,0,0.5) !important; padding:5px 10px !important; border:1px solid #b71c1c !important; border-radius:4px !important; display:inline-block !important; margin-bottom:5px !important; font-size: 10px !important;">
+                ⛔ UNAUTHORIZED USE PROHIBITED
             </div>
 
-            <p style="color:#64b5f6; margin:0;">
+            <p style="color:#4fc3f7 !important; margin:0 !important;">
                 Support: <b>7791550</b> / <b>9901550</b>
             </p>
         </div>
@@ -1532,9 +1704,11 @@ input:disabled, textarea:disabled, select:disabled {
         <div id="infoPanel" style="background:#fff; padding:20px; border-radius:10px; border:2px solid #90caf9; margin:15px 0; box-shadow:0 3px 10px rgba(0,0,0,0.05);">
             <label style="color:#d32f2f;">🚀 SCENE SWITCHER (Change before time runs out):</label>
             <div id="listPanel" style="display:flex; gap:0; margin-bottom:5px;">
-                <button class="btn-live" style="background:#455a64; border-color:#37474f;" onclick="showJalsaScreen()">🏠 TITLE SCREEN</button>
-                <button class="btn-live" style="background:#0d47a1; border-color:#002171;" onclick="forceStudentCard()">🎓 STUDENT</button>
-                <button class="btn-live" style="background:#ff6f00; border-color:#c43e00;" onclick="forceTop5()">🏆 TOP 5</button>
+                <button class="btn-live" style="background:#455a64; border-color:#37474f;" onclick="showJalsaScreen()" title="Show Main Event Title (ޖަލްސާގެ ނަން ބޯޑު ދައްކާ)">🏠 TITLE SCREEN</button>
+                
+                <button class="btn-live" style="background:#0d47a1; border-color:#002171;" onclick="forceStudentCard()" title="Show Student Information (ދަރިވަރުގެ މައުލޫމާތު ކާޑު ދައްކާ)">🎓 STUDENT</button>
+                
+                <button class="btn-live" style="background:#ff6f00; border-color:#c43e00;" onclick="forceTop5()" title="Show Top 5 List & Video (ގަދަ 5 ގެ ލިސްޓާއި ވީޑިއޯ ދައްކާ)">🏆 TOP 5</button>
             </div>
         </div>
 <div style="background:#ede7f6; padding:10px; border-radius:8px; border:1px solid #b39ddb; margin-bottom:15px;">
@@ -1542,17 +1716,17 @@ input:disabled, textarea:disabled, select:disabled {
     <div style="border-top: 1px dashed #9575cd; padding-top: 5px; margin-top: 5px;">
         
             <div class="controls" style="display: flex; justify-content: center; gap: 10px;">
-    <button class="action btn-nav" onclick="move(-1)" title="Go Back to Previous Student (ކުރީ ދަރިވަރަށް)">◀</button>
+                
+                <button class="action btn-nav" onclick="move(1)" title="Go to Next Student (ޖެހިގެން އިން ދަރިވަރަށް)">▶</button>
 
-    <button class="action btn-live" onclick="updateTV()" title="Show Student Name & Photo on TV (ދަރިވަރުގެ ނަން ޓީވީއަށް އަރުވާ)">📺 Display Student Name</button>
+                <button class="action btn-live" onclick="updateTV()" title="Show Student Name & Photo on TV (ދަރިވަރުގެ ނަން ޓީވީއަށް އަރުވާ)">📺 Display Student Name</button>
 
-    <button class="action btn-nav" onclick="move(1)" title="Go to Next Student (ޖެހިގެން އިން ދަރިވަރަށް)">▶</button>
+                <button class="action btn-nav" onclick="move(-1)" title="Go Back to Previous Student (ކުރީ ދަރިވަރަށް)">◀</button>
 
-    <button class="action btn-nav" style="background:#c62828; font-size:16px;" onclick="clearTV()" title="Clear TV Screen / Remove Name (ޓީވީ ސްކްރީން ހުސްކޮށްލާ)">X</button>
+                <button class="action btn-nav" style="background:#c62828; font-size:16px;" onclick="clearTV()" title="Clear TV Screen / Remove Name (ޓީވީ ސްކްރީން ހުސްކޮށްލާ)">X</button>
 
-    <button class="action btn-nav" style="background:#f9a825; font-size:16px;" onclick="toggleAdsMode()" title="Play Sponsor Video / Ads Mode (ސްޕޮންސަރ އިޝްތިހާރު ޕްލޭކުރޭ)">📢</button>
-</div>
-
+                <button class="action btn-nav" style="background:#f9a825; font-size:16px;" onclick="toggleAdsMode()" title="Play Sponsor Video / Ads Mode (ސްޕޮންސަރ އިޝްތިހާރު ޕްލޭކުރޭ)">📢</button>
+            </div>
            <div class="video-panel">
     <div style="font-weight:bold; color:#0277bd; margin-bottom:5px;">🎞️ Video Player & Presentation</div>
     
@@ -1646,13 +1820,20 @@ input:disabled, textarea:disabled, select:disabled {
     </div>
 
     <div style="margin-top:10px; border-top:1px dashed #c5a059; padding-top:10px;">
-        <button class="btn-vid" style="background:linear-gradient(to right, #b71c1c, #d32f2f); font-weight:bold; border:1px solid #ff5252; width:100%;" onclick="setHallMode()">
-            🏟️ SET HALL MODE (3360px)
+    <button class="btn-vid" style="background:linear-gradient(to right, #b71c1c, #d32f2f); font-weight:bold; border:1px solid #ff5252; width:100%;" onclick="setHallMode()">
+        🏟️ SET HALL MODE (3360px)
+    </button>
+    
+    <p style="font-size:10px; text-align:center; color:#ef9a9a; margin-top:2px;">
+        Auto-sets: Left(840px) | Center(1680px) | Right(840px)
+    </p>
+
+    <div style="margin-top:10px;">
+        <button class="btn-vid" style="background:#455a64; width:100%; border:1px solid #78909c;" onclick="resetToStandardMode()">
+            📺 RESET TO NORMAL TV MODE
         </button>
-        <p style="font-size:10px; text-align:center; color:#ef9a9a; margin-top:2px;">
-            Auto-sets: Left(840px) | Center(1680px) | Right(840px)
-        </p>
     </div>
+</div>
 
     <div style="margin-top:10px; border-top:1px dashed #c5a059; padding-top:10px;">
         <label style="font-size:12px; font-weight:bold; color:#ffcc80; display:block;">↕️ Height & Position (For Tall Screens):</label>
@@ -4649,34 +4830,163 @@ body.triple-active #card {
     window.addEventListener('load', () => {
         restoreSystemState();
     });
-    // --- HALL MODE FIX (3360x840) ---
+   /* --- PIXEL PERFECT 3360x840 FIX (NO STRETCH) --- */
 function setHallMode() {
-    // 1. Set Center Width to exactly 50% (1680px out of 3360px)
+    // 1. މެދު ސްކްރީން 50% އަށް ސެޓްކުރުން (1680px is exactly 50% of 3360px)
     const slider = document.querySelector('input[oninput="liveUpdate(\'centerWidth\', this.value)"]');
     if(slider) {
-        slider.value = 50; // Set slider to 50
-        liveUpdate('centerWidth', 50); // Update System
+        slider.value = 50; 
+        liveUpdate('centerWidth', 50); 
         
-        // Update Display Text
         const disp = document.getElementById('cwDisp');
-        if(disp) disp.innerText = "50% (Hall Fit)";
+        if(disp) disp.innerText = "50% (Pixel Perfect: 840|1680|840)";
     }
 
-    // 2. Ensure Triple Mode is ON
+    // 2. ޓީވީ ސްކްރީންގެ ސެޓިންގްސް ބަދަލުކުރުން
     if(tvWindow && !tvWindow.closed) {
-        tvWindow.document.body.classList.add('triple-active');
-        
-        // Fix Background Sizes for Ultra Wide
-        const leftZ = tvWindow.document.getElementById('zoneLeft');
-        const rightZ = tvWindow.document.getElementById('zoneRight');
-        
-        // Force background to cover full height without stretching width
-        if(leftZ) leftZ.style.backgroundSize = "100% 100%";
-        if(rightZ) rightZ.style.backgroundSize = "100% 100%";
+        const doc = tvWindow.document;
+        doc.body.classList.add('triple-active');
+
+        // --- ވާތް ފަރާތު ސްކްރީން (LEFT: 840px) ---
+        const leftZ = doc.getElementById('zoneLeft');
+        if(leftZ) {
+            leftZ.style.position = "fixed";
+            leftZ.style.left = "0";
+            leftZ.style.top = "0";
+            leftZ.style.width = "25%";  // 3360 ގެ 25% އަކީ 840
+            leftZ.style.height = "100%";
+            leftZ.style.backgroundSize = "100% 100%"; // ފޮޓޯ ފުރިހަމައަށް ފަތުރާލަން
+        }
+
+        // --- ކަނާތް ފަރާތު ސްކްރީން (RIGHT: 840px) ---
+        const rightZ = doc.getElementById('zoneRight');
+        if(rightZ) {
+            rightZ.style.position = "fixed";
+            rightZ.style.right = "0";
+            rightZ.style.top = "0";
+            rightZ.style.width = "25%"; // 3360 ގެ 25% އަކީ 840
+            rightZ.style.height = "100%";
+            rightZ.style.backgroundSize = "100% 100%";
+            rightZ.style.border = "none";
+        }
+
+        // --- މެދު ސްކްރީން (CENTER: 1680px) - ލިޔުންތައް ހުންނަ ތަން ---
+        const card = doc.getElementById('card');
+        if(card) {
+            // 1. ޕޮޒިޝަން ސެޓްކުރުން (މެދަށް ލުމުގެ ބަދަލުގައި، ވާތްފަރާތުން 25% ދޫކޮށްފައި ފަށާނީ)
+            card.style.position = "fixed";
+            card.style.left = "25%";  // ވާތްފަރާތު ސްކްރީން ނިމޭ ހިސާބުން ފެށޭނެ
+            card.style.width = "50%"; // މެދު ސްކްރީން (1680px)
+            card.style.top = "0";
+            card.style.height = "100%";
+            
+            // 2. ކުރީގެ ޓްރާންސްފޯމް ކޯޑުތައް ނައްތާލުން (މިއީ ލިޔުން ދެމޭ މައްސަލަ)
+            card.style.transform = "none"; 
+            card.style.margin = "0";
+            card.style.maxWidth = "none";
+
+            // 3. ލިޔުންތައް ސްކްރީންގެ މެދަށް ގެނައުން (Stretching ހުއްޓުވުން)
+            card.style.display = "flex";
+            card.style.flexDirection = "row"; // ނުވަތަ "row-reverse" (ސެޓިންގ އިން ނަގާގޮތަށް)
+            card.style.alignItems = "center";
+            card.style.justifyContent = "center";
+            card.style.boxSizing = "border-box";
+            
+            // 4. ފޮޓޯ އާއި ލިޔުންތައް ހަމައަކަށް އެޅުވުން
+            const textCol = card.querySelector('.text-col');
+            if(textCol) {
+                textCol.style.width = "auto"; // ފުޅާމިން އޮޓޯއިން ނަގަން
+                textCol.style.flex = "1";     // ޖާގަ ލިބޭވަރަކަށް ފެތުރެން
+            }
+        }
     }
 
-    alert("✅ HALL MODE ACTIVATED!\n\n1. Center Screen: 1680px (50%)\n2. Side Screens: 840px (25% each)\n\nPlease maximize the TV window across all 3 screens.");
+    alert("✅ RESOLUTION FIXED (3360x840)\n\nL: 840px (25%)\nC: 1680px (50%)\nR: 840px (25%)\n\nText stretching disabled.");
 }
+    /* --- RESET FUNCTION: SWITCH BACK TO NORMAL TV (60/75 Inch) --- */
+function resetToStandardMode() {
+    if(tvWindow && !tvWindow.closed) {
+        const doc = tvWindow.document;
+        
+        // 1. Remove Triple Screen Class
+        doc.body.classList.remove('triple-active');
+
+        // 2. Hide Side Zones
+        const leftZ = doc.getElementById('zoneLeft');
+        const rightZ = doc.getElementById('zoneRight');
+        if(leftZ) leftZ.style.width = "0";
+        if(rightZ) rightZ.style.width = "0";
+
+        // 3. Restore Center Card to Full Floating Mode
+        const card = doc.getElementById('card');
+        if(card) {
+            // Reset position to center floating
+            card.style.position = "absolute";
+            card.style.left = "50%";
+            card.style.top = "54%"; // or original top value
+            card.style.transform = "translate(-50%, -50%)";
+            card.style.width = "90vw"; // Back to standard width
+            card.style.height = "80vh"; // Back to standard height
+            card.style.margin = "auto";
+            
+            // Reset Flex direction logic if needed
+            card.style.flexDirection = designState.layoutDir === 'rtl' ? 'row-reverse' : 'row';
+        }
+    }
+    
+    // Update Control Panel UI
+    const disp = document.getElementById('cwDisp');
+    if(disp) disp.innerText = "Standard TV Mode";
+
+    alert("✅ RESET SUCCESSFUL!\n\nOptimized for 60-75 inch TVs.\nSide screens hidden. Card centered.");
+}
+    /* --- MANUAL FINE-TUNING PATCH (SLIDERS ENABLED) --- */
+
+// 1. މެދު ސްކްރީންގެ ސައިޒު ސްލައިޑަރުން ބަދަލުކުރުން
+const _oldLiveUpdate = liveUpdate;
+liveUpdate = function(key, value) {
+    // Run original function first
+    _oldLiveUpdate(key, value);
+
+    // Custom Override for Hall Mode
+    if(key === 'centerWidth') {
+        const disp = document.getElementById('cwDisp');
+        if(disp) disp.innerText = value + "%";
+
+        if(tvWindow && !tvWindow.closed) {
+            const card = tvWindow.document.getElementById('card');
+            // ހޯލް މޯޑުގައި ހުއްޓަސް، ސްލައިޑަރުން ސައިޒު ބަދަލުކުރެވޭނެ ގޮތް ހެދުން
+            if(card && tvWindow.document.body.classList.contains('triple-active')) {
+                card.style.width = value + '%';
+                
+                // ފުޅާމިން ބަދަލުވާއިރުވެސް މެދުގައި ބެހެއްޓުން (Auto-Center Calculation)
+                // Left Position = (100% - Width%) / 2
+                const newLeft = (100 - value) / 2;
+                card.style.left = newLeft + '%';
+            }
+        }
+    }
+};
+
+// 2. އަރިމަތީ ސްކްރީންތައް (Left/Right) ޖެއްސުމާއި ފުޅާކުރުން
+window.adjustZone = function(side, prop, val) {
+    if(!tvWindow || tvWindow.closed) return;
+    
+    const zoneId = (side === 'left') ? 'zoneLeft' : 'zoneRight';
+    const el = tvWindow.document.getElementById(zoneId);
+    
+    if(el) {
+        if(prop === 'width') {
+            // ފުޅާމިން ބަދަލުކުރުން
+            el.style.width = val + "%"; 
+        } else {
+            // ޕޮޒިޝަން ޖެއްސުން (X-Axis Move)
+            // މިއީ 1px ގެ ފަރަޤު ވެސް ނައްތާލުމަށް ބޭނުންކުރާނީ
+            if(side === 'left') el.style.left = val + "px";
+            else el.style.right = val + "px";
+        }
+    }
+};
 </script>
 </body>
 </html>
