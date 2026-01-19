@@ -1952,7 +1952,34 @@ input:disabled, textarea:disabled, select:disabled {
                                  <option value="right">Right Sidebar (Right)</option>
                              </select>
                         </div>
-                        
+                        <div style="margin-top:20px; border-top:2px dashed #ffcc80; padding-top:15px;">
+    <span style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px; color:#e65100;">
+        2. Top 5 Video Controls:
+    </span>
+
+    <input type="file" id="top5Input" accept="video/*" multiple 
+           style="width:100%; margin-bottom:10px; border:1px solid #ffcc80; padding:5px; border-radius:4px;">
+
+    <div style="display:flex; gap:5px;">
+        <button class="btn-vid" style="background:#ef6c00; color:white; border:none; padding:8px; flex:1; cursor:pointer; font-weight:bold; border-radius:4px;" 
+                onclick="playTop5Vid('prev')" 
+                onmouseenter="showTop5Hover('prev')" 
+                onmouseleave="clearTop5Hover()">
+            ◀ PREV
+        </button>
+        
+        <button class="btn-vid" style="background:#e65100; color:white; border:none; padding:8px; flex:1; cursor:pointer; font-weight:bold; border-radius:4px;" 
+                onclick="playTop5Vid('next')" 
+                onmouseenter="showTop5Hover('next')" 
+                onmouseleave="clearTop5Hover()">
+            NEXT ▶
+        </button>
+    </div>
+
+    <div id="top5Status" style="text-align:center; font-size:12px; color:#bf360c; background:#fff3e0; margin-top:8px; padding:5px; border-radius:4px; font-weight:bold; border:1px solid #ffe0b2;">
+        Select videos to start...
+    </div>
+</div>
                         <div style="background:#fff; padding:10px; border-radius:5px; border:1px solid #ffcc80; margin-bottom:15px;">
                              <span style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px;">2. Video Box Control (Move Anywhere):</span>
                              <div style="display:flex; gap:5px;">
