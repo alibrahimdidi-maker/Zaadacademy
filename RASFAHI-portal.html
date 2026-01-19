@@ -5027,10 +5027,10 @@ function showTop5Tooltip(btn, direction) {
         btn.title = `PREVIOUS TOP 5 VIDEO:\n🇬🇧 ${fileName}\n🇲🇻 ކުރީގެ ޓޮޕް 5 ވީޑިއޯ: ${fileName}`;
     }
 }
-    /* --- TOOLTIP FUNCTION: SHOWS VIDEO NAME ON HOVER --- */
+    /* --- TOOLTIP FUNCTION (MOUSE HOVER NAME) --- */
 function showVideoTooltip(btn, direction) {
-    // 1. ވީޑިއޯ ލޯޑުކޮށްފައި ހުރިތޯ ބެލުން
-    if (!playlist || playlist.length === 0) {
+    // 1. ޕްލޭލިސްޓްގައި އެއްޗެއް އިންތޯ ބެލުން
+    if (typeof playlist === 'undefined' || playlist.length === 0) {
         btn.title = "⚠️ No videos loaded! (ވީޑިއޯއެއް ނެތް)";
         return;
     }
@@ -5039,20 +5039,23 @@ function showVideoTooltip(btn, direction) {
     let targetIdx;
     if (direction === 'next') {
         targetIdx = currentVidIdx + 1;
-        if (targetIdx >= playlist.length) targetIdx = 0; // ލިސްޓް ހުސްވީމަ ކުރިއަށް
+        // ލިސްޓު ހުސްވެއްޖެނަމަ އަލުން ފަށާނީ (Loop)
+        if (targetIdx >= playlist.length) targetIdx = 0; 
     } else {
         targetIdx = currentVidIdx - 1;
-        if (targetIdx < 0) targetIdx = playlist.length - 1; // ފަހަތަށް ދާއިރު އެންމެ ފަހު އެތި
+        // ފަހަތަށް ދާއިރު، ފުރަތަމަ އެތީގައި އިންނަމަ އެންމެ ފަހު އެތި ދައްކާނީ
+        if (targetIdx < 0) targetIdx = playlist.length - 1; 
     }
 
-    // 3. ނަން ނެގުން
+    // 3. ވީޑިއޯގެ ނަން ނެގުން
     let fileName = playlist[targetIdx].name;
 
-    // 4. ބަޓަނަށް ނަން އެރުވުން
+    // 4. ބަޓަނަށް ނަން އެރުވުން (Tooltip)
+    // ނޯޓް: މައުސް ގެންދިޔައީމަ މި ނަން އަރަން 1-2 ސިކުންތު ނަގާފާނެ
     if (direction === 'next') {
-        btn.title = `NEXT: ${fileName}\n(ޖެހިގެން އިން ވީޑިއޯ)`;
+        btn.title = "Next: " + fileName;
     } else {
-        btn.title = `PREV: ${fileName}\n(ކުރީގެ ވީޑިއޯ)`;
+        btn.title = "Prev: " + fileName;
     }
 }
 </script>
