@@ -5131,6 +5131,88 @@ window.playPrevVideo = function() {
     playLocalVideoFile(generalPlaylist[generalIndex]);
     document.getElementById('statusMsg').innerText = "Playing: " + generalPlaylist[generalIndex].name;
 };
+    /* --- TOP 5 SPECIFIC PLAYER & HOVER SYSTEM --- */
+
+var top5Files = [];
+var top5Idx = 0;
+
+// 1. ޓޮޕް 5 ވީޑިއޯތައް ލޯޑުކުރުން
+document.getElementById('top5Input').addEventListener('change', function(e) {
+    if(e.target.files.length > 0) {
+        top5Files = Array.from(e.target.files);
+        top5Idx = 0;
+        document.getElementById('top5Status').innerText = "✅ " + top5Files.length + " Top 5 Videos Loaded!";
+        document.getElementById('top5Status').style.color = "green";
+    }
+});
+
+// 2. މައުސް އެރީމަ ނަން ދެއްކުން (HOVER)
+function showTop5Hover(dir) {
+    const disp = document.getElementById('top5Status');
+    
+    if (top5Files.length === 0) {
+        disp.innerText = "⚠️ No Top 5 Videos!";
+        disp.style.color = "red";
+        return;
+    }
+
+    let checkIdx = top5Idx;
+    
+    // ޖެހިގެން އިން އެތި ބެލުން
+    if (dir === 'next') {
+        checkIdx++;
+        if (checkIdx >= top5Files.length) checkIdx = 0;
+    } else {
+        checkIdx--;
+        if (checkIdx < 0) checkIdx = top5Files.length - 1;
+    }
+
+    let fName = top5Files[checkIdx].name;
+    disp.style.color = "#e65100"; // Dark Orange
+    
+    if(dir === 'next') {
+        disp.innerHTML = "NEXT: <b>" + fName + "</b>";
+    } else {
+        disp.innerHTML = "PREV: <b>" + fName + "</b>";
+    }
+}
+
+// 3. މައުސް ނެގީމަ ސާފުކޮށްލުން
+function clearTop5Hover() {
+    if(top5Files.length > 0) {
+       document.getElementById('top5Status').style.color = "#bf360c";
+       // Optional: Leave blank or show "Ready"
+    } else {
+       document.getElementById('top5Status').innerText = "---";
+    }
+}
+
+// 4. ޕްލޭ ކުރާ ފަންކްޝަން (PLAY)
+function playTop5Vid(dir) {
+    if (top5Files.length === 0) { alert("Please load Top 5 videos first!"); return; }
+
+    if (dir === 'next') {
+        top5Idx++;
+        if (top5Idx >= top5Files.length) top5Idx = 0;
+    } else {
+        top5Idx--;
+        if (top5Idx < 0) top5Idx = top5Files.length - 1;
+    }
+
+    // Play Video (Calling your main player function)
+    if(typeof playLocalVideoFile === 'function') {
+        playLocalVideoFile(top5Files[top5Idx]);
+    } else {
+        // Fallback if main player not found
+        const v = document.getElementById('mainVideo');
+        v.src = URL.createObjectURL(top5Files[top5Idx]);
+        v.play();
+    }
+    
+    // Update Status
+    document.getElementById('top5Status').innerText = "▶ PLAYING: " + top5Files[top5Idx].name;
+    document.getElementById('top5Status').style.color = "green";
+}
 </script>
 </body>
 </html>
