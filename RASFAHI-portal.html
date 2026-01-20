@@ -1731,22 +1731,12 @@ input:disabled, textarea:disabled, select:disabled {
     <div style="font-weight:bold; color:#0277bd; margin-bottom:5px;">🎞️ Video Player & Presentation</div>
     
     <div style="display:flex; gap:8px;">
-    <label style="width:70%; font-size:12px; color:#555;">General Video Playlist:</label>
-    
-    <input type="file" id="videoPlaylist" accept="video/*" multiple style="width:70%">
-    
-    <button class="btn-vid" style="background:#e65100; width:15%; margin-right:2px;" 
-            onclick="playPrevVideo()" 
-            onmouseover="showTooltip(this, 'prev')">
-        ◀ Back
-    </button>
-    
-    <button class="btn-vid" style="background:#ef6c00; width:15%;" 
-            onclick="playNextVideo()" 
-            onmouseover="showTooltip(this, 'next')">
-        Next ▶
-    </button>
-</div>
+        <label style="width:70%; font-size:12px; color:#555;">General Video Playlist:</label>
+        <input type="file" id="videoPlaylist" accept="video/*" multiple style="width:70%">
+        <button class="btn-vid" style="background:#e65100; width:15%; margin-right:2px;" onclick="playPrevVideo()">◀ Back</button>
+        <button class="btn-vid" style="background:#ef6c00; width:15%;" onclick="playNextVideo()">Next ▶</button>
+    </div>
+
     <div style="margin-top:5px;">
         <button class="btn-vid" style="background:#00695c; width:100%; font-weight:bold;" onclick="playGeneralSequence()">▶ Play General Playlist (Sequential)</button>
     </div>
@@ -1952,34 +1942,7 @@ input:disabled, textarea:disabled, select:disabled {
                                  <option value="right">Right Sidebar (Right)</option>
                              </select>
                         </div>
-                        <div style="margin-top:20px; border-top:2px dashed #ffcc80; padding-top:15px;">
-    <span style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px; color:#e65100;">
-        2. Top 5 Video Controls:
-    </span>
-
-    <input type="file" id="top5Input" accept="video/*" multiple 
-           style="width:100%; margin-bottom:10px; border:1px solid #ffcc80; padding:5px; border-radius:4px;">
-
-    <div style="display:flex; gap:5px;">
-        <button class="btn-vid" style="background:#ef6c00; color:white; border:none; padding:8px; flex:1; cursor:pointer; font-weight:bold; border-radius:4px;" 
-                onclick="playTop5Vid('prev')" 
-                onmouseenter="showTop5Hover('prev')" 
-                onmouseleave="clearTop5Hover()">
-            ◀ PREV
-        </button>
-        
-        <button class="btn-vid" style="background:#e65100; color:white; border:none; padding:8px; flex:1; cursor:pointer; font-weight:bold; border-radius:4px;" 
-                onclick="playTop5Vid('next')" 
-                onmouseenter="showTop5Hover('next')" 
-                onmouseleave="clearTop5Hover()">
-            NEXT ▶
-        </button>
-    </div>
-
-    <div id="top5Status" style="text-align:center; font-size:12px; color:#bf360c; background:#fff3e0; margin-top:8px; padding:5px; border-radius:4px; font-weight:bold; border:1px solid #ffe0b2;">
-        Select videos to start...
-    </div>
-</div>
+                        
                         <div style="background:#fff; padding:10px; border-radius:5px; border:1px solid #ffcc80; margin-bottom:15px;">
                              <span style="font-weight:bold; font-size:14px; display:block; margin-bottom:5px;">2. Video Box Control (Move Anywhere):</span>
                              <div style="display:flex; gap:5px;">
@@ -4158,55 +4121,54 @@ body.triple-active #card {
         }
     }
     
-   // --- SMART LINK CONVERTER (FIXED FOR YOUTUBE & OTHERS) ---
-    function getSmartLink(url, type) {
-        if (!url) return "";
+/* --- SMART LINK CONVERTER (FIXED FOR GOOGLE SLIDES) --- */
+function getSmartLink(url, type) {
+    if (!url) return "";
 
-        // 1. YouTube Handling (Shorts & Standard)
-        if (url.includes('youtube.com') || url.includes('youtu.be')) {
-            let videoId = null;
-
-            // Handle Shorts
-            if (url.includes('/shorts/')) {
-                const parts = url.split('/shorts/');
-                if (parts[1]) videoId = parts[1].split('?')[0]; // Remove query params
-            } 
-            // Handle Standard & Embed
-            else {
-                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                const match = url.match(regExp);
-                if (match && match[2] && match[2].length == 11) {
-                    videoId = match[2];
-                }
-            }
-
-            if (videoId) {
-                // Use standard youtube.com/embed with autoplay
-                return `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&rel=0&modestbranding=1`;
-            }
-        }
-        
-        // 2. Canva Handling
-        if (type === 'canva' || (type === 'auto' && url.includes('canva.com'))) {
-             let cleanUrl = url.split('?')[0];
-             if(cleanUrl.endsWith('/')) cleanUrl = cleanUrl.slice(0, -1);
-             if(cleanUrl.includes('/view')) {
-                 if(!cleanUrl.includes('?embed')) return cleanUrl + '?embed';
-             } else if(cleanUrl.includes('/edit')) {
-                 return cleanUrl.replace('/edit', '/view?embed');
-             } else {
-                 return cleanUrl + '/view?embed';
-             }
-        }
-
-        // 3. Gamma Handling
-        if (type === 'gamma' || (type === 'auto' && url.includes('gamma.app'))) {
-             return url; 
-        }
-
-        return url;
+    // 1. GOOGLE SLIDES FIX
+    if (type === 'google' || (type === 'auto' && url.includes('docs.google.com/presentation'))) {
+        let baseUrl = url.split('/edit')[0];
+        return baseUrl + "/embed?start=false&loop=false&delayms=3000&rm=minimal";
     }
 
+    // 2. YouTube Handling
+    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+        let videoId = null;
+        if (url.includes('/shorts/')) {
+            const parts = url.split('/shorts/');
+            if (parts[1]) videoId = parts[1].split('?')[0];
+        } else {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            if (match && match[2] && match[2].length == 11) {
+                videoId = match[2];
+            }
+        }
+        if (videoId) {
+            return `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&rel=0&modestbranding=1`;
+        }
+    }
+    
+    // 3. Canva Handling
+    if (type === 'canva' || (type === 'auto' && url.includes('canva.com'))) {
+         let cleanUrl = url.split('?')[0];
+         if(cleanUrl.endsWith('/')) cleanUrl = cleanUrl.slice(0, -1);
+         if(cleanUrl.includes('/view')) {
+             if(!cleanUrl.includes('?embed')) return cleanUrl + '?embed';
+         } else if(cleanUrl.includes('/edit')) {
+             return cleanUrl.replace('/edit', '/view?embed');
+         } else {
+             return cleanUrl + '/view?embed';
+         }
+    }
+
+    // 4. Gamma Handling
+    if (type === 'gamma' || (type === 'auto' && url.includes('gamma.app'))) {
+         return url; 
+    }
+
+    return url;
+}
     function showPresentation() {
         if(!tvWindow || tvWindow.closed) return;
         let url = document.getElementById('presLink').value;
@@ -5024,222 +4986,6 @@ window.adjustZone = function(side, prop, val) {
         }
     }
 };
-    /* --- TOP 5 SPECIFIC TOOLTIP FUNCTION --- */
-function showTop5Tooltip(btn, direction) {
-    // 1. ޓޮޕް 5 ލިސްޓު ހުސްތޯ ބެލުން
-    if (!top5VideoPlaylist || top5VideoPlaylist.length === 0) {
-        btn.title = "⚠️ No Top 5 Videos Loaded!\nޓޮޕް 5 ވީޑިއޯ ލޯޑުކޮށްފައެއް ނެތް";
-        return;
-    }
-
-    // 2. ދެން އިންނާނެ ވީޑިއޯ ހޯދުން
-    let targetIdx;
-    
-    if (direction === 'next') {
-        targetIdx = currentVidIdx + 1;
-        if (targetIdx >= top5VideoPlaylist.length) targetIdx = 0; 
-    } else {
-        targetIdx = currentVidIdx - 1;
-        if (targetIdx < 0) targetIdx = top5VideoPlaylist.length - 1; 
-    }
-
-    // 3. ވީޑިއޯގެ ނަން ނެގުން
-    let fileName = top5VideoPlaylist[targetIdx].name;
-
-    // 4. "TOP 5" ކަން އެނގޭގޮތަށް ލިޔުން އެރުވުން
-    if (direction === 'next') {
-        btn.title = `NEXT TOP 5 VIDEO:\n🇬🇧 ${fileName}\n🇲🇻 ޖެހިގެން އިން ޓޮޕް 5 ވީޑިއޯ: ${fileName}`;
-    } else {
-        btn.title = `PREVIOUS TOP 5 VIDEO:\n🇬🇧 ${fileName}\n🇲🇻 ކުރީގެ ޓޮޕް 5 ވީޑިއޯ: ${fileName}`;
-    }
-}
-    /* --- TOOLTIP FUNCTION (MOUSE HOVER NAME) --- */
-function showVideoTooltip(btn, direction) {
-    // 1. ޕްލޭލިސްޓްގައި އެއްޗެއް އިންތޯ ބެލުން
-    if (typeof playlist === 'undefined' || playlist.length === 0) {
-        btn.title = "⚠️ No videos loaded! (ވީޑިއޯއެއް ނެތް)";
-        return;
-    }
-
-    // 2. ދެން އިންނާނެ ވީޑިއޯ ހޯދުން
-    let targetIdx;
-    if (direction === 'next') {
-        targetIdx = currentVidIdx + 1;
-        // ލިސްޓު ހުސްވެއްޖެނަމަ އަލުން ފަށާނީ (Loop)
-        if (targetIdx >= playlist.length) targetIdx = 0; 
-    } else {
-        targetIdx = currentVidIdx - 1;
-        // ފަހަތަށް ދާއިރު، ފުރަތަމަ އެތީގައި އިންނަމަ އެންމެ ފަހު އެތި ދައްކާނީ
-        if (targetIdx < 0) targetIdx = playlist.length - 1; 
-    }
-
-    // 3. ވީޑިއޯގެ ނަން ނެގުން
-    let fileName = playlist[targetIdx].name;
-
-    // 4. ބަޓަނަށް ނަން އެރުވުން (Tooltip)
-    // ނޯޓް: މައުސް ގެންދިޔައީމަ މި ނަން އަރަން 1-2 ސިކުންތު ނަގާފާނެ
-    if (direction === 'next') {
-        btn.title = "Next: " + fileName;
-    } else {
-        btn.title = "Prev: " + fileName;
-    }
-}
-    /* --- FIXED VIDEO PLAYLIST & TOOLTIP SYSTEM --- */
-
-// 1. ވަރިއަބަލްތައް ހެދުން
-var generalPlaylist = []; 
-var generalIndex = 0;
-
-// 2. ވީޑިއޯ ފައިލްތައް ނެގުމުން ލިސްޓަށް އެޅުން
-document.getElementById('videoPlaylist').addEventListener('change', function(e) {
-    if(e.target.files.length > 0) {
-        generalPlaylist = Array.from(e.target.files); // ލިސްޓް އަޕްޑޭޓްކުރުން
-        generalIndex = 0; // ފުރަތަމަ ވީޑިއޯއަށް ރީސެޓްވުން
-        alert("✅ " + generalPlaylist.length + " Videos Loaded Successfully!");
-    }
-});
-
-// 3. މައުސް ގެންދިޔައީމަ ނަން ދައްކާ ފަންކްޝަން (Tooltip)
-function showTooltip(btn, direction) {
-    // ވީޑިއޯ ނުނަގާ ހުރިނަމަ
-    if (generalPlaylist.length === 0) {
-        btn.title = "⚠️ No videos selected! (ވީޑިއޯއެއް ނެތް)";
-        return;
-    }
-
-    // ދެން އިންނާނެ ވީޑިއޯ ހިސާބުކުރުން
-    let targetIndex = generalIndex;
-    
-    if (direction === 'next') {
-        targetIndex++;
-        // އެންމެ ފަހު އެތި ނަމަ، އަލުން ފުރަތަމަ އެތި ދައްކާ
-        if (targetIndex >= generalPlaylist.length) targetIndex = 0;
-    } else {
-        targetIndex--;
-        // އެންމެ ފުރަތަމަ އެތި ނަމަ، އެންމެ ފަހު އެތި ދައްކާ
-        if (targetIndex < 0) targetIndex = generalPlaylist.length - 1;
-    }
-
-    // ނަން ނެގުން
-    let videoName = generalPlaylist[targetIndex].name;
-
-    // ބަޓަނަށް ނަން އެރުވުން
-    if (direction === 'next') {
-        btn.title = "NEXT ▶ " + videoName;
-    } else {
-        btn.title = "◀ PREV: " + videoName;
-    }
-}
-
-// 4. ޕްލޭ ކުރާ ފަންކްޝަންތައް (އަޕްޑޭޓްކުރުން)
-// (މިހާރު ހުރި playNextVideo / playPrevVideo ގެ ބަދަލުގައި މީތި ބޭނުންކުރެވޭނެ)
-window.playNextVideo = function() {
-    if(generalPlaylist.length === 0) { alert("No videos!"); return; }
-    
-    // Play Current Index
-    playLocalVideoFile(generalPlaylist[generalIndex]);
-    
-    // Update Status
-    document.getElementById('statusMsg').innerText = "Playing: " + generalPlaylist[generalIndex].name;
-
-    // Increment for next click
-    generalIndex++;
-    if(generalIndex >= generalPlaylist.length) generalIndex = 0;
-};
-
-window.playPrevVideo = function() {
-    if(generalPlaylist.length === 0) { alert("No videos!"); return; }
-    
-    // Go back
-    generalIndex--;
-    if(generalIndex < 0) generalIndex = generalPlaylist.length - 1;
-
-    // Play
-    playLocalVideoFile(generalPlaylist[generalIndex]);
-    document.getElementById('statusMsg').innerText = "Playing: " + generalPlaylist[generalIndex].name;
-};
-    /* --- TOP 5 SPECIFIC PLAYER & HOVER SYSTEM --- */
-
-var top5Files = [];
-var top5Idx = 0;
-
-// 1. ޓޮޕް 5 ވީޑިއޯތައް ލޯޑުކުރުން
-document.getElementById('top5Input').addEventListener('change', function(e) {
-    if(e.target.files.length > 0) {
-        top5Files = Array.from(e.target.files);
-        top5Idx = 0;
-        document.getElementById('top5Status').innerText = "✅ " + top5Files.length + " Top 5 Videos Loaded!";
-        document.getElementById('top5Status').style.color = "green";
-    }
-});
-
-// 2. މައުސް އެރީމަ ނަން ދެއްކުން (HOVER)
-function showTop5Hover(dir) {
-    const disp = document.getElementById('top5Status');
-    
-    if (top5Files.length === 0) {
-        disp.innerText = "⚠️ No Top 5 Videos!";
-        disp.style.color = "red";
-        return;
-    }
-
-    let checkIdx = top5Idx;
-    
-    // ޖެހިގެން އިން އެތި ބެލުން
-    if (dir === 'next') {
-        checkIdx++;
-        if (checkIdx >= top5Files.length) checkIdx = 0;
-    } else {
-        checkIdx--;
-        if (checkIdx < 0) checkIdx = top5Files.length - 1;
-    }
-
-    let fName = top5Files[checkIdx].name;
-    disp.style.color = "#e65100"; // Dark Orange
-    
-    if(dir === 'next') {
-        disp.innerHTML = "NEXT: <b>" + fName + "</b>";
-    } else {
-        disp.innerHTML = "PREV: <b>" + fName + "</b>";
-    }
-}
-
-// 3. މައުސް ނެގީމަ ސާފުކޮށްލުން
-function clearTop5Hover() {
-    if(top5Files.length > 0) {
-       document.getElementById('top5Status').style.color = "#bf360c";
-       // Optional: Leave blank or show "Ready"
-    } else {
-       document.getElementById('top5Status').innerText = "---";
-    }
-}
-
-// 4. ޕްލޭ ކުރާ ފަންކްޝަން (PLAY)
-function playTop5Vid(dir) {
-    if (top5Files.length === 0) { alert("Please load Top 5 videos first!"); return; }
-
-    if (dir === 'next') {
-        top5Idx++;
-        if (top5Idx >= top5Files.length) top5Idx = 0;
-    } else {
-        top5Idx--;
-        if (top5Idx < 0) top5Idx = top5Files.length - 1;
-    }
-
-    // Play Video (Calling your main player function)
-    if(typeof playLocalVideoFile === 'function') {
-        playLocalVideoFile(top5Files[top5Idx]);
-    } else {
-        // Fallback if main player not found
-        const v = document.getElementById('mainVideo');
-        v.src = URL.createObjectURL(top5Files[top5Idx]);
-        v.play();
-    }
-    
-    // Update Status
-    document.getElementById('top5Status').innerText = "▶ PLAYING: " + top5Files[top5Idx].name;
-    document.getElementById('top5Status').style.color = "green";
-}
 </script>
 </body>
 </html>
