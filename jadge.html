@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="dv" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ރަސްފަހި ޖަޖިންގ ސޮފްޓްވެއަރ - Rasfahi Royal Judging System</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- ROYAL THEME CONFIGURATION --- */
+        :root {
+            --royal-green: #004d40;
+            --royal-blue: #0d47a1;
+            --royal-gold: #c5a059;
+            --royal-gold-light: #e6ce98;
+            --bg-cream: #f9f7f2;
+            --text-dark: #1a1a1a;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(0,0,0,0.3);
+            --border-gold: 2px solid var(--royal-gold);
+        }
+
+        @font-face {
+            font-family: 'Faruma';
+            src: local('Faruma'), local('MV Boli'), url('https://fonts.googleapis.com/earlyaccess/dhivehi.css');
+        }
+
+        body {
+            font-family: 'Faruma', 'MV Boli', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            user-select: none; /* Anti-Copy Text Selection */
+        }
+
+        /* --- UTILS & SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--royal-green); }
+        ::-webkit-scrollbar-thumb { background: var(--royal-gold); border-radius: 5px; }
+
+        .hidden { display: none !important; }
+        .full-screen-btn {
+            position: fixed; bottom: 20px; left: 20px;
+            width: 50px; height: 50px; background: var(--royal-gold);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: var(--shadow); z-index: 9999;
+            color: var(--royal-green); font-size: 24px; transition: 0.3s;
+        }
+        .full-screen-btn:hover { transform: scale(1.1); }
+
+        /* --- LOGIN / LICENSE SCREEN --- */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--royal-green), var(--royal-blue));
+            display: flex; justify-content: center; align-items: center; z-index: 10000;
+        }
+        .login-box {
+            background: rgba(255,255,255,0.95);
+            padding: 40px; border-radius: 15px; border: 3px solid var(--royal-gold);
+            text-align: center; width: 400px; box-shadow: 0 0 50px var(--royal-gold);
+        }
+        .login-box h1 { color: var(--royal-green); margin-bottom: 20px; }
+        .input-field {
+            width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc;
+            border-radius: 5px; font-size: 16px; box-sizing: border-box;
+        }
+        .btn-royal {
+            background: linear-gradient(to bottom, var(--royal-gold), #a08038);
+            color: white; border: none; padding: 12px 30px; border-radius: 5px;
+            font-size: 18px; cursor: pointer; width: 100%; margin-top: 10px;
+            font-weight: bold; text-shadow: 1px 1px 2px black;
+        }
+
+        /* --- LAYOUTS --- */
+        .app-container { display: flex; height: 100vh; }
+        
+        /* SIDEBAR */
+        .sidebar {
+            width: 280px; background: var(--royal-green); color: white;
+            display: flex; flex-direction: column; border-left: 3px solid var(--royal-gold);
+            box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+            overflow-y: auto;
+        }
+        .sidebar-header {
+            padding: 20px; text-align: center; background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid var(--royal-gold);
+        }
+        .sidebar-header h2 { margin: 0; color: var(--royal-gold); font-size: 24px; }
+        .nav-item {
+            padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px;
+        }
+        .nav-item:hover, .nav-item.active { background: var(--royal-gold); color: var(--royal-green); }
+        .nav-item i { width: 25px; }
+
+        /* MAIN CONTENT */
+        .main-content { flex: 1; padding: 20px; overflow-y: auto; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDQwTDQwIDBIMHoiIGZpbGw9IiNjNWEwNTkiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvZz48L3N2Zz4='); }
+
+        /* PANELS */
+        .panel { 
+            background: white; border-radius: 10px; padding: 20px; 
+            box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid var(--royal-gold);
+        }
+        .panel-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid var(--royal-green); padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .panel-header h3 { color: var(--royal-blue); margin: 0; }
+
+        /* STUDENT CARD (Banner) */
+        .student-banner {
+            background: linear-gradient(90deg, var(--royal-green), var(--royal-blue));
+            color: white; padding: 20px; border-radius: 10px; border: 4px double var(--royal-gold);
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+        }
+        .student-photo {
+            width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--royal-gold);
+            background: #eee; object-fit: cover;
+        }
+        .student-info h1 { margin: 0; font-size: 28px; color: var(--royal-gold); }
+        .student-info p { margin: 5px 0 0; font-size: 16px; opacity: 0.9; }
+
+        /* GRID SYSTEM */
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;
+        }
+        .grid-box {
+            background: var(--royal-green); color: white; padding: 30px; text-align: center;
+            border-radius: 8px; cursor: pointer; border: 2px solid var(--royal-gold);
+            font-size: 24px; font-weight: bold; transition: 0.3s;
+        }
+        .grid-box:hover { background: var(--royal-gold); color: var(--royal-green); transform: scale(1.05); }
+
+        /* RUBRIC TABLE */
+        table.rubric { width: 100%; border-collapse: collapse; }
+        table.rubric th, table.rubric td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        table.rubric th { background: var(--royal-green); color: white; }
+        table.rubric tr:nth-child(even) { background: #f2f2f2; }
+        .score-btn {
+            width: 35px; height: 35px; border-radius: 50%; border: none; 
+            margin: 2px; cursor: pointer; font-weight: bold;
+        }
+        .btn-plus { background: #4caf50; color: white; }
+        .btn-minus { background: #f44336; color: white; }
+
+        /* QURAN DISPLAY */
+        .quran-display {
+            width: 100%; min-height: 600px; background: #fff; border: 10px solid var(--royal-gold);
+            display: flex; justify-content: center; align-items: center; position: relative;
+            overflow: hidden;
+        }
+        .quran-page-img { max-width: 90%; max-height: 90vh; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        
+        /* TRAFFIC LIGHTS */
+        .traffic-light {
+            width: 60px; height: 60px; border-radius: 50%; background: #333; margin: 10px;
+            box-shadow: inset 0 0 10px #000; transition: 0.3s;
+        }
+        .light-active.green { background: #00ff00; box-shadow: 0 0 20px #00ff00; }
+        .light-active.red { background: #ff0000; box-shadow: 0 0 20px #ff0000; }
+
+    </style>
+</head>
+<body oncontextmenu="return false;"> <div id="login-screen">
+        <div class="login-box">
+            <h1>ރަސްފަހި ޖަޖިންގ</h1>
+            <p>Rasfahi Royal Judging System</p>
+            <input type="password" id="license-key" class="input-field" placeholder="ލައިސަންސް ކީ ޖަހާ...">
+            <button class="btn-royal" onclick="verifyLicense()">ލޮގިން</button>
+            <p style="margin-top:20px; font-size:12px; color:#555;">Version 1.0 | Licensed to: <span id="licensee-name">Demo User</span></p>
+        </div>
+    </div>
+
+    <div id="admin-view" class="app-container hidden">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-crown fa-2x" style="color:var(--royal-gold);"></i>
+                <h2>ރަސްފަހި</h2>
+            </div>
+            <div class="nav-item active" onclick="switchTab('dashboard')"><i class="fas fa-tachometer-alt"></i> ޑޭޝްބޯޑް</div>
+            <div class="nav-item" onclick="switchTab('participants')"><i class="fas fa-users"></i> ބައިވެރިން</div>
+            <div class="nav-item" onclick="switchTab('judging-control')"><i class="fas fa-gavel"></i> ޖަޖިންގ ކޮންޓްރޯލް</div>
+            <div class="nav-item" onclick="switchTab('results')"><i class="fas fa-poll"></i> ނަތީޖާ / ރިޕޯޓް</div>
+            <div class="nav-item" onclick="switchTab('settings')"><i class="fas fa-cogs"></i> ސެޓިންގްސް</div>
+            <div style="margin-top:auto; padding:20px;">
+                <button class="btn-royal" onclick="launchWindow('judge')">ޖަޖް ވިއު ހުޅުވާ</button>
+                <button class="btn-royal" style="margin-top:10px; background: var(--royal-blue);" onclick="launchWindow('student')">ދަރިވަރު ވިއު ހުޅުވާ</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div id="tab-dashboard" class="panel">
+                <div class="panel-header">
+                    <h3>މުބާރާތުގެ ސްޓޭޓަސް</h3>
+                    <span id="clock" style="font-weight:bold; color:var(--royal-green);"></span>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-box" style="background:#0d47a1;">ޖުމްލަ ބައިވެރިން <br> <span id="total-students">0</span></div>
+                    <div class="grid-box" style="background:#004d40;">މިހާތަނަށް ނިމުނީ <br> <span id="completed-students">0</span></div>
+                    <div class="grid-box" style="background:#c5a059;">ބާކީ <br> <span id="pending-students">0</span></div>
+                </div>
+            </div>
+
+            <div id="tab-judging-control" class="panel hidden">
+                <div class="panel-header">
+                    <h3>ކޮންޓްރޯލް ރޫމް (ލައިވް)</h3>
+                </div>
+                
+                <div style="display:flex; gap:10px; margin-bottom:20px;">
+                    <input type="text" id="student-search" class="input-field" placeholder="ދަރިވަރު ހޯދާ (ނަން / އައިޑީ)...">
+                    <select id="category-select" class="input-field">
+                        <option>ބަލައިގެން ކިޔެވުން (6 އަހަރުން ދަށް)</option>
+                        <option>ހިތުދަސް ކިޔެވުން (10 އަހަރުން ދަށް)</option>
+                    </select>
+                    <button class="btn-royal" style="width:150px;" onclick="loadStudent()">ހޮވާ</button>
+                </div>
+
+                <div id="active-student-card" class="student-banner hidden">
+                    <img src="" id="active-photo" class="student-photo" alt="Student">
+                    <div class="student-info">
+                        <h1 id="active-name">ނަމެއް ނެތް</h1>
+                        <p id="active-details">އައިޑީ: -- | ގޮފި: --</p>
+                    </div>
+                    <div>
+                        <div style="font-size:40px; font-weight:bold; color:var(--royal-gold);" id="active-score">0.0</div>
+                    </div>
+                </div>
+
+                <div class="panel" style="background:#f0f0f0;">
+                    <h4>ސްކްރީން ކޮންޓްރޯލް</h4>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-royal" onclick="sendToScreens('GRID')">ގްރިޑް ދައްކާ</button>
+                        <button class="btn-royal" onclick="sendToScreens('QUESTION_1')">ސުވާލު 1 ދައްކާ</button>
+                        <button class="btn-royal" onclick="sendToScreens('QUESTION_2')">ސުވާލު 2 ދައްކާ</button>
+                        <button class="btn-royal" style="background:green;" onclick="sendSignal('START')">ފަށާ (ގްރީން)</button>
+                        <button class="btn-royal" style="background:red;" onclick="sendSignal('STOP')">ނިންމާ (ރެޑް)</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="tab-results" class="panel hidden">
+                <h3>ނަތީޖާ ޝީޓް</h3>
+                <button class="btn-royal" onclick="generatePDF()">PDF ޑައުންލޯޑްކުރޭ</button>
+                <div id="results-table-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="judge-view" class="hidden" style="padding:20px;">
+        <div class="student-banner">
+            <div class="student-info">
+                <h1 id="judge-student-name">ދަރިވަރަކު ނެތް</h1>
+                <p id="judge-student-id">Waiting for Control...</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div style="display:flex; justify-content:space-between;">
+                <h3>ޖަޖު: <span id="judge-name-display">Judge 1</span></h3>
+                <h2 style="color:var(--royal-blue);">ޖުމްލަ: <span id="judge-current-total">100</span></h2>
+            </div>
+            <table class="rubric">
+                <thead>
+                    <tr>
+                        <th>ކެޓަގަރީ</th>
+                        <th>މާކުސް (ފުލް)</th>
+                        <th>ކަނޑާ</th>
+                        <th>ލިބުނު</th>
+                    </tr>
+                </thead>
+                <tbody id="rubric-body">
+                    </tbody>
+            </table>
+            <div style="margin-top:20px;">
+                <textarea class="input-field" placeholder="ކޮމެންޓް..." style="height:80px;"></textarea>
+                <button class="btn-royal" onclick="submitMarks()">މާކުސް ސަބްމިޓްކުރޭ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="student-view" class="hidden" style="height:100vh; display:flex; flex-direction:column;">
+        <div class="student-banner" style="margin:10px;">
+            <div class="student-info">
+                <h1 id="student-view-name">ރަސްފަހި ޤުރްއާން މުބާރާތް</h1>
+                <p id="student-view-details">އިންތިޒާރުކުރައްވާ...</p>
+            </div>
+            <div style="display:flex;">
+                <div id="light-green" class="traffic-light"></div>
+                <div id="light-red" class="traffic-light"></div>
+            </div>
+        </div>
+        
+        <div id="student-content-area" style="flex:1; display:flex; justify-content:center; align-items:center; background:#ddd;">
+            <div id="view-placeholder" style="text-align:center;">
+                <img src="https://via.placeholder.com/150" style="opacity:0.5;">
+                <h2>ރަސްފަހި</h2>
+            </div>
+            <div id="quran-viewer" class="hidden quran-display">
+                <img id="quran-img" class="quran-page-img" src="" alt="Quran Page">
+            </div>
+        </div>
+    </div>
+
+    <div class="full-screen-btn" onclick="toggleFullScreen()">
+        <i class="fas fa-expand"></i>
+    </div>
+
+    <script>
+        /* --- CORE LOGIC --- */
+        
+        // Configuration
+        const APP_NAME = "RasfahiJudging";
+        const SECRET_KEY = "RASFAHI2026"; // Simple hardcoded key for demo
+        
+        // State Management
+        let currentState = {
+            currentStudent: null,
+            rubric: [
+                { name: "ހިފްޡް / ނުބަލާ", max: 50, score: 50 },
+                { name: "ތަޖުވީދު", max: 30, score: 30 },
+                { name: "ފަޞާޙާތް", max: 10, score: 10 },
+                { name: "އަޑާއި ރާގު", max: 10, score: 10 }
+            ],
+            students: [
+                { id: "S001", name: "އަޙްމަދު މުޙައްމަދު", group: "ހިފްޡް", photo: "https://via.placeholder.com/100" },
+                { id: "S002", name: "ފާޠިމަތު ޢަލީ", group: "ބަލައިގެން", photo: "https://via.placeholder.com/100" }
+            ]
+        };
+
+        // Communication Channel
+        const channel = new BroadcastChannel('rasfahi_channel');
+
+        // Initialization
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const view = urlParams.get('view');
+
+            if (view === 'judge') {
+                initJudgeView();
+            } else if (view === 'student') {
+                initStudentView();
+            } else {
+                // Admin View (Default)
+                document.getElementById('login-screen').classList.remove('hidden');
+                updateDashboard();
+            }
+
+            // Listen for messages
+            channel.onmessage = (event) => {
+                handleMessage(event.data);
+            };
+
+            // Keyboard security
+            document.addEventListener('keydown', function(e) {
+                if(e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'i')) {
+                    e.preventDefault();
+                }
+            });
+        };
+
+        function verifyLicense() {
+            const input = document.getElementById('license-key').value;
+            // Simple check (Real world would be more complex)
+            if (input.length > 0) { 
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('admin-view').classList.remove('hidden');
+                startClock();
+            } else {
+                alert("Invalid License Key");
+            }
+        }
+
+        /* --- ADMIN FUNCTIONS --- */
+        function switchTab(tabId) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            const target = document.getElementById('tab-' + tabId);
+            if(target) target.classList.remove('hidden');
+            
+            // Highlight nav (simplified for demo)
+        }
+
+        function launchWindow(type) {
+            // Open same file with ?view=type
+            window.open(window.location.pathname + '?view=' + type, '_blank', 'width=1024,height=768');
+        }
+
+        function loadStudent() {
+            // Demo: Load first student
+            const s = currentState.students[0];
+            currentState.currentStudent = s;
+            
+            // Update Admin UI
+            document.getElementById('active-student-card').classList.remove('hidden');
+            document.getElementById('active-name').innerText = s.name;
+            document.getElementById('active-photo').src = s.photo;
+            
+            // Broadcast to Judges & Screen
+            channel.postMessage({ type: 'LOAD_STUDENT', data: s });
+        }
+
+        function sendToScreens(action) {
+            channel.postMessage({ type: 'SCREEN_ACTION', action: action });
+        }
+
+        function sendSignal(signal) {
+            channel.postMessage({ type: 'SIGNAL', signal: signal });
+        }
+
+        /* --- JUDGE FUNCTIONS --- */
+        function initJudgeView() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('judge-view').classList.remove('hidden');
+            renderRubric();
+        }
+
+        function renderRubric() {
+            const tbody = document.getElementById('rubric-body');
+            tbody.innerHTML = '';
+            currentState.rubric.forEach((cat, index) => {
+                let row = `
+                    <tr>
+                        <td style="font-weight:bold;">${cat.name}</td>
+                        <td>${cat.max}</td>
+                        <td>
+                            <button class="score-btn btn-minus" onclick="adjustScore(${index}, -0.5)">-0.5</button>
+                            <button class="score-btn btn-minus" onclick="adjustScore(${index}, -1)">-1</button>
+                        </td>
+                        <td style="font-size:20px; font-weight:bold; color:var(--royal-blue);" id="score-${index}">${cat.score}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function adjustScore(index, amount) {
+            let cat = currentState.rubric[index];
+            cat.score += amount;
+            if(cat.score > cat.max) cat.score = cat.max;
+            if(cat.score < 0) cat.score = 0;
+            
+            document.getElementById(`score-${index}`).innerText = cat.score;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = currentState.rubric.reduce((acc, curr) => acc + curr.score, 0);
+            document.getElementById('judge-current-total').innerText = total;
+        }
+
+        function submitMarks() {
+            let total = document.getElementById('judge-current-total').innerText;
+            // Send back to admin
+            channel.postMessage({ type: 'MARKS_SUBMITTED', total: total, judge: 'Judge 1' });
+            alert("Marks Submitted Successfully");
+            document.getElementById('judge-view').classList.add('hidden'); // Clear view
+        }
+
+        /* --- STUDENT FUNCTIONS --- */
+        function initStudentView() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('student-view').classList.remove('hidden');
+        }
+
+        /* --- COMMUNICATION HANDLER --- */
+        function handleMessage(msg) {
+            if (msg.type === 'LOAD_STUDENT') {
+                if (document.getElementById('judge-student-name')) {
+                    document.getElementById('judge-student-name').innerText = msg.data.name;
+                    document.getElementById('judge-student-id').innerText = msg.data.id;
+                    document.getElementById('judge-view').classList.remove('hidden'); // Show form
+                }
+                if (document.getElementById('student-view-name')) {
+                    document.getElementById('student-view-name').innerText = msg.data.name;
+                    document.getElementById('student-view-details').innerText = msg.data.group;
+                }
+            }
+            
+            if (msg.type === 'SCREEN_ACTION') {
+                if (document.getElementById('student-view')) {
+                    const content = document.getElementById('student-content-area');
+                    const qViewer = document.getElementById('quran-viewer');
+                    const qImg = document.getElementById('quran-img');
+                    
+                    if (msg.action === 'GRID') {
+                        content.innerHTML = '<div class="grid-container" style="padding:50px;"><div class="grid-box">1</div><div class="grid-box">2</div><div class="grid-box">3</div></div>';
+                    } else if (msg.action.startsWith('QUESTION')) {
+                        // In a real app, logic to map Question -> Page Image would be here
+                        content.innerHTML = ''; 
+                        content.appendChild(qViewer);
+                        qViewer.classList.remove('hidden');
+                        qImg.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/1_Surah_Al_Fatihah.png/640px-1_Surah_Al_Fatihah.png"; // Demo Image
+                    }
+                }
+            }
+
+            if (msg.type === 'SIGNAL') {
+                 if (document.getElementById('student-view')) {
+                     document.querySelectorAll('.traffic-light').forEach(l => l.classList.remove('light-active'));
+                     if(msg.signal === 'START') document.getElementById('light-green').classList.add('light-active');
+                     if(msg.signal === 'STOP') document.getElementById('light-red').classList.add('light-active');
+                 }
+            }
+
+            if (msg.type === 'MARKS_SUBMITTED') {
+                if(document.getElementById('active-score')) {
+                    document.getElementById('active-score').innerText = msg.total;
+                }
+            }
+        }
+
+        /* --- UTILS --- */
+        function startClock() {
+            setInterval(() => {
+                const now = new Date();
+                if(document.getElementById('clock'))
+                    document.getElementById('clock').innerText = now.toLocaleTimeString();
+            }, 1000);
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+        
+        function updateDashboard() {
+           document.getElementById('total-students').innerText = currentState.students.length;
+        }
+
+        // Generate PDF Stub (requires jspdf)
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text("Rasfahi Results Sheet", 10, 10);
+            doc.save("results.pdf");
+        }
+
+    </script>
+</body>
+</html>
